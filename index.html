@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 入场页面 -->
+    <div id="entry-page" class="entry-page">
+        <div class="entry-content">
+            <h1 class="entry-title">My Portfolio</h1>
+            <p class="entry-subtitle">Click to Enter</p>
+        </div>
+    </div>
+
+    <!-- 主功能页面 -->
+    <div id="main-page" class="main-page hidden">
+        <!-- 导航小球 -->
+        <div class="nav-ball">
+            <div class="ball-content">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+
+        <!-- 转盘导航 -->
+        <div class="wheel-container">
+            <div class="wheel">
+                <div class="wheel-center">
+                    <div class="wheel-pointer"></div>
+                </div>
+                <div class="wheel-sections">
+                    <div class="wheel-section" data-section="home">
+                        <span>Home</span>
+                    </div>
+                    <div class="wheel-section" data-section="about">
+                        <span>About</span>
+                    </div>
+                    <div class="wheel-section" data-section="projects">
+                        <span>Projects</span>
+                    </div>
+                    <div class="wheel-section" data-section="skills">
+                        <span>Skills</span>
+                    </div>
+                    <div class="wheel-section" data-section="contact">
+                        <span>Contact</span>
+                    </div>
+                </div>
+            </div>
+            <button class="spin-button">Spin the Wheel</button>
+        </div>
+
+        <!-- 页面容器 -->
+        <div class="page-container">
+            <!-- 首页 -->
+            <section id="home" class="page active">
+                <div class="hero-content">
+                    <h1>Welcome to My Portfolio</h1>
+                    <p>Showcasing my work and skills</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 关于我 -->
+            <section id="about" class="page">
+                <h2>About Me</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>Here is a brief introduction about myself...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 项目 -->
+            <section id="projects" class="page">
+                <h2>My Projects</h2>
+                <div class="project-grid">
+                    <div class="project-card">
+                        <h3>Project 1</h3>
+                        <p>Project description...</p>
+                    </div>
+                    <div class="project-card">
+                        <h3>Project 2</h3>
+                        <p>Project description...</p>
+                    </div>
+                    <div class="project-card">
+                        <h3>Project 3</h3>
+                        <p>Project description...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 技能 -->
+            <section id="skills" class="page">
+                <h2>My Skills</h2>
+                <div class="skills-container">
+                    <div class="skill-category">
+                        <h3>Frontend Development</h3>
+                        <div class="skill-items">
+                            <div class="skill-item">HTML</div>
+                            <div class="skill-item">CSS</div>
+                            <div class="skill-item">JavaScript</div>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Backend Development</h3>
+                        <div class="skill-items">
+                            <div class="skill-item">Python</div>
+                            <div class="skill-item">Django</div>
+                            <div class="skill-item">Database</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 联系 -->
+            <section id="contact" class="page">
+                <h2>Contact Me</h2>
+                <div class="contact-form">
+                    <form>
+                        <input type="text" placeholder="Your Name" required>
+                        <input type="email" placeholder="Your Email" required>
+                        <textarea placeholder="Your Message" required></textarea>
+                        <button type="submit">Send Message</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
