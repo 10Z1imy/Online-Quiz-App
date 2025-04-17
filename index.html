@@ -1,138 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Portfolio</title>
+    <title>个人主页</title>
+    
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- 入场页面 -->
-    <div id="entry-page" class="entry-page">
-        <div class="entry-content">
-            <h1 class="entry-title">My Portfolio</h1>
-            <p class="entry-subtitle">Click to Enter</p>
-        </div>
+    <!-- 歌词容器 -->
+    <div class="lyrics-container">
+        <div class="lyrics"></div>
     </div>
 
-    <!-- 主功能页面 -->
-    <div id="main-page" class="main-page hidden">
-        <!-- 导航小球 -->
-        <div class="nav-ball">
-            <div class="ball-content">
-                <i class="fas fa-bars"></i>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">个人主页</div>
+            <div class="nav-links">
+                <a href="#home">首页</a>
+                <a href="#about">关于我</a>
+                <a href="#contact">联系我</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <main>
+        <!-- 首页部分 -->
+        <section id="home" class="section">
+            <div class="section-content">
+                <div class="hero">
+                    <h1>欢迎来到我的个人主页</h1>
+                    <p>这里展示我的个人简介和作品</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 音乐播放器 -->
+        <div class="player">
+            <audio id="audio" src="music/song1.mp3"></audio>
+            <div class="controls">
+                <button id="play-btn"><i class="fas fa-play"></i></button>
+                <button id="next-btn"><i class="fas fa-forward"></i></button>
             </div>
         </div>
 
-        <!-- 转盘导航 -->
-        <div class="wheel-container">
-            <div class="wheel">
-                <div class="wheel-center">
-                    <div class="wheel-pointer"></div>
-                </div>
-                <div class="wheel-sections">
-                    <div class="wheel-section" data-section="home">
-                        <span>Home</span>
+        <!-- 关于我部分 -->
+        <section id="about" class="section">
+            <div class="section-content">
+                <h2>关于我</h2>
+                <div class="profile">
+                    <div class="profile-image">
+                        <!-- 这里可以放置头像 -->
+                        <img src="https://via.placeholder.com/200" alt="个人头像">
                     </div>
-                    <div class="wheel-section" data-section="about">
-                        <span>About</span>
-                    </div>
-                    <div class="wheel-section" data-section="projects">
-                        <span>Projects</span>
-                    </div>
-                    <div class="wheel-section" data-section="skills">
-                        <span>Skills</span>
-                    </div>
-                    <div class="wheel-section" data-section="contact">
-                        <span>Contact</span>
+                    <div class="profile-info">
+                        <h3>个人简介</h3>
+                        <p>这里写一段简短的自我介绍，包括您的专业背景、兴趣爱好等。</p>
+                        <div class="skills">
+                            <h4>技能特长</h4>
+                            <ul>
+                                <li>技能1</li>
+                                <li>技能2</li>
+                                <li>技能3</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-            <button class="spin-button">Spin the Wheel</button>
-        </div>
+        </section>
 
-        <!-- 页面容器 -->
-        <div class="page-container">
-            <!-- 首页 -->
-            <section id="home" class="page active">
-                <div class="hero-content">
-                    <h1>Welcome to My Portfolio</h1>
-                    <p>Showcasing my work and skills</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
+        <!-- 联系我部分 -->
+        <section id="contact" class="section">
+            <div class="section-content">
+                <h2>联系我</h2>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>example@email.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>123-456-7890</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>所在城市</span>
                     </div>
                 </div>
-            </section>
-
-            <!-- 关于我 -->
-            <section id="about" class="page">
-                <h2>About Me</h2>
-                <div class="about-content">
-                    <div class="about-text">
-                        <p>Here is a brief introduction about myself...</p>
-                    </div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-weixin"></i></a>
                 </div>
-            </section>
+            </div>
+        </section>
+    </main>
 
-            <!-- 项目 -->
-            <section id="projects" class="page">
-                <h2>My Projects</h2>
-                <div class="project-grid">
-                    <div class="project-card">
-                        <h3>Project 1</h3>
-                        <p>Project description...</p>
-                    </div>
-                    <div class="project-card">
-                        <h3>Project 2</h3>
-                        <p>Project description...</p>
-                    </div>
-                    <div class="project-card">
-                        <h3>Project 3</h3>
-                        <p>Project description...</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 技能 -->
-            <section id="skills" class="page">
-                <h2>My Skills</h2>
-                <div class="skills-container">
-                    <div class="skill-category">
-                        <h3>Frontend Development</h3>
-                        <div class="skill-items">
-                            <div class="skill-item">HTML</div>
-                            <div class="skill-item">CSS</div>
-                            <div class="skill-item">JavaScript</div>
-                        </div>
-                    </div>
-                    <div class="skill-category">
-                        <h3>Backend Development</h3>
-                        <div class="skill-items">
-                            <div class="skill-item">Python</div>
-                            <div class="skill-item">Django</div>
-                            <div class="skill-item">Database</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 联系 -->
-            <section id="contact" class="page">
-                <h2>Contact Me</h2>
-                <div class="contact-form">
-                    <form>
-                        <input type="text" placeholder="Your Name" required>
-                        <input type="email" placeholder="Your Email" required>
-                        <textarea placeholder="Your Message" required></textarea>
-                        <button type="submit">Send Message</button>
-                    </form>
-                </div>
-            </section>
-        </div>
-    </div>
+    <!-- 页脚 -->
+    <footer>
+        <p>&copy; 2024 个人主页. All rights reserved.</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
