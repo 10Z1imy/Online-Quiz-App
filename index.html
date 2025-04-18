@@ -47,6 +47,36 @@
             </div>
         </div>
 
+        <!-- 歌词控制面板 -->
+        <div class="lyrics-control-panel">
+            <div class="control-group">
+                <label for="start-x">起始X位置：</label>
+                <input type="range" id="start-x" min="-500" max="0" value="-100">
+                <span id="start-x-value">-100px</span>
+            </div>
+            <div class="control-group">
+                <label for="end-x">结束X位置：</label>
+                <input type="range" id="end-x" min="0" max="500" value="0">
+                <span id="end-x-value">0px</span>
+            </div>
+            <div class="control-group">
+                <label for="rotation">倾斜角度：</label>
+                <input type="range" id="rotation" min="0" max="360" value="315">
+                <span id="rotation-value">315°</span>
+            </div>
+            <div class="control-group">
+                <label for="spread">分散程度：</label>
+                <input type="range" id="spread" min="0" max="100" value="15">
+                <span id="spread-value">15%</span>
+            </div>
+            <div class="control-group direction-control">
+                <label>移动方向：</label>
+                <div class="direction-circle">
+                    <div class="direction-pointer"></div>
+                </div>
+            </div>
+        </div>
+
         <!-- 关于我部分 -->
         <section id="about" class="section">
             <div class="section-content">

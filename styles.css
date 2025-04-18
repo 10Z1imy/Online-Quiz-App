@@ -295,25 +295,59 @@ footer {
     position: relative;
     width: 100%;
     height: 100%;
-    transform: rotate(-45deg);
     transform-origin: center;
 }
 
-.lyric {
-    position: absolute;
-    color: rgba(0, 0, 0, 0.3);
-    font-size: 24px;
-    white-space: nowrap;
-    animation: fall 10s linear forwards;
-    font-family: 'Arial', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+/* 方向控制样式 */
+.direction-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-@keyframes fall {
+.direction-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #f0f0f0;
+    position: relative;
+    cursor: pointer;
+    border: 2px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.direction-pointer {
+    width: 16px;
+    height: 16px;
+    background: #4CAF50;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+/* 添加圆形中心点 */
+.direction-circle::before {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #ccc;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* 修改歌词动画 */
+@keyframes move-lyric {
     0% {
-        transform: translateY(-100px) translateX(0);
+        transform: translate(var(--start-x, -100px), var(--start-y, -100px)) rotate(var(--rotation, 315deg));
         opacity: 0;
     }
     10% {
@@ -323,7 +357,55 @@ footer {
         opacity: 0.3;
     }
     100% {
-        transform: translateY(calc(100vh + 100px)) translateX(100px);
+        transform: translate(var(--end-x, 0), var(--end-y, calc(100vh + 100px))) rotate(var(--rotation, 315deg));
         opacity: 0;
     }
+}
+
+.lyric {
+    position: absolute;
+    color: rgba(0, 0, 0, 0.3);
+    font-size: 50px;
+    white-space: nowrap;
+    animation: move-lyric 10s linear forwards;
+    font-family: 'Arial', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* 歌词控制面板样式 */
+.lyrics-control-panel {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    margin: 20px auto;
+    position: relative;
+    z-index: 2;
+}
+
+.control-group {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.control-group label {
+    width: 100px;
+    font-size: 14px;
+    color: #333;
+}
+
+.control-group input[type="range"] {
+    flex: 1;
+}
+
+.control-group span {
+    width: 60px;
+    font-size: 14px;
+    color: #666;
+    text-align: right;
 }
