@@ -2,7 +2,9 @@
 const audio = document.getElementById('audio');
 const playBtn = document.getElementById('play-btn');
 const nextBtn = document.getElementById('next-btn');
+const settingsBtn = document.getElementById('settings-btn');
 const lyricsContainer = document.querySelector('.lyrics');
+const controlPanel = document.querySelector('.lyrics-control-panel');
 let songs = [];
 let currentSongIndex = 0;
 let lyrics = [];
@@ -12,15 +14,11 @@ let isPlaying = false;
 
 // 歌词控制面板
 const startXInput = document.getElementById('start-x');
-const endXInput = document.getElementById('end-x');
 const rotationInput = document.getElementById('rotation');
-const spreadInput = document.getElementById('spread');
 const directionCircle = document.querySelector('.direction-circle');
 const directionPointer = document.querySelector('.direction-pointer');
 const startXValue = document.getElementById('start-x-value');
-const endXValue = document.getElementById('end-x-value');
 const rotationValue = document.getElementById('rotation-value');
-const spreadValue = document.getElementById('spread-value');
 
 // 方向控制变量
 let directionX = 0;
@@ -31,39 +29,64 @@ function updateAnimationVariables() {
     document.documentElement.style.setProperty('--start-x', `${startXInput.value}px`);
     document.documentElement.style.setProperty('--rotation', `${rotationInput.value}deg`);
     
-    // 计算结束位置
-    const distance = 1000; // 移动距离
+    // 根据小球位置决定歌词生成位置和移动方向
+    const isTopHalf = directionY < 0; // 小球在上半圆
+    
+    // 计算移动距离
+    const distance = 2000; // 增加移动距离
+    
+    // 设置起始位置
+    if (isTopHalf) {
+        // 在上半圆：从底部开始
+        document.documentElement.style.setProperty('--start-y', `calc(100vh + 100px)`);
+        // 设置结束位置（向上移动）
+        document.documentElement.style.setProperty('--end-y', `-100px`);
+    } else {
+        // 在下半圆：从顶部开始
+        document.documentElement.style.setProperty('--start-y', `-100px`);
+        // 设置结束位置（向下移动）
+        document.documentElement.style.setProperty('--end-y', `calc(100vh + 100px)`);
+    }
+    
+    // 设置水平移动距离
     const endX = directionX * distance;
-    const endY = directionY * distance;
     document.documentElement.style.setProperty('--end-x', `${endX}px`);
-    document.documentElement.style.setProperty('--end-y', `${endY}px`);
 }
 
 // 更新指针位置
 function updatePointerPosition(x, y) {
     const rect = directionCircle.getBoundingClientRect();
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
     
     // 计算相对于圆心的位置
-    const relX = x - rect.left - centerX;
-    const relY = y - rect.top - centerY;
+    const relX = x - centerX;
+    const relY = y - centerY;
+    
+    // 计算到圆心的距离
+    const distance = Math.sqrt(relX * relX + relY * relY);
+    const radius = rect.width / 2 - 8; // 减去指针半径，确保指针不会超出圆
+    
+    // 如果距离超过半径，将点限制在圆上
+    let finalX = relX;
+    let finalY = relY;
+    if (distance > radius) {
+        const ratio = radius / distance;
+        finalX = relX * ratio;
+        finalY = relY * ratio;
+    }
     
     // 计算角度
-    const angle = Math.atan2(relY, relX);
+    const angle = Math.atan2(finalY, finalX);
     
     // 计算单位向量
     directionX = Math.cos(angle);
     directionY = Math.sin(angle);
     
     // 更新指针位置
-    const radius = Math.min(centerX, centerY) - 10;
-    const pointerX = centerX + directionX * radius;
-    const pointerY = centerY + directionY * radius;
+    directionPointer.style.transform = `translate(${finalX}px, ${finalY}px)`;
     
-    directionPointer.style.transform = `translate(${pointerX - centerX}px, ${pointerY - centerY}px)`;
-    
-    // 更新动画
+    // 更新动画变量
     updateAnimationVariables();
 }
 
@@ -85,6 +108,11 @@ document.addEventListener('mouseup', () => {
     isDragging = false;
 });
 
+// 添加点击事件，确保点击也能移动指针
+directionCircle.addEventListener('click', (e) => {
+    updatePointerPosition(e.clientX, e.clientY);
+});
+
 // 添加事件监听器
 startXInput.addEventListener('input', () => {
     startXValue.textContent = `${startXInput.value}px`;
@@ -94,10 +122,6 @@ startXInput.addEventListener('input', () => {
 rotationInput.addEventListener('input', () => {
     rotationValue.textContent = `${rotationInput.value}°`;
     updateAnimationVariables();
-});
-
-spreadInput.addEventListener('input', () => {
-    spreadValue.textContent = `${spreadInput.value}%`;
 });
 
 // 初始化CSS变量
@@ -216,10 +240,10 @@ function getCurrentLyrics() {
 function createLyric(text) {
     const lyric = document.createElement('div');
     lyric.className = 'lyric';
-    lyric.textContent = text;
+    lyric.textContent = `⭐ ${text} ⭐`;
     
-    // 使用分散程度控制随机范围
-    const spread = parseInt(spreadInput.value);
+    // 固定分散程度为15%
+    const spread = 15;
     const x = Math.random() * (window.innerWidth * (spread / 100));
     lyric.style.left = `${x}px`;
     
@@ -335,4 +359,24 @@ audio.addEventListener('ended', function() {
         lyricsInterval = setInterval(checkLyrics, 100);
         resumeAllLyrics();
     }
+});
+
+// 控制面板显示/隐藏
+settingsBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    controlPanel.classList.toggle('show');
+    console.log('Settings button clicked'); // 添加调试信息
+});
+
+// 点击面板外部关闭面板
+document.addEventListener('click', function(e) {
+    if (!controlPanel.contains(e.target) && e.target !== settingsBtn) {
+        controlPanel.classList.remove('show');
+    }
+});
+
+// 点击面板内部时阻止事件冒泡
+controlPanel.addEventListener('click', function(e) {
+    e.stopPropagation();
 });

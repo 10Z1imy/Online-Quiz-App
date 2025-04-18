@@ -186,7 +186,8 @@ footer {
     color: #fff;
     text-align: center;
     padding: 1rem;
-    margin-top: 2rem;
+    position: relative;
+    z-index: 9999;
 }
 
 /* 音乐播放器样式 */
@@ -347,43 +348,89 @@ footer {
 /* 修改歌词动画 */
 @keyframes move-lyric {
     0% {
-        transform: translate(var(--start-x, -100px), var(--start-y, -100px)) rotate(var(--rotation, 315deg));
+        transform: translate(calc(var(--start-x, -100px) - 100vw), var(--start-y, -100px)) rotate(var(--rotation, 315deg));
         opacity: 0;
     }
-    10% {
-        opacity: 0.3;
+    5% {
+        opacity: 1;
     }
-    90% {
-        opacity: 0.3;
+    80% {
+        opacity: 1;
     }
     100% {
-        transform: translate(var(--end-x, 0), var(--end-y, calc(100vh + 100px))) rotate(var(--rotation, 315deg));
+        transform: translate(var(--end-x, 0), var(--end-y, 0)) rotate(var(--rotation, 315deg));
         opacity: 0;
     }
 }
 
 .lyric {
     position: absolute;
-    color: rgba(0, 0, 0, 0.3);
+    color: #fff;
     font-size: 50px;
     white-space: nowrap;
-    animation: move-lyric 10s linear forwards;
-    font-family: 'Arial', sans-serif;
+    animation: move-lyric 15s linear forwards;
+    font-family: 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
     text-transform: uppercase;
+    -webkit-text-stroke: 2px #00008B;
+    text-stroke: 2px #00008B;
+    background: #fff;
+    padding: 5px 15px;
+    border-radius: 10px;
     letter-spacing: 2px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    will-change: transform, opacity;
 }
 
 /* 歌词控制面板样式 */
 .lyrics-control-panel {
-    background: rgba(255, 255, 255, 0.9);
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    margin: 20px auto;
-    position: relative;
-    z-index: 2;
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    color: #fff;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+}
+
+.lyrics-control-panel.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.player .controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.player .controls button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+
+.player .controls button:hover {
+    color: #4CAF50;
+    transform: scale(1.1);
+}
+
+#settings-btn {
+    margin-left: 10px;
+}
+
+#settings-btn:hover {
+    transform: rotate(90deg);
 }
 
 .control-group {
