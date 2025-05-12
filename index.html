@@ -40,40 +40,71 @@
     <main class="fullpage-container">
         <!-- 第一页：MY RECIPE -->
         <div class="section page1">
-            <section id="home" class="section">
-                <div class="section-content">
-                    <div class="hero">
-                        <h1>MY RECIPE</h1>
-                        <p>Wind chimes, handpan music, opal.</p>
-                        <!-- 音乐播放器 -->
-                        <div class="player">
-                            <audio id="audio" src="music/song1.mp3"></audio>
-                            <div class="controls">
-                                <button id="play-btn"><i class="fas fa-play"></i></button>
-                                <button id="next-btn"><i class="fas fa-forward"></i></button>
-                                <button id="settings-btn"><i class="fas fa-cog"></i></button>
+            <div class="page1-container">
+                <!-- 左侧白色块 -->
+                <section class="left-section">
+                    <div class="section-content">
+                        <div class="gacha-machine">
+                            <div class="description-window">
+                                <p>点击任意表情查看描述</p>
+                            </div>
+                            <div class="display-screens">
+                                <div class="screen" data-description="这是一个充满活力的表情，代表快乐和积极">
+                                    <span class="emoji">🎮</span>
+                                </div>
+                                <div class="screen" data-description="这是一个可爱的表情，代表温暖和友善">
+                                    <span class="emoji">🎲</span>
+                                </div>
+                                <div class="screen" data-description="这是一个神秘的表情，代表未知和探索">
+                                    <span class="emoji">🎯</span>
+                                </div>
+                            </div>
+                            <div class="lever">
+                                <div class="lever-handle"></div>
+                                <div class="lever-base"></div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- 歌词控制面板 -->
-            <div class="lyrics-control-panel">
-                <div class="control-group">
-                    <label for="start-x">起始X位置：</label>
-                    <input type="range" id="start-x" min="-500" max="0" value="-100">
-                    <span id="start-x-value">-100px</span>
-                </div>
-                <div class="control-group">
-                    <label for="rotation">倾斜角度：</label>
-                    <input type="range" id="rotation" min="0" max="360" value="315">
-                    <span id="rotation-value">315°</span>
-                </div>
-                <div class="control-group direction-control">
-                    <label>移动方向：</label>
-                    <div class="direction-circle">
-                        <div class="direction-pointer"></div>
+                <!-- 右上角图片展示 -->
+                <section class="image-showcase">
+                    <div class="section-content">
+                        <img src="img\IMG_5124.PNG" alt="展示图片">
+                    </div>
+                </section>
+
+                <!-- MY RECIPE组件 - 右下角1/6 -->
+                <section id="home" class="recipe-section">
+                    <div class="section-content">
+                        <div class="hero">
+                            <h1>MY RECIPE</h1>
+                            <p>Wind chimes, handpan music, opal.</p>
+                            <!-- 音乐播放器 -->
+                            <div class="player">
+                                <audio id="audio" src="music/song1.mp3"></audio>
+                                <div class="controls">
+                                    <button id="play-btn"><i class="fas fa-play"></i></button>
+                                    <button id="next-btn"><i class="fas fa-forward"></i></button>
+                                    <button id="settings-btn"><i class="fas fa-cog"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 歌词控制面板 -->
+                <div class="lyrics-control-panel">
+                    <div class="control-group">
+                        <label for="rotation">倾斜角度：</label>
+                        <input type="range" id="rotation" min="0" max="360" value="315">
+                        <span id="rotation-value">315°</span>
+                    </div>
+                    <div class="control-group direction-control">
+                        <label>移动方向：</label>
+                        <div class="direction-circle">
+                            <div class="direction-pointer"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -105,6 +136,14 @@
                             <a href="#"><i class="fab fa-linkedin"></i></a>
                             <a href="#"><i class="fab fa-weixin"></i></a>
                         </div>
+                    </div>
+                </section>
+
+                <!-- 左下角组件 -->
+                <section class="bottom-left-section">
+                    <div class="section-content">
+                        <h2>左下角组件</h2>
+                        <p>这里可以放置任何内容</p>
                     </div>
                 </section>
 

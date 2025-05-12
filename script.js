@@ -13,11 +13,9 @@ let lyricsInterval;
 let isPlaying = false;
 
 // 歌词控制面板
-const startXInput = document.getElementById('start-x');
 const rotationInput = document.getElementById('rotation');
 const directionCircle = document.querySelector('.direction-circle');
 const directionPointer = document.querySelector('.direction-pointer');
-const startXValue = document.getElementById('start-x-value');
 const rotationValue = document.getElementById('rotation-value');
 
 // 方向控制变量
@@ -107,11 +105,6 @@ directionCircle.addEventListener('click', (e) => {
 });
 
 // 添加事件监听器
-startXInput.addEventListener('input', () => {
-    startXValue.textContent = `${startXInput.value}px`;
-    updateAnimationVariables();
-});
-
 rotationInput.addEventListener('input', () => {
     rotationValue.textContent = `${rotationInput.value}°`;
     updateAnimationVariables();
@@ -354,24 +347,20 @@ audio.addEventListener('ended', function() {
     }
 });
 
-// 控制面板显示/隐藏
-settingsBtn.addEventListener('click', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    controlPanel.classList.toggle('show');
-    console.log('Settings button clicked'); // 添加调试信息
+// 控制面板显示/隐藏功能
+const lyricsControlPanel = document.querySelector('.lyrics-control-panel');
+
+settingsBtn.addEventListener('click', () => {
+    lyricsControlPanel.classList.toggle('show');
+    settingsBtn.classList.toggle('active');
 });
 
-// 点击面板外部关闭面板
-document.addEventListener('click', function(e) {
-    if (!controlPanel.contains(e.target) && e.target !== settingsBtn) {
-        controlPanel.classList.remove('show');
+// 点击面板外部时隐藏面板
+document.addEventListener('click', (e) => {
+    if (!lyricsControlPanel.contains(e.target) && !settingsBtn.contains(e.target)) {
+        lyricsControlPanel.classList.remove('show');
+        settingsBtn.classList.remove('active');
     }
-});
-
-// 点击面板内部时阻止事件冒泡
-controlPanel.addEventListener('click', function(e) {
-    e.stopPropagation();
 });
 
 // 侧边导航栏控制
@@ -449,3 +438,94 @@ document.addEventListener('touchmove', (e) => {
         e.preventDefault();
     }
 }, { passive: false });
+
+// 扭蛋老虎机功能
+const emojis = ['🎮', '🎲', '🎯', '🎨', '🎭', '🎪', '🎫', '🎬', '🎵', '🎹', '🎸', '🎺', '🎻', '🎼', '🎧', '🎤', '🎭', '🎪', '🎨', '🎯'];
+const descriptions = {
+    '🎮': '这是一个充满活力的表情，代表快乐和积极',
+    '🎲': '这是一个可爱的表情，代表温暖和友善',
+    '🎯': '这是一个神秘的表情，代表未知和探索',
+    '🎨': '这是一个艺术的表情，代表创造和想象',
+    '🎭': '这是一个戏剧的表情，代表表演和娱乐',
+    '🎪': '这是一个欢乐的表情，代表节日和庆祝',
+    '🎫': '这是一个期待的表情，代表机会和可能',
+    '🎬': '这是一个电影的表情，代表故事和梦想',
+    '🎵': '这是一个音乐的表情，代表旋律和节奏',
+    '🎹': '这是一个钢琴的表情，代表优雅和和谐',
+    '🎸': '这是一个吉他的表情，代表激情和自由',
+    '🎺': '这是一个喇叭的表情，代表响亮和活力',
+    '🎻': '这是一个小提琴的表情，代表优雅和细腻',
+    '🎼': '这是一个乐谱的表情，代表音乐和艺术',
+    '🎧': '这是一个耳机的表情，代表音乐和享受',
+    '🎤': '这是一个麦克风的表情，代表声音和表达',
+};
+
+const screens = document.querySelectorAll('.screen');
+const lever = document.querySelector('.lever');
+const descriptionWindow = document.querySelector('.description-window p');
+let isSpinning = false;
+let activeScreen = null;
+
+// 随机获取表情
+function getRandomEmoji() {
+    return emojis[Math.floor(Math.random() * emojis.length)];
+}
+
+// 更新屏幕显示
+function updateScreens() {
+    screens.forEach(screen => {
+        const emoji = getRandomEmoji();
+        screen.querySelector('.emoji').textContent = emoji;
+        screen.dataset.description = descriptions[emoji] || '这是一个神秘的表情';
+    });
+    // 重置描述窗口
+    descriptionWindow.textContent = '点击任意表情查看描述';
+    // 移除所有屏幕的激活状态
+    screens.forEach(screen => screen.classList.remove('active'));
+    activeScreen = null;
+}
+
+// 处理拉杆点击
+lever.addEventListener('click', () => {
+    if (isSpinning) return;
+    
+    isSpinning = true;
+    const handle = lever.querySelector('.lever-handle');
+    handle.style.transform = 'translateX(-50%) rotate(-30deg)';
+    
+    // 开始旋转动画
+    screens.forEach(screen => {
+        screen.querySelector('.emoji').classList.add('spinning');
+    });
+    
+    // 2秒后停止
+    setTimeout(() => {
+        screens.forEach(screen => {
+            screen.querySelector('.emoji').classList.remove('spinning');
+        });
+        handle.style.transform = 'translateX(-50%) rotate(0deg)';
+        updateScreens();
+        isSpinning = false;
+    }, 2000);
+});
+
+// 处理屏幕点击
+screens.forEach(screen => {
+    screen.addEventListener('click', () => {
+        if (isSpinning) return;
+        
+        // 如果点击的是当前激活的屏幕，则取消激活
+        if (activeScreen === screen) {
+            screen.classList.remove('active');
+            descriptionWindow.textContent = '点击任意表情查看描述';
+            activeScreen = null;
+        } else {
+            // 移除其他屏幕的激活状态
+            screens.forEach(s => s.classList.remove('active'));
+            // 激活当前屏幕
+            screen.classList.add('active');
+            descriptionWindow.textContent = screen.dataset.description;
+            activeScreen = screen;
+        }
+    });
+});
