@@ -26,31 +26,24 @@ let directionY = -1; // 默认向上
 
 // 更新CSS变量
 function updateAnimationVariables() {
-    document.documentElement.style.setProperty('--start-x', `${startXInput.value}px`);
     document.documentElement.style.setProperty('--rotation', `${rotationInput.value}deg`);
-    
-    // 根据小球位置决定歌词生成位置和移动方向
-    const isTopHalf = directionY < 0; // 小球在上半圆
     
     // 计算移动距离
     const distance = 2000; // 增加移动距离
     
-    // 设置起始位置
-    if (isTopHalf) {
-        // 在上半圆：从底部开始
-        document.documentElement.style.setProperty('--start-y', `calc(100vh + 100px)`);
-        // 设置结束位置（向上移动）
-        document.documentElement.style.setProperty('--end-y', `-100px`);
-    } else {
-        // 在下半圆：从顶部开始
-        document.documentElement.style.setProperty('--start-y', `-100px`);
-        // 设置结束位置（向下移动）
-        document.documentElement.style.setProperty('--end-y', `calc(100vh + 100px)`);
-    }
+    // 计算小球的对角位置（起始位置）
+    const startX = -directionX * distance; // 取反得到对角位置
+    const startY = -directionY * distance; // 取反得到对角位置
     
-    // 设置水平移动距离
+    // 设置起始位置
+    document.documentElement.style.setProperty('--start-x', `${startX}px`);
+    document.documentElement.style.setProperty('--start-y', `${startY}px`);
+    
+    // 设置结束位置（指向小球位置）
     const endX = directionX * distance;
+    const endY = directionY * distance;
     document.documentElement.style.setProperty('--end-x', `${endX}px`);
+    document.documentElement.style.setProperty('--end-y', `${endY}px`);
 }
 
 // 更新指针位置
@@ -380,3 +373,79 @@ document.addEventListener('click', function(e) {
 controlPanel.addEventListener('click', function(e) {
     e.stopPropagation();
 });
+
+// 侧边导航栏控制
+const sideNav = document.querySelector('.side-nav');
+const triggerZone = 20; // 触发区域宽度（像素）
+let isNavVisible = false;
+
+document.addEventListener('mousemove', (e) => {
+    // 获取鼠标相对于视口的X坐标
+    const mouseX = e.clientX;
+    // 如果导航栏不可见，检查鼠标是否在触发区域内
+    
+    if (isNavVisible) {
+        const navRect = sideNav.getBoundingClientRect();
+        if (mouseX > navRect.right) {
+            isNavVisible = false;
+            sideNav.style.left = '-200px';
+        }
+    } 
+    // 如果导航栏可见，检查鼠标是否在导航栏区域内
+    else if (mouseX <= triggerZone) {
+        isNavVisible = true;
+        sideNav.style.left = '0';
+    }
+});
+
+// 当鼠标离开文档时，确保导航栏收起
+document.addEventListener('mouseleave', () => {
+    isNavVisible = false;
+    sideNav.style.left = '-200px';//指定了一下导航栏边界做动画？
+});
+
+// 全屏滚动功能
+let currentPage = 0;
+const container = document.querySelector('.fullpage-container');
+const totalPages = 2;
+let isScrolling = false;
+let wheelTimeout;
+
+function scrollToPage(page) {
+    if (isScrolling) return;
+    isScrolling = true;
+    
+    if (page === 1) {
+        container.classList.add('scrolled');
+    } else {
+        container.classList.remove('scrolled');
+    }
+    
+    currentPage = page;
+    
+    setTimeout(() => {
+        isScrolling = false;
+    }, 800);
+}
+
+// 监听滚轮事件
+window.addEventListener('wheel', (e) => {
+    if (wheelTimeout) {
+        clearTimeout(wheelTimeout);
+    }
+    
+    wheelTimeout = setTimeout(() => {
+        if (e.deltaY > 0 && currentPage < totalPages - 1) {
+            scrollToPage(1);
+        } else if (e.deltaY < 0 && currentPage > 0) {
+            scrollToPage(0);
+        }
+    }, 50);
+});
+
+// 防止触摸设备上的默认滚动行为
+document.addEventListener('touchmove', (e) => {
+    if (isScrolling) {
+        e.preventDefault();
+    }
+}, { passive: false });

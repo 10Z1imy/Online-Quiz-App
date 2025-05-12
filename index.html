@@ -14,116 +14,127 @@
         <div class="lyrics"></div>
     </div>
 
+    <!-- 侧边导航栏 -->
+    <div class="side-nav">
+        <div class="side-nav-content">
+            <a href="#home"><i class="fas fa-home"></i> 首页</a>
+            <a href="wings.html"><i class="fas fa-palette"></i> 作品集</a>
+            <a href="page3.html"><i class="fas fa-book"></i> 文段展示1</a>
+            <a href="page4.html"><i class="fas fa-laptop-code"></i> 文段展示2</a>
+        </div>
+    </div>
+
     <!-- 导航栏 -->
     <nav class="navbar">
         <div class="nav-content">
-            <div class="logo">个人主页</div>
+            <div class="logo">Mental Port 1021</div>
             <div class="nav-links">
-                <a href="#home">首页</a>
-                <a href="#about">关于我</a>
-                <a href="#contact">联系我</a>
+                <a href="#home">Lets Play</a>
+                <a href="#about">Intro</a>
+                <a href="#contact">Contact</a>
             </div>
         </div>
     </nav>
 
     <!-- 主要内容区域 -->
-    <main>
-        <!-- 首页部分 -->
-        <section id="home" class="section">
-            <div class="section-content">
-                <div class="hero">
-                    <h1>欢迎来到我的个人主页</h1>
-                    <p>这里展示我的个人简介和作品</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 音乐播放器 -->
-        <div class="player">
-            <audio id="audio" src="music/song1.mp3"></audio>
-            <div class="controls">
-                <button id="play-btn"><i class="fas fa-play"></i></button>
-                <button id="next-btn"><i class="fas fa-forward"></i></button>
-                <button id="settings-btn"><i class="fas fa-cog"></i></button>
-            </div>
-        </div>
-
-        <!-- 歌词控制面板 -->
-        <div class="lyrics-control-panel">
-            <div class="control-group">
-                <label for="start-x">起始X位置：</label>
-                <input type="range" id="start-x" min="-500" max="0" value="-100">
-                <span id="start-x-value">-100px</span>
-            </div>
-            <div class="control-group">
-                <label for="rotation">倾斜角度：</label>
-                <input type="range" id="rotation" min="0" max="360" value="315">
-                <span id="rotation-value">315°</span>
-            </div>
-            <div class="control-group direction-control">
-                <label>移动方向：</label>
-                <div class="direction-circle">
-                    <div class="direction-pointer"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 关于我部分 -->
-        <section id="about" class="section">
-            <div class="section-content">
-                <h2>关于我</h2>
-                <div class="profile">
-                    <div class="profile-image">
-                        <!-- 这里可以放置头像 -->
-                        <img src="https://via.placeholder.com/200" alt="个人头像">
-                    </div>
-                    <div class="profile-info">
-                        <h3>个人简介</h3>
-                        <p>这里写一段简短的自我介绍，包括您的专业背景、兴趣爱好等。</p>
-                        <div class="skills">
-                            <h4>技能特长</h4>
-                            <ul>
-                                <li>技能1</li>
-                                <li>技能2</li>
-                                <li>技能3</li>
-                            </ul>
+    <main class="fullpage-container">
+        <!-- 第一页：MY RECIPE -->
+        <div class="section page1">
+            <section id="home" class="section">
+                <div class="section-content">
+                    <div class="hero">
+                        <h1>MY RECIPE</h1>
+                        <p>Wind chimes, handpan music, opal.</p>
+                        <!-- 音乐播放器 -->
+                        <div class="player">
+                            <audio id="audio" src="music/song1.mp3"></audio>
+                            <div class="controls">
+                                <button id="play-btn"><i class="fas fa-play"></i></button>
+                                <button id="next-btn"><i class="fas fa-forward"></i></button>
+                                <button id="settings-btn"><i class="fas fa-cog"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- 联系我部分 -->
-        <section id="contact" class="section">
-            <div class="section-content">
-                <h2>联系我</h2>
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>example@email.com</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <span>123-456-7890</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>所在城市</span>
-                    </div>
+            <!-- 歌词控制面板 -->
+            <div class="lyrics-control-panel">
+                <div class="control-group">
+                    <label for="start-x">起始X位置：</label>
+                    <input type="range" id="start-x" min="-500" max="0" value="-100">
+                    <span id="start-x-value">-100px</span>
                 </div>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-github"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
-                    <a href="#"><i class="fab fa-weixin"></i></a>
+                <div class="control-group">
+                    <label for="rotation">倾斜角度：</label>
+                    <input type="range" id="rotation" min="0" max="360" value="315">
+                    <span id="rotation-value">315°</span>
+                </div>
+                <div class="control-group direction-control">
+                    <label>移动方向：</label>
+                    <div class="direction-circle">
+                        <div class="direction-pointer"></div>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+
+        <!-- 第二页：Archives和Contact -->
+        <div class="section page2">
+            <div class="page2-container">
+                <!-- Contact部分 - 左上角1/4 -->
+                <section id="contact" class="contact-section">
+                    <div class="section-content">
+                        <h2>联系我</h2>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>example@email.com</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <span>123-456-7890</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>所在城市</span>
+                            </div>
+                        </div>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-github"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-weixin"></i></a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Archives部分 - 右侧1/2 -->
+                <section id="about" class="archives-section">
+                    <div class="section-content">
+                        <h2>Archives</h2>
+                        <div class="profile">
+                            <div class="profile-image">
+                                <img src="img/IMG_5048(20250419-173520).PNG" alt="个人头像">
+                            </div>
+                            <div class="profile-info">
+                                <h3>Me?</h3>
+                                <p><ul><li>The Local Group of Galaxies / the Orion Arm 
+                                    / <br>the Milky Way Galaxy / the Solar System /<br> the Blue Planet / China /<br> Xi. Lv 19</li></p>
+                                <div class="skills">
+                                    <h4>Sparkling</h4>
+                                    <ul>
+                                        <li>Luminosity</li>
+                                        <li>Discernment</li>
+                                        <li>Gamified Narrative</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
     </main>
-
-    <!-- 页脚 -->
-    <footer>
-        <p>&copy; 2024 个人主页. All rights reserved.</p>
-    </footer>
 
     <script src="script.js"></script>
 </body>
