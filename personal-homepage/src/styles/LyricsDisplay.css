@@ -1,0 +1,171 @@
+/* 歌词容器和显示样式 */
+.lyrics-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 100;
+    overflow: hidden;
+}
+
+.lyrics {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+/* 歌词控制面板 */
+.lyrics-control-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: none;
+}
+
+.lyrics-control-panel.show {
+    display: block;
+}
+
+.control-group {
+    margin-bottom: 15px;
+}
+
+.control-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.direction-circle {
+    width: 100px;
+    height: 100px;
+    border: 2px solid #333;
+    border-radius: 50%;
+    position: relative;
+    margin: 10px auto;
+    cursor: pointer;
+}
+
+.direction-pointer {
+    width: 16px;
+    height: 16px;
+    background: #007bff;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: grab;
+}
+
+.direction-pointer:active {
+    cursor: grabbing;
+}
+
+/* 歌词动画样式 */
+.floating-lyrics {
+    position: fixed;
+    font-size: 24px;
+    color: rgba(255, 255, 255, 0.8);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 100;
+    animation: floatLyrics 8s linear infinite;
+    transform: rotate(var(--rotation));
+}
+
+@keyframes floatLyrics {
+    0% {
+        opacity: 0;
+        transform: 
+            rotate(var(--rotation))
+            translate(var(--start-x), var(--start-y));
+    }
+    20% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: 
+            rotate(var(--rotation))
+            translate(var(--end-x), var(--end-y));
+    }
+}
+
+/* 控制面板输入样式 */
+input[type="range"] {
+    width: 100%;
+    margin: 10px 0;
+}
+
+#rotation-value {
+    display: inline-block;
+    margin-left: 10px;
+    min-width: 40px;
+}
+
+/* 歌词动画 */
+@keyframes move-lyric {
+    0% {
+        transform: translate(var(--start-x), var(--start-y));
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--end-x), var(--end-y));
+        opacity: 0;
+    }
+}
+
+.lyric {
+    position: absolute;
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
+    transform: translate(var(--start-x), var(--start-y)) rotate(var(--rotation));
+    animation: move-lyric 10s linear forwards;
+    opacity: 0;
+    pointer-events: none;
+    
+    /* 渐变文字效果 */
+    background-image: linear-gradient(45deg, #ff8a00, #e52e71);
+    background-size: 200% 200%;
+    animation: gradient 15s ease infinite, move-lyric 10s linear forwards;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+} 
