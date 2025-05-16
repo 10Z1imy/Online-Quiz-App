@@ -5,8 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>个人主页</title>
     
-    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/src/styles/components/music-player.css">
+    <link rel="stylesheet" href="/src/styles/components/page2.css">
+    <link rel="stylesheet" href="/src/styles/components/page1.css">
+    <link rel="stylesheet" href="/src/styles/base.css">
+</head>
 </head>
 <body>
     <!-- 歌词容器 -->
@@ -18,9 +23,9 @@
     <div class="side-nav">
         <div class="side-nav-content">
             <a href="#home"><i class="fas fa-home"></i> 首页</a>
-            <a href="wings.html"><i class="fas fa-palette"></i> 作品集</a>
-            <a href="page3.html"><i class="fas fa-book"></i> 文段展示1</a>
-            <a href="page4.html"><i class="fas fa-laptop-code"></i> 文段展示2</a>
+            <a href="/wings"><i class="fas fa-palette"></i> 作品集</a>
+            <a href="/game"><i class="fas fa-gamepad"></i> 在线游戏</a>
+            <a href="/page4"><i class="fas fa-laptop-code"></i> 文段展示2</a>
         </div>
     </div>
 
@@ -43,10 +48,10 @@
             <div class="page1-container">
                 <!-- 左侧白色块 -->
                 <section class="left-section">
-                    <div class="section-content">
-                        <div class="gacha-machine">
+                    <div class="section-content hidden">
+                        <div class="gacha-machine hidden">
                             <div class="description-window">
-                                <p>点击任意表情查看描述</p>
+                                <p>Check My Trace with Gacha Machine</p>
                             </div>
                             <div class="display-screens">
                                 <div class="screen" data-description="这是一个充满活力的表情，代表快乐和积极">
@@ -70,28 +75,24 @@
                 <!-- 右上角图片展示 -->
                 <section class="image-showcase">
                     <div class="section-content">
-                        <img src="img\IMG_5124.PNG" alt="展示图片">
+                        <img src="img\IMG5124.PNG" alt="展示图片">
+                        <!-- 音乐播放器 -->
+                        <div class="player">
+                            <audio id="audio" src="/music/falling.mp3"></audio>
+                            <div class="controls">
+                                <button id="play-btn"><i class="fas fa-play"></i></button>
+                                <button id="next-btn"><i class="fas fa-forward"></i></button>
+                                <button id="settings-btn"><i class="fas fa-cog"></i></button>
+                            </div>
+                        </div>
+                        <!-- 扭蛋机控制按钮 -->
+                        <button class="toggle-gacha-btn">
+                            <i class="fas fa-eye-slash"></i>
+                        </button>
                     </div>
                 </section>
 
-                <!-- MY RECIPE组件 - 右下角1/6 -->
-                <section id="home" class="recipe-section">
-                    <div class="section-content">
-                        <div class="hero">
-                            <h1>MY RECIPE</h1>
-                            <p>Wind chimes, handpan music, opal.</p>
-                            <!-- 音乐播放器 -->
-                            <div class="player">
-                                <audio id="audio" src="music/song1.mp3"></audio>
-                                <div class="controls">
-                                    <button id="play-btn"><i class="fas fa-play"></i></button>
-                                    <button id="next-btn"><i class="fas fa-forward"></i></button>
-                                    <button id="settings-btn"><i class="fas fa-cog"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+              
 
                 <!-- 歌词控制面板 -->
                 <div class="lyrics-control-panel">
@@ -140,10 +141,38 @@
                 </section>
 
                 <!-- 左下角组件 -->
-                <section class="bottom-left-section">
+                <section class="bottom-section">
                     <div class="section-content">
-                        <h2>左下角组件</h2>
-                        <p>这里可以放置任何内容</p>
+                        <div class="bottom-grid">
+                            <!-- 技能展示 -->
+                            <div class="skills-showcase">
+                                <h3>技能展示</h3>
+                                <div class="skills-grid">
+                                    <div class="skill-item">
+                                        <i class="fas fa-code"></i>
+                                        <span>Web开发</span>
+                                        <div class="skill-level" data-level="90"></div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <i class="fas fa-paint-brush"></i>
+                                        <span>UI设计</span>
+                                        <div class="skill-level" data-level="85"></div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <i class="fas fa-mobile-alt"></i>
+                                        <span>移动开发</span>
+                                        <div class="skill-level" data-level="80"></div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <i class="fas fa-database"></i>
+                                        <span>数据库</span>
+                                        <div class="skill-level" data-level="75"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
                     </div>
                 </section>
 
@@ -153,7 +182,7 @@
                         <h2>Archives</h2>
                         <div class="profile">
                             <div class="profile-image">
-                                <img src="img/IMG_5048(20250419-173520).PNG" alt="个人头像">
+                                <img src="img/IMG_5048.PNG" alt="个人头像">
                             </div>
                             <div class="profile-info">
                                 <h3>Me?</h3>
@@ -175,6 +204,9 @@
         </div>
     </main>
 
-    <script src="script.js"></script>
+    <script src="lyricsscript.js"></script>
+    <script src="scriptnav.js"></script>
+    <script src="rolling.js"></script>
+    <script src="machine.js"></script>  
 </body>
 </html> 

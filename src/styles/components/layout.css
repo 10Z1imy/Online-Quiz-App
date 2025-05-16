@@ -1,0 +1,189 @@
+/* 全屏滚动容器样式 */
+.fullpage-container {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    position: relative;
+}
+
+.page1 {
+    transform: translateY(0);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.page2 {
+    transform: translateY(100vh);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* 当页面滚动时的样式 */
+.fullpage-container.scrolled .page1 {
+    transform: translateY(-100vh);
+}
+
+.fullpage-container.scrolled .page2 {
+    transform: translateY(0);
+}
+
+/* 第一页布局样式 */
+.page1-container {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+}
+
+.left-section {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    width: calc(50vw - 40px);
+    height: calc(100vh - 40px);
+    z-index: 10;
+}
+
+.left-section .section-content {
+    height: 100%;
+    margin: 0;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.image-showcase {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: calc(50vw - 40px);
+    height: calc(50vh - 40px);
+    z-index: 10;
+}
+
+.image-showcase .section-content {
+    height: 100%;
+    margin: 0;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.image-showcase img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+.recipe-section {
+    position: absolute;
+    bottom: calc(100vh / 6 + 55px);
+    right: 20px;
+    width: calc(100vw / 6);
+    height: calc(100vh / 6);
+    z-index: 10;
+    margin: 0;
+}
+
+.recipe-section .section-content {
+    height: 100%;
+    margin: 0;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+}
+
+/* 第二页布局样式 */
+.page2-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr 1fr;
+    height: 100vh;
+    width: 100vw;
+    padding: 60px 20px 20px 20px;
+    gap: 20px;
+}
+
+.contact-section {
+    grid-column: 1;
+    grid-row: 1;
+    height: 25vh;
+}
+
+.archives-section {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    height: 100%;
+}
+
+.bottom-left-section {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    width: 545px;
+    height: 520px;
+    z-index: 10;
+}
+
+.bottom-left-section .section-content {
+    height: 100%;
+    margin: 0;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .page1-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .left-section,
+    .image-showcase,
+    .recipe-section {
+        position: relative;
+        width: 100%;
+        left: 0;
+        right: 0;
+        top: 0;
+    }
+
+    .page2-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        padding: 20px;
+    }
+
+    .archives-section {
+        grid-column: 1;
+        grid-row: auto;
+    }
+
+    .bottom-left-section {
+        position: relative;
+        width: 100%;
+        height: auto;
+        left: 0;
+        bottom: 0;
+    }
+} 
