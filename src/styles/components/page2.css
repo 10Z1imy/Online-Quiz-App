@@ -4,418 +4,47 @@
     grid-template-columns: 1fr 2fr;
     grid-template-rows: 1fr 1fr;
     height: 100vh;
-    width: 100vw;
-    padding: 80px 120px 80px 80px;  /* 统一外边距 */
-    gap: 30px;  /* 增加组件间距 */
+    width: 100%;
+    padding: 80px;
+    gap: 30px;
 }
 
 .contact-section {
     grid-column: 1;
     grid-row: 1;
-    height: calc(50vh - 95px);  /* 考虑padding和gap */
 }
 
 .bottom-section {
     grid-column: 1;
     grid-row: 2;
-    height: calc(50vh - 95px);  /* 考虑padding和gap */
 }
 
 .archives-section {
     grid-column: 2;
     grid-row: 1 / span 2;
-    height: calc(100vh - 160px);  /* 考虑上下padding */
 }
 
 .contact-section .section-content,
 .bottom-section .section-content,
 .archives-section .section-content {
     height: 100%;
-    margin: 0;
-    padding: 40px;  /* 增加内边距 */
     background: rgba(255, 255, 255, 1);
-    backdrop-filter: blur(10px);
     border-radius: 20px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-/* 左下角组件内部布局 */
-.bottom-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    gap: 30px;
-    height: 100%;
     padding: 30px;
 }
 
-/* 技能展示区域 */
-.skills-showcase {
-    padding: 30px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 20px;
-    transition: all 0.3s ease;
-}
-
-.skills-showcase h3 {
-    font-size: 2rem;
+/* 联系信息区域样式 */
+.contact-section h2 {
+    font-size: 1.8rem;
+    color: #333;
     margin-bottom: 30px;
-    color: #333;
-    text-align: center;
-    font-weight: 600;
 }
 
-.skills-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 25px;
-    padding: 15px;
-}
-
-.skill-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    padding: 25px;
-    background: rgba(0, 0, 0, 0.03);
-    border-radius: 20px;
-    transition: all 0.3s ease;
-}
-
-.skill-item:hover {
-    transform: translateY(-5px);
-    background: rgba(0, 0, 0, 0.05);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.skill-item i {
-    font-size: 2.5rem;
-    color: #4a90e2;
-    transition: all 0.3s ease;
-}
-
-.skill-item:hover i {
-    transform: scale(1.1);
-}
-
-.skill-item span {
-    font-size: 1.2rem;
-    color: #333;
-    font-weight: 500;
-    text-align: center;
-}
-
-.skill-level {
-    width: 100%;
-    height: 6px;
-    background: rgba(0, 0, 0, 0.1);
-    border-radius: 3px;
-    position: relative;
-    overflow: hidden;
-}
-
-.skill-level::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    background: linear-gradient(90deg, #4a90e2, #63b3ed);
-    width: var(--level);
-    border-radius: 3px;
-    transition: width 0.8s ease;
-}
-
-/* 项目链接区域 */
-.project-links {
-    padding: 1rem;
-}
-
-.project-links h3 {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-    color: #333;
-    text-align: center;
-}
-
-.links-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-}
-
-.project-link {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 1rem;
-    background: rgba(0, 0, 0, 0.05);
-    border-radius: 15px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.project-link:hover {
-    transform: translateY(-2px);
-    background: rgba(0, 0, 0, 0.08);
-}
-
-.project-link i {
-    font-size: 1.5rem;
-    color: #4a90e2;
-}
-
-.project-link span {
-    font-size: 0.9rem;
-    color: #333;
-}
-
-/* 响应式设计 */
-@media (max-width: 1366px) {
-    .page2-container {
-        padding: 60px 100px 60px 60px;
-        gap: 25px;
-    }
-
-    .bottom-grid {
-        padding: 25px;
-    }
-}
-
-@media (max-width: 1024px) {
-    .page2-container {
-        padding: 50px 80px 50px 50px;
-        gap: 20px;
-    }
-
-    .bottom-grid {
-        padding: 20px;
-    }
-
-    .skills-grid {
-        gap: 20px;
-    }
-}
-
-@media (max-width: 768px) {
-    .page2-container {
-        grid-template-columns: 1fr;
-        padding: 40px;
-        gap: 30px;
-    }
-
-    .bottom-grid {
-        padding: 15px;
-    }
-
-    .skills-grid {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-
-    .skill-item {
-        padding: 20px;
-    }
-}
-
-@media (max-width: 480px) {
-    .skills-grid,
-    .links-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .skill-item,
-    .project-link {
-        padding: 0.8rem;
-    }
-}
-
-/* 深色模式适配 */
-@media (prefers-color-scheme: dark) {
-    .contact-section .section-content,
-    .bottom-section .section-content,
-    .archives-section .section-content {
-        background: rgba(30, 30, 30, 0.9);
-        color: #fff;
-    }
-
-    .contact-section h2,
-    .skills-showcase h3,
-    .profile-info h3,
-    .skills h4 {
-        color: #fff;
-    }
-
-    .contact-item,
-    .skill-item,
-    .skills li {
-        background: rgba(255, 255, 255, 0.05);
-    }
-
-    .contact-item:hover,
-    .skill-item:hover,
-    .skills li:hover {
-        background: rgba(255, 255, 255, 0.1);
-    }
-
-    .contact-item span,
-    .skill-item span,
-    .profile-info p,
-    .profile-info ul li {
-        color: #ddd;
-    }
-
-    .social-links a {
-        color: #fff;
-    }
-
-    .social-links a:hover {
-        color: #4a90e2;
-    }
-
-    .profile-image img {
-        border-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .profile-image img:hover {
-        border-color: rgba(74, 144, 226, 0.5);
-    }
-
-    .skills-showcase {
-        background: rgba(255, 255, 255, 0.1);
-    }
-
-    .skill-level {
-        background: rgba(255, 255, 255, 0.1);
-    }
-
-    .skill-level::after {
-        background: linear-gradient(90deg, #63b3ed, #4a90e2);
-    }
-}
-
-/* 初始化技能等级 */
-.skill-level[data-level="90"]::after { --level: 90%; }
-.skill-level[data-level="85"]::after { --level: 85%; }
-.skill-level[data-level="80"]::after { --level: 80%; }
-.skill-level[data-level="75"]::after { --level: 75%; }
-
-/* 横屏模式适配 */
-@media (max-height: 768px) and (orientation: landscape) {
-    .bottom-left-section {
-        height: 70vh;
-    }
-}
-
-/* 确保在小屏幕设备上的滚动行为 */
-@media (max-width: 768px) {
-    .bottom-left-section .section-content {
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-}
-
-/* 调整Archives部分样式 */
-.profile {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    padding: 20px;
-}
-
-.profile-image {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.profile-image img {
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 5px solid rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-}
-
-.profile-image img:hover {
-    transform: scale(1.05);
-    border-color: rgba(74, 144, 226, 0.3);
-}
-
-.profile-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-}
-
-.profile-info h3 {
-    font-size: 2rem;
-    color: #333;
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-.profile-info p {
-    font-size: 1.1rem;
-    color: #666;
-    line-height: 1.8;
-    text-align: center;
-}
-
-.profile-info ul {
-    list-style: none;
-    padding: 0;
-    text-align: center;
-}
-
-.profile-info ul li {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: #666;
-}
-
-.skills {
-    margin-top: 30px;
-}
-
-.skills h4 {
-    font-size: 1.4rem;
-    color: #333;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.skills ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    justify-content: center;
-}
-
-.skills li {
-    background: rgba(0, 0, 0, 0.03);
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-size: 1rem;
-    color: #333;
-    transition: all 0.3s ease;
-}
-
-.skills li:hover {
-    background: rgba(74, 144, 226, 0.1);
-    transform: translateY(-2px);
-}
-
-/* 调整联系信息样式 */
 .contact-info {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    margin: 30px 0;
 }
 
 .contact-item {
@@ -428,16 +57,9 @@
     transition: all 0.3s ease;
 }
 
-.contact-item:hover {
-    background: rgba(0, 0, 0, 0.05);
-    transform: translateX(5px);
-}
-
 .contact-item i {
     font-size: 1.4rem;
     color: #4a90e2;
-    width: 30px;
-    text-align: center;
 }
 
 .contact-item span {
@@ -445,21 +67,117 @@
     color: #333;
 }
 
-.social-links {
+/* 档案区域样式 */
+.profile {
+    height: 100%;
     display: flex;
-    justify-content: center;
-    gap: 25px;
+    flex-direction: column;
+    gap: 30px;
+    position: relative;
+}
+
+.profile-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+}
+
+.profile-image img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid rgba(0, 0, 0, 0.05);
+}
+
+.profile-info {
+    padding-top: 140px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.profile-info h3 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.profile-info p {
+    font-size: 1.1rem;
+    color: #666;
+    line-height: 1.8;
+}
+
+/* 技能展示区域 */
+.skills {
     margin-top: 30px;
 }
 
-.social-links a {
+.skills h4 {
+    font-size: 1.4rem;
     color: #333;
-    font-size: 1.6rem;
-    transition: all 0.3s ease;
+    margin-bottom: 20px;
 }
 
-.social-links a:hover {
-    color: #4a90e2;
-    transform: translateY(-3px);
+.skills ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.skills li {
+    background: rgba(0, 0, 0, 0.03);
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 1rem;
+    color: #333;
+}
+
+/* 响应式设计 */
+@media (max-width: 1366px) {
+    .page2-container {
+        padding: 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .page2-container {
+        grid-template-columns: 1fr;
+        padding: 30px;
+        height: auto;
+}
+
+    .archives-section {
+        grid-column: 1;
+        grid-row: auto;
+    }
+}
+
+/* 深色模式适配 */
+@media (prefers-color-scheme: dark) {
+    .contact-section .section-content,
+    .bottom-section .section-content,
+    .archives-section .section-content {
+        background: rgba(30, 30, 30, 0.9);
+}
+
+    .contact-section h2,
+    .profile-info h3,
+    .skills h4 {
+        color: #fff;
+}
+
+    .contact-item,
+    .skills li {
+        background: rgba(255, 255, 255, 0.05);
+}
+
+    .contact-item span,
+    .profile-info p {
+        color: #ddd;
+    }
 }
 

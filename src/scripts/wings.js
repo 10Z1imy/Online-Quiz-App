@@ -176,25 +176,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
-
-    // 自动轮播
-    let autoplayInterval;
-    const startAutoplay = () => {
-        autoplayInterval = setInterval(() => {
-            const currentIndex = slides.findIndex(slide => slide.classList.contains('current-slide'));
-            moveToSlide((currentIndex + 1) % slides.length);
-        }, 5000);
-    };
-
-    // 停止自动轮播
-    const stopAutoplay = () => {
-        clearInterval(autoplayInterval);
-    };
-
-    // 鼠标进入停止自动轮播
-    track.addEventListener('mouseenter', stopAutoplay);
-    track.addEventListener('mouseleave', startAutoplay);
-
-    // 开始自动轮播
-    startAutoplay();
 }); 

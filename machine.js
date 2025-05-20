@@ -93,21 +93,14 @@ screens.forEach(screen => {
 document.addEventListener('DOMContentLoaded', function() {
     const toggleBtn = document.querySelector('.toggle-gacha-btn');
     const gachaMachine = document.querySelector('.gacha-machine');
-    const leftSection = document.querySelector('.left-section .section-content');
     const toggleIcon = toggleBtn.querySelector('i');
     
     // 初始状态设置
     gachaMachine.classList.add('hidden');
-    leftSection.classList.add('hidden');
     
     toggleBtn.addEventListener('click', function() {
-        // 添加过渡动画类
-        gachaMachine.classList.add('transition');
-        leftSection.classList.add('transition');
-        
         // 切换显示状态
         gachaMachine.classList.toggle('hidden');
-        leftSection.classList.toggle('hidden');
         
         // 切换图标
         if (gachaMachine.classList.contains('hidden')) {
@@ -119,11 +112,5 @@ document.addEventListener('DOMContentLoaded', function() {
             toggleIcon.classList.add('fa-eye');
             toggleBtn.setAttribute('title', '隐藏扭蛋机');
         }
-        
-        // 300ms后移除过渡动画类
-        setTimeout(() => {
-            gachaMachine.classList.remove('transition');
-            leftSection.classList.remove('transition');
-        }, 300);
     });
 });

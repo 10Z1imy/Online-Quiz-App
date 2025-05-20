@@ -137,11 +137,24 @@ function createGame(player1, player2) {
 
 // 开始新问题
 function startNewQuestion(gameId) {
+    console.log('开始新问题，游戏ID:', gameId);
     const game = activeGames.get(gameId);
-    if (!game || game.currentQuestionIndex >= questions.length) {
+    if (!game) {
+        console.log('游戏不存在:', gameId);
+        return;
+    }
+    
+    if (game.currentQuestionIndex >= questions.length) {
+        console.log('问题已用完，结束游戏');
         endGame(gameId);
         return;
     }
+
+    console.log('游戏状态:', {
+        status: game.status,
+        currentQuestionIndex: game.currentQuestionIndex,
+        players: game.players
+    });
 
     game.status = 'playing';
     game.answers.clear();
@@ -150,27 +163,56 @@ function startNewQuestion(gameId) {
     // 向两个玩家发送问题
     game.players.forEach(playerName => {
         const socketId = playerSockets.get(playerName);
-        io.to(socketId).emit('gameStart', {
-            currentQuestion: {
-                text: question.text,
-                image: question.image,
-                options: question.options
-            },
-            scores: game.scores
+        console.log('发送问题给玩家:', {
+            playerName,
+            socketId,
+            hasSocket: !!socketId
         });
+        
+        if (socketId) {
+            io.to(socketId).emit('gameStart', {
+                currentQuestion: {
+                    text: question.text,
+                    image: question.image,
+                    options: question.options
+                },
+                scores: game.scores
+            });
+        }
     });
 
     // 设置问题计时器
     let timeLeft = QUESTION_TIME;
+    if (game.timer) {
+        console.log('清除旧计时器');
+        clearInterval(game.timer);
+    }
+    
+    console.log('设置新计时器');
+    // 立即发送初始时间
+    game.players.forEach(playerName => {
+        const socketId = playerSockets.get(playerName);
+        if (socketId) {
+            io.to(socketId).emit('timer', timeLeft);
+        }
+    });
+
     game.timer = setInterval(() => {
         timeLeft--;
+        console.log('计时器更新:', timeLeft);
+        
+        // 广播给所有玩家
         game.players.forEach(playerName => {
             const socketId = playerSockets.get(playerName);
-            io.to(socketId).emit('timer', timeLeft);
+            if (socketId) {
+                io.to(socketId).emit('timer', timeLeft);
+            }
         });
 
         if (timeLeft <= 0) {
+            console.log('时间到，评估回合');
             clearInterval(game.timer);
+            game.timer = null;
             evaluateRound(gameId);
         }
     }, 1000);
@@ -277,6 +319,21 @@ async function endGame(gameId) {
     activeGames.delete(gameId);
 }
 
+// 获取当前问题
+function getCurrentQuestion(gameId) {
+    const game = activeGames.get(gameId);
+    if (!game || game.currentQuestionIndex >= questions.length) {
+        return null;
+    }
+    return questions[game.currentQuestionIndex];
+}
+
+// 获取游戏分数
+function getGameScores(gameId) {
+    const game = activeGames.get(gameId);
+    return game ? game.scores : null;
+}
+
 // Socket.IO 连接处理
 io.on('connection', (socket) => {
     // 玩家登录
@@ -303,27 +360,55 @@ io.on('connection', (socket) => {
         }
     });
 
-    // 发起挑战
+    // 处理游戏邀请
     socket.on('challengePlayer', (targetPlayer) => {
         const challenger = onlinePlayers.get(socket.id);
         const targetSocketId = playerSockets.get(targetPlayer);
+        
         if (targetSocketId) {
+            // 向目标玩家发送邀请
             io.to(targetSocketId).emit('challengeRequest', challenger);
         }
     });
 
-    // 接受挑战
+    // 处理接受挑战
     socket.on('acceptChallenge', (challenger) => {
-        const accepter = onlinePlayers.get(socket.id);
-        const gameId = createGame(challenger, accepter);
-        startNewQuestion(gameId);
+        console.log('收到挑战请求:', challenger);
+        const player2 = onlinePlayers.get(socket.id);
+        const player1SocketId = playerSockets.get(challenger);
+        
+        console.log('玩家信息:', {
+            challenger,
+            player2,
+            player1SocketId,
+            socketId: socket.id
+        });
+        
+        if (player1SocketId && player2) {
+            console.log('开始创建游戏...');
+            // 创建新游戏
+            const gameId = createGame(challenger, player2);
+            console.log('游戏创建成功，ID:', gameId);
+            
+            // 开始新问题
+            startNewQuestion(gameId);
+            console.log('新问题已开始');
+        } else {
+            console.log('无法开始游戏：', {
+                hasPlayer1Socket: !!player1SocketId,
+                hasPlayer2: !!player2
+            });
+        }
     });
 
-    // 拒绝挑战
+    // 处理拒绝挑战
     socket.on('rejectChallenge', (challenger) => {
-        const targetSocketId = playerSockets.get(challenger);
-        if (targetSocketId) {
-            io.to(targetSocketId).emit('challengeRejected', onlinePlayers.get(socket.id));
+        const player2 = onlinePlayers.get(socket.id);
+        const player1SocketId = playerSockets.get(challenger);
+        
+        if (player1SocketId) {
+            // 通知发起挑战的玩家被拒绝
+            io.to(player1SocketId).emit('challengeRejected', player2);
         }
     });
 
