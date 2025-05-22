@@ -68,7 +68,9 @@
     width: 80%;
     max-width: 1200px;
     max-height: 80vh;
-    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 .module-title {
@@ -76,6 +78,11 @@
     color: #333;
     margin-bottom: 30px;
     text-align: center;
+    position: sticky;
+    top: 0;
+    background: rgba(255, 255, 255, 1);
+    padding: 20px 0;
+    z-index: 1;
 }
 
 .module-text {
@@ -85,19 +92,79 @@
     margin-bottom: 20px;
 }
 
+/* 新增的flex布局样式 */
+.module-flex-container {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+.module-text {
+    flex: 1;
+    min-width: 0;
+    overflow-y: auto;
+    max-height: calc(80vh - 200px);
+    padding-right: 20px;
+    margin-right: -20px;
+}
+
+.module-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: sticky;
+    top: 120px;
+    max-height: calc(80vh - 200px);
+    overflow: hidden;
+}
+
+.module-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    object-fit: contain;
+}
+
 /* 自定义滚动条 */
-.module-content::-webkit-scrollbar {
+.module-text::-webkit-scrollbar {
     width: 8px;
 }
 
-.module-content::-webkit-scrollbar-track {
+.module-text::-webkit-scrollbar-track {
     background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+.module-text::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
     border-radius: 4px;
 }
 
-.module-content::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .module-flex-container {
+        flex-direction: column;
+    }
+    
+    .module-text {
+        max-height: none;
+        overflow-y: visible;
+        padding-right: 0;
+        margin-right: 0;
+    }
+    
+    .module-image {
+        position: relative;
+        top: 0;
+        margin-top: 20px;
+        max-height: none;
+    }
 }
 
 /* 导航指示器 */

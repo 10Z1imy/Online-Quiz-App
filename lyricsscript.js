@@ -243,6 +243,9 @@ function createLyric(text) {
     lyric.addEventListener('animationend', () => {
         lyric.remove();
     });
+    
+
+
 }
 
 // 检查并显示歌词

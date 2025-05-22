@@ -89,28 +89,27 @@ screens.forEach(screen => {
     });
 });
 
-// 扭蛋机显示/隐藏控制
+// 初始化时隐藏扭蛋机
 document.addEventListener('DOMContentLoaded', function() {
-    const toggleBtn = document.querySelector('.toggle-gacha-btn');
     const gachaMachine = document.querySelector('.gacha-machine');
-    const toggleIcon = toggleBtn.querySelector('i');
+    const toggleBtn = document.querySelector('.toggle-gacha-btn');
+    const icon = toggleBtn.querySelector('i');
     
-    // 初始状态设置
-    gachaMachine.classList.add('hidden');
+    // 设置初始状态为显示
+    gachaMachine.style.display = 'block';
+    icon.classList.remove('fa-eye-slash');
+    icon.classList.add('fa-eye');
     
+    // 点击按钮切换显示状态
     toggleBtn.addEventListener('click', function() {
-        // 切换显示状态
-        gachaMachine.classList.toggle('hidden');
-        
-        // 切换图标
-        if (gachaMachine.classList.contains('hidden')) {
-            toggleIcon.classList.remove('fa-eye');
-            toggleIcon.classList.add('fa-eye-slash');
-            toggleBtn.setAttribute('title', '显示扭蛋机');
+        if (gachaMachine.style.display === 'none') {
+            gachaMachine.style.display = 'block';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
         } else {
-            toggleIcon.classList.remove('fa-eye-slash');
-            toggleIcon.classList.add('fa-eye');
-            toggleBtn.setAttribute('title', '隐藏扭蛋机');
+            gachaMachine.style.display = 'none';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
         }
     });
 });

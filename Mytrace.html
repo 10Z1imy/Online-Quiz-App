@@ -9,7 +9,13 @@
     <style>
         /* 全局样式 */
 body {
-    background: linear-gradient(135deg, hsl(210, 20%, 98%) 0%, hsl(210, 20%, 96%) 100%);
+    background: 
+        /* 第一层：半透明背景色 */
+       
+        /* 第二层：渐变色 */
+        linear-gradient(135deg, #8cbf0bc9 0%, rgb(200, 240, 255) 100%);
+        
+     
     margin: 0;
     padding: 0;
     min-height: 100vh;
@@ -17,11 +23,33 @@ body {
     color: #333;
     overflow-x: hidden;
 }
+/* 页面容器 */
+.page-container {
+  position: relative; /* 相对定位，作为背景层的参考 */
+  min-height: 100vh; /* 至少占满整个视口高度 */
+  overflow: hidden; /* 防止内容溢出 */
+}
+
+/* 背景星星层 */
+.background-stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('img/star6.png');
+  background-size: contain; /* 保持原图比例，完整显示图片 */
+  background-position: center; /* 图片居中显示 */
+  background-repeat: repeat; /* 不重复 */
+  z-index: 0;
+  opacity: 1; /* 不透明 */
+}
 
 /* 时间轴样式 */
 .timeline-container {
     padding: 40px 20px;
     margin: 0 auto;
+    left: 225px;
     max-width: 1200px;
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
@@ -29,6 +57,15 @@ body {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     position: relative;
     z-index: 10;
+    text-align: center;
+    margin: 20px;
+    position: center;
+}
+
+.timeline-image {
+    max-width: 100%;
+    height: auto;
+    transition: all 0.3s ease;
 }
 
 .timeline {
@@ -38,6 +75,86 @@ body {
     gap: 40px;
     position: relative;
     padding: 30px 0;
+    flex-wrap: wrap;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+    .timeline-container {
+        left: 180px;
+        max-width: calc(100% - 200px);
+    }
+    
+    .timeline {
+        gap: 30px;
+    }
+}
+
+@media (max-width: 992px) {
+    .timeline-container {
+        left: 150px;
+        max-width: calc(100% - 170px);
+    }
+    
+    .timeline {
+        gap: 25px;
+    }
+    
+    .timeline-node::after {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    .timeline-container {
+        left: 100px;
+        max-width: calc(100% - 120px);
+        padding: 20px 10px;
+    }
+    
+    .timeline {
+        gap: 20px;
+    }
+    
+    .timeline-node {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .timeline-node::before {
+        font-size: 20px;
+    }
+    
+    .timeline-node::after {
+        font-size: 11px;
+        top: 45px;
+    }
+}
+
+@media (max-width: 576px) {
+    .timeline-container {
+        left: 60px;
+        max-width: calc(100% - 80px);
+        padding: 15px 8px;
+    }
+    
+    .timeline {
+        gap: 15px;
+    }
+    
+    .timeline-node {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .timeline-node::before {
+        font-size: 18px;
+    }
+    
+    .timeline-node::after {
+        font-size: 10px;
+        top: 40px;
+    }
 }
 
 .timeline-node::before {
@@ -158,7 +275,7 @@ body {
     left: 0;
     width: 30px;
     height: 3px;
-    background: linear-gradient(90deg, #007bff, #00bfff);
+    background: linear-gradient(90deg, hsl(181, 91%, 41%), hsl(166, 100%, 80%));
     border-radius: 3px;
     transition: width 0.4s ease;
 }
@@ -275,21 +392,23 @@ body {
 </style>
 </head>
 <body>
-    <!-- 侧边导航栏 -->
     <div class="side-nav">
         <div class="side-nav-content">
-            <a href="/"><i class="fas fa-home"></i> 首页</a>
-            <a href="/wings"><i class="fas fa-palette"></i> 作品集</a>
-            <a href="/game"><i class="fas fa-gamepad"></i> 在线游戏</a>
-            <a href="/page4"><i class="fas fa-laptop-code"></i> 文段展示2</a>
-            <a href="/Mytrace"><i class="fas fa-history"></i> 我的足迹</a>
-
+            <a href="index.html"><i class="fas fa-home"></i>Homepage</a>
+            <a href="page4.html"><i class="fas fa-laptop-code"></i>About Me</a>
+            <a href="wings.html"><i class="fas fa-palette"></i>Artworks-Wings</a>
+            <a href="game.html"><i class="fas fa-gamepad"></i>Online Game</a>
+            <a href="Mytrace.html"><i class="fas fa-history"></i>My Trace</a>
         </div>
     </div>
 
+    <div class="page-container">
+        
+        <div class="background-stars"></div>
 
     <!-- 时间轴容器 -->
-    <div class="timeline-container">
+    <div  class="timeline-container">
+        <img src="img/all.PNG" alt="timeline" class="timeline-image" width="800" height="200"> 
         <div class="timeline">
             <div class="timeline-node" data-date="2024-01"></div>
             <div class="timeline-node" data-date="2024-02"></div>
@@ -319,53 +438,53 @@ body {
             '2024-01': [
                 {
                     title: '16/03/24',
-                    content: `"Huh, I haven’t really processed going back to my high school yet.
+                    content: `"Huh, I haven't really processed going back to my high school yet.
 
                     Driven by tasks, I ran around like crazy, maxing out my social battery to promote the event. Grabbed a green apple drink, then headed to the beach—only to bolt with my friend because, uh, what if a tsunami hits? (??)
 
-                    I didn’t have some grand “I must return for nostalgia” or “extra credits!!” motive. Running into teachers (or missing them) wasn’t even on my radar.
-The real reason? “Winter break’s too boring, might as well go see.”
+                    I didn't have some grand "I must return for nostalgia" or "extra credits!!" motive. Running into teachers (or missing them) wasn't even on my radar.
+The real reason? "Winter break's too boring, might as well go see."
 
-See what? Gain what? o.O SFLS mostly gave me that “forced-growth” vibe anyway.I thought I’d want to stare down the things that once haunted me, then laugh it off—“rewriting” the past, or whatever. Grow a bit more?
-I’m not the nostalgic type, but for some reason, I needed to do this pointless thing.
+See what? Gain what? o.O SFLS mostly gave me that "forced-growth" vibe anyway.I thought I'd want to stare down the things that once haunted me, then laugh it off—"rewriting" the past, or whatever. Grow a bit more?
+I'm not the nostalgic type, but for some reason, I needed to do this pointless thing.
 
-The event wrapped up smoothly, no hiccups. Didn’t even swing by Sunshine Bar.
+The event wrapped up smoothly, no hiccups. Didn't even swing by Sunshine Bar.
 
 All those meltdowns, the self-doubt, the messy friendships, senior year… Should I just bury it and pretend none of it happened?
 
-Weird. Walking those familiar halls, I felt… nothing. No big emotions. Just breezily planning my next move, like “Oops, forgot pads—what now?” 🤷♀️
+Weird. Walking those familiar halls, I felt… nothing. No big emotions. Just breezily planning my next move, like "Oops, forgot pads—what now?" 🤷♀️
 
-My 10th-grade homeroom teacher said, “You’ve become so outgoing now, it’s great!”
+My 10th-grade homeroom teacher said, "You've become so outgoing now, it's great!"
 
-I remembered confessing to her once: “I think I have mental issues… I need a break.” Later, I avoided her—maybe avoiding my past self, cringing at my own words.
+I remembered confessing to her once: "I think I have mental issues… I need a break." Later, I avoided her—maybe avoiding my past self, cringing at my own words.
 
-This winter, I spotted her from afar, hesitated, then blurted: “Wait here, I’ll go say hi.”
+This winter, I spotted her from afar, hesitated, then blurted: "Wait here, I'll go say hi."
 
 And there I was—still me, but more me—grinning at her surprised face.
 
-I don’t need others’ words to define me anymore. But hearing them? Nice.
+I don't need others' words to define me anymore. But hearing them? Nice.
 
-“She said you’ve changed so much. It’s wonderful.”
+"She said you've changed so much. It's wonderful."
 
 Mom told me later. I was stunned.
 
 Lying in bed, I replayed it all:
 
-The loneliness, the birthday party I never expected, that pink-purple sky senior year—“a hymn from the universe”—as I spun around, giddy:
+The loneliness, the birthday party I never expected, that pink-purple sky senior year—"a hymn from the universe"—as I spun around, giddy:
 
-“Year 17 of existing in this cosmos.”
+"Year 17 of existing in this cosmos."
 
 The pondside meditations, staring at koi fish to calm down… then sprinting with friends under a sky so wide it felt touchable.
 
 I did more than I overthought.
 
-Time’s funny—unchanging yet ever-shifting.
+Time's funny—unchanging yet ever-shifting.
 
-I thought I’d just “reverse the frostbite of growing up, overwrite my history.”
+I thought I'd just "reverse the frostbite of growing up, overwrite my history."
 
 But really, I dug up something deeper. Like returning to my childhood home, finding a time-capsule under the old tree.
-Even if what’s inside had long rotted away… I found myself.
-The past is just reality’s collapsed shadow.
+Even if what's inside had long rotted away… I found myself.
+The past is just reality's collapsed shadow.
 
 Keep on moving.
 `
@@ -374,7 +493,7 @@ Keep on moving.
                     title: '12/04/24',
                     content: `I just finished reading, and my mind is buzzing—I need to write this down.
 
-I’ve never really gotten into Three-Body Problem or sci-fi in general. My first proper sci-fi book was The Defective, and honestly, at first, I was just in it for the ships (lol). I was only in 8th grade, barely paying attention to the plot or worldbuilding.
+I've never really gotten into Three-Body Problem or sci-fi in general. My first proper sci-fi book was The Defective, and honestly, at first, I was just in it for the ships (lol). I was only in 8th grade, barely paying attention to the plot or worldbuilding.
 
 But then, by chance, in high school, I read 1984 and Brave New World, and started grasping the whole anti-oppression thing. When I picked up The Defective again, the sheer scale of cosmic civilization hit me like a truck. Death and rebirth. Faith and madness. The light and dark of humanity. Blood-soaked politics. "People are destroyed by faith, and humanity is reborn from its ashes."
 
@@ -382,24 +501,24 @@ When everything is laid bare like that, all you can do is wonder—Can my brain 
 
 But what moved me most? Even the "defective" humans in the story blaze with dazzling, unyielding free will.
 
-And honestly? The way Priest gently nurtures the idea that "birth doesn’t decide your fate"—even if her tone feels a little lofty at times—I love it. The side characters aren’t just tropes; they feel real. I LIVE for stories about "bad kids" finding their way, fighting tooth and nail when everything’s on the line.
+And honestly? The way Priest gently nurtures the idea that "birth doesn't decide your fate"—even if her tone feels a little lofty at times—I love it. The side characters aren't just tropes; they feel real. I LIVE for stories about "bad kids" finding their way, fighting tooth and nail when everything's on the line.
 
-“Humanity isn’t just surviving—it’s wild, untamed growth. A roaring fire. Life bows only to the tower of belief, and the guiding light never dims.”
+"Humanity isn't just surviving—it's wild, untamed growth. A roaring fire. Life bows only to the tower of belief, and the guiding light never dims."
 
-Grateful for this brief but beautiful mental journey. It gave me sunlight—and now, it’s time to go write my own damn story. 💫`
+Grateful for this brief but beautiful mental journey. It gave me sunlight—and now, it's time to go write my own damn story. 💫`
                 },
                 {
                     title: '08/11/23',
                     content: `
 What Adler Emphasized—and What I Love Most—Is "Creativity."
 
-Freud’s theories built too many protective layers around human limitations, offering cowards an excuse to hide. His system dissected and labeled people, but then what? A seed wrapped in layers of shell may be safe, but it’s also suffocated.
+Freud's theories built too many protective layers around human limitations, offering cowards an excuse to hide. His system dissected and labeled people, but then what? A seed wrapped in layers of shell may be safe, but it's also suffocated.
 
 While reading The Courage to Be Disliked, I pushed myself to confront those past moments of emotional turmoil. It hurt at first—but as I rewrote those memories, giving them new meaning through words, something shifted.
 
 The "scars of the past" in my mind were devoured by flickering flames.
 
-With my own hands, I peeled back the layers of the seed’s shell, one by one.
+With my own hands, I peeled back the layers of the seed's shell, one by one.
 
 I gave it oxygen.
 
@@ -423,7 +542,7 @@ Greetings—I am the keeper of this humble outpost. Welcome. You are free to res
 
 To be a storyteller is my dream. To listen—my deepest hunger.
 
-May this quiet corner offer you a moment’s peace, a chance to mend your weary spirit. May it become, years from now, one of those small, glowing fragments you carry with you.
+May this quiet corner offer you a moment's peace, a chance to mend your weary spirit. May it become, years from now, one of those small, glowing fragments you carry with you.
 
 I think of life as both an adventure and a pilgrimage. So, dear traveler, march on. Face the storms ahead, unearth the treasures hidden in the unknown. And when time has carved you into stone, polished you into jade—may your heart still shine like diamond.
 
@@ -439,7 +558,7 @@ May tomorrow bring no sandstorms.`
 
 For a split second, I zone out—so many lights overhead, just like in the anime.
 
-Would the me from a year ago have imagined today?A team of amazing, volleyball-loving friends.A completely new version of myself.A heart that’s glowing, pounding—alive.And right now? I’m on the court. That’s enough.
+Would the me from a year ago have imagined today?A team of amazing, volleyball-loving friends.A completely new version of myself.A heart that's glowing, pounding—alive.And right now? I'm on the court. That's enough.
 The pure, beautiful rush of the game—this priceless high.
 The night breeze brushing past.The sting of a missed shot.The stubborn resolve to burn failure as fuel.All of it flows together, a river of life washing away my exhaustion.
 Now, I want to reflect, to mess up, to grow.`
@@ -453,11 +572,11 @@ Remember this: Nothing is done well at first.Stop dreaming about talent. Stop do
 
 Behind every "glorious" journey?Months, years of grinding repetition.Boredom. Frustration. Tiny victories buried in sweat.
 
-It’s always bitter and sweet, tangled tight.
+It's always bitter and sweet, tangled tight.
 
 Knowing all this—would you quit?
 
-Didn’t think so. I know you too well.
+Didn't think so. I know you too well.
 Now go learn.`
                 }
             ],
@@ -466,7 +585,7 @@ Now go learn.`
                     title: '25-2-9',
                     content: `
 So in this noisy, chaotic world—
-there’s still someone who, for ten years straight,
+there's still someone who, for ten years straight,
 has chased their dreams with unbroken purity,
 demanding answers from life like a starving scholar,
 carving themselves into epic and flame,

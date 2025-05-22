@@ -3,200 +3,562 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Me</title>
-    <link rel="stylesheet" href="/src/styles/components/page4.css">
-    <link rel="stylesheet" href="/src/styles/base.css">
+    <title>Personal Portfolio Book</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <link href="src/styles/base.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#165DFF',
+                        secondary: '#FF7D00',
+                        neutral: {
+                            100: '#F5F7FA',
+                            200: '#E4E7ED',
+                            300: '#C0C6CF',
+                            400: '#909399',
+                            500: '#606266',
+                            600: '#303133',
+                            700: '#1E1E1E',
+                        }
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                },
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .book-shadow {
+                box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+            }
+            .page {
+                display: none;
+            }
+            .page.active {
+                display: block;
+            }
+            .book-edge {
+                background-image: linear-gradient(to right, #333 0%, #666 5%, #333 10%, #666 15%, #333 20%, #666 25%, #333 30%, #666 35%, #333 40%, #666 45%, #333 50%, #666 55%, #333 60%, #666 65%, #333 70%, #666 75%, #333 80%, #666 85%, #333 90%, #666 95%, #333 100%);
+                width: 15px;
+            }
+            body {
+                background: linear-gradient(135deg, #e1e1ff 0%, hsl(104, 70%, 82%) 100%);
+            }
+        }
+    </style>
 </head>
-<body>
-    <!-- 歌词容器 -->
-    <div class="lyrics-container">
-        <div class="lyrics"></div>
-    </div>
-
-    <!-- 侧边导航栏 -->
+<body class="font-inter min-h-screen flex items-center justify-center p-4">
+    <!-- Book Container -->
     <div class="side-nav">
         <div class="side-nav-content">
-            <a href="index.html"><i class="fas fa-home"></i> 首页</a>
-            <a href="wings.html"><i class="fas fa-palette"></i> 作品集</a>
-            <a href="page3.html"><i class="fas fa-book"></i>GamePlay</a>
-            <a href="page4.html"><i class="fas fa-laptop-code"></i> 文段展示2</a>
-            <a href="/Mytrace"><i class="fas fa-history"></i> 我的足迹</a>
-        </div>
-    </div>
-    <div class="page4-container">
-        <div class="page4-section">
-            <!-- 模块1：Welcome -->
-            <div class="page4-module active" data-index="0">
-                <div class="module-content">
-                    <h2 class="module-title">Welcome</h2>
-                    <div class="module-text">
-                        <p>"Connection established. All signals are functioning optimally. Test passed—"  </p>
-                        <p>You were jolted awake by the signal alert. Blinking your eyes open, you found yourself in a deep blue void. Floating text bubbles drifted within your line of sight.</p> 
-                        </p>"Where am I?"</p>  
-                        
-                        <p>Rubbing your eyes, fragments of memory surfaced. It was 2025, and you were a starfarer—an interstellar adventurer. Last month, you had ordered the latest neural host-jump device from Planet Y’s X Corporation. Rumor had it that by connecting to the device and entering a specific neural port code, you could link directly to another person’s "neural host"—their innermost consciousness!  
-                        
-                        Skeptical but intrigued, you had casually entered the number 1021, followed the instructions to close your eyes, and then… wound up here.  </p>
-                        
-                        <p>"This is insane! So this is someone's inner world? But… whose? </p> 
-                        
-                        <p>Curiosity burning, you reached out and touched one of the floating text bubbles. Words slowly materialized————<br>*(Tip: Roll down to view the next page)*</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 模块2：Basic Information -->
-            <div class="page4-module" data-index="1">
-                <div class="module-content">
-                    <h2 class="module-title">My Basic Information</h2>
-                    <div class="module-text">
-                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.
-                    </div>
-                </div>
-            </div>
-
-            <!-- 模块3：Professional Interests -->
-            <div class="page4-module" data-index="2">
-                <div class="module-content">
-                    <h2 class="module-title">Professional Interests</h2>
-                    <div class="module-text">
-                        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
-                    </div>
-                </div>
-            </div>
-
-            <!-- 模块4：Courses -->
-            <div class="page4-module" data-index="3">
-                <div class="module-content">
-                    <h2 class="module-title">Courses</h2>
-                    <div class="module-text">
-                        Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
-                    </div>
-                </div>
-            </div>
-
-            <!-- 模块5：Leisure Activity -->
-            <div class="page4-module" data-index="4">
-                <div class="module-content">
-                    <h2 class="module-title">Leisure Activity</h2>
-                    <div class="module-text">
-                        Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
-                    </div>
-                </div>
-            </div>
-
-            <!-- 模块6：Achievements -->
-            <div class="page4-module" data-index="5">
-                <div class="module-content">
-                    <h2 class="module-title">Achievements</h2>
-                    <div class="module-text">
-                        Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 页面指示器 -->
-        <div class="page-indicator">
-            <div class="indicator-dot active" data-index="0"></div>
-            <div class="indicator-dot" data-index="1"></div>
-            <div class="indicator-dot" data-index="2"></div>
-            <div class="indicator-dot" data-index="3"></div>
-            <div class="indicator-dot" data-index="4"></div>
-            <div class="indicator-dot" data-index="5"></div>
+            <a href="index.html"><i class="fas fa-home"></i>Homepage</a>
+            <a href="page4.html"><i class="fas fa-laptop-code"></i>About Me</a>
+            <a href="wings.html"><i class="fas fa-palette"></i>Artworks-Wings</a>
+            <a href="game.html"><i class="fas fa-gamepad"></i>Online Game</a>
+            <a href="Mytrace.html"><i class="fas fa-history"></i>My Trace</a>
         </div>
     </div>
 
-    <script src="scriptnav.js"></script>
+    <div id="book-container" class="relative w-full max-w-6xl h-[90vh] max-h-[900px] perspective-2000">
+        <!-- Book Cover -->
+        <div id="cover" class="absolute w-full h-full bg-gradient-to-r from-primary/90 to-primary rounded-l-lg rounded-r-lg book-shadow overflow-hidden flex items-center justify-center cursor-pointer">
+            <div class="text-center text-white p-8 animate-fade-in">
+                <h1 class="text-[clamp(2.5rem,5vw,4rem)] font-bold mb-4 tracking-tight">Guo Changxi</h1>
+                <p class="text-[clamp(1.2rem,2vw,1.5rem)] opacity-90 mb-8">Art & AI Enthusiast</p>
+                <div class="flex justify-center space-x-4">
+                    <a href="#page1" class="bg-white/20 hover:bg-white/30 transition-all duration-300 rounded-full w-12 h-12 flex items-center justify-center">
+                        <i class="fa-brands fa-github text-white text-xl"></i>
+                    </a>
+                    <a href="#page1" class="bg-white/20 hover:bg-white/30 transition-all duration-300 rounded-full w-12 h-12 flex items-center justify-center">
+                        <i class="fa-brands fa-linkedin text-white text-xl"></i>
+                    </a>
+                    <a href="#page1" class="bg-white/20 hover:bg-white/30 transition-all duration-300 rounded-full w-12 h-12 flex items-center justify-center">
+                        <i class="fa-brands fa-instagram text-white text-xl"></i>
+                    </a>
+                </div>
+                <div class="absolute bottom-8 left-0 right-0 animate-bounce">
+                    <i class="fa-solid fa-angle-down text-white text-2xl"></i>
+                </div>
+    </div>
+        </div>
+        
+        <!-- Book Pages -->
+        <div id="pages-container" class="absolute w-full h-full">
+            <!-- Page 1: Welcome -->
+            <div class="page absolute w-full h-full bg-white rounded-l-lg rounded-r-lg book-shadow overflow-hidden">
+                <div class="p-8 h-full flex flex-col">
+                    <h2 class="text-3xl font-bold text-neutral-700 mb-6">Welcome</h2>
+                    <div class="space-y-4 text-neutral-600 leading-relaxed">
+                        <p class="font-semibold">Prelude:</p>
+                        <p>You're an interstellar voyager who arrives at a cosmic hub's transit station. By accident, you tune into Psychic Port #1021. After skimming through the basic profile sent from Server 1021, you gradually realize this might be a connection pathway deployed by another [peer] at the cosmic transit station—including their personal info. Data floods through you like a tidal wave, and when you open your eyes, the "Activity Log" document on the screen lights up. It's another file—want to try requesting access?</p>
+                        
+                        <p class="font-mono mt-6">[Interstellar Connection Log]</p>
+                        <p>🛸 Voyager's Position: Scanning cosmic hub nodes</p>
+                        <p>🔍 Unusual Signal Found: Psychic Port #1021 has strange activity surges</p>
+                        <p>📁 Log Access: Saw signs of "Deep Learning Clouds," "OC World Ruins," "Game Dev Vortex," and other mixed data</p>
+                        <p>✦ Access Request Sent: Asked to link minds with the port</p>
+                        <p>▶️ Reply Received: "Key okay — Enter your most precious inspiration piece."</p>
+                        <p>✨ Input Completed: ∞ (Made of curiosity, creativity, and awe for the unknown)</p>
+                        <p>✅ Connection Success: Minds linked. Syncing thought maps now.</p>
+                        
+                        <p class="text-primary mt-8 italic">"Welcome aboard, fellow traveler."</p>
+                        <p class="text-primary mt-4">*(Tip: Roll down to view the next page)*</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 2: Basic Information -->
+            <div class="page absolute w-full h-full bg-white rounded-l-lg rounded-r-lg book-shadow overflow-hidden">
+                <div class="flex flex-col md:flex-row h-full">
+                    <div class="w-full md:w-1/2 p-8 flex flex-col justify-center">
+                        <h2 class="text-3xl font-bold text-neutral-700 mb-6">My Basic Information</h2>
+                        <div class="text-neutral-600 space-y-4 leading-relaxed">
+                            <p>CHANGXI GUO| ENFJ-A Libra | STEM x Arts Interdisciplinary</p>
+                            <p>Just call me Amy. Sophomore at South China Normal University's Aberdeen College, diving into AI with a side of existential curiosity.</p>
+                            <p>Though I major in STEM, while dissecting the underlying logic of how our planet operates, I also pursue ethereal yet meaningful aesthetics. Artistic creation is my sixth sense (spanning poetry, writing, music, painting, and more). </p>
+                            <p>Quite a Libra ENFJ-A. Once we're buds, I'll babble about my pothos' new leaf (thinking about its name) and why stars twinkle—all in the same breath. Warning: I might accidentally turn "let's water the plants" into a deep dive on galaxy formation.</p>
+                            <p>Feel free to reach out! My current interests and studies include deep learning, economics, original character (OC) creation, game development, and more. Anyone with expertise or curiosity in these areas is welcome to connect.</p>
+                            <p>Love who turn "I can't" into "let's try," who find silver linings in burnt toast, and who dance like no one's watching (even when everyone is).Believe the world needs more people who see challenges as plot twists in their personal epic—who water their hopes even when the soil Bis dry, and who share their light like it's infinite (because it is) UU.</p>
+                            
+                            
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2 bg-neutral-100 flex items-center justify-center p-8">
+                        <img src="img/first.jpg" alt="Portrait Photo" class="rounded-lg shadow-lg max-w-[87%] max-h-[87%] object-cover">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 3: Professional Interests -->
+            <div class="page absolute w-full h-full bg-white rounded-l-lg rounded-r-lg book-shadow overflow-hidden">
+                <div class="p-8 h-full flex flex-col">
+                    <h2 class="text-3xl font-bold text-neutral-700 mb-6">Professional Interests</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-neutral-50 p-6 rounded-lg shadow-sm">
+                            <div class="flex items-start">
+                                <div class="bg-primary/10 rounded-full p-3 mr-4">
+                                    <i class="fa-solid fa-code text-primary text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-semibold text-neutral-700">AI & Vibe Coding</h3>
+                                    <p class="text-neutral-600 mt-2">Deep Learning, Python Development</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-neutral-50 p-6 rounded-lg shadow-sm">
+                            <div class="flex items-start">
+                                <div class="bg-secondary/10 rounded-full p-3 mr-4">
+                                    <i class="fa-solid fa-gamepad text-secondary text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-semibold text-neutral-700">Game Development</h3>
+                                    <p class="text-neutral-600 mt-2">Game Design, Unity Development</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-neutral-50 p-6 rounded-lg shadow-sm">
+                            <div class="flex items-start">
+                                <div class="bg-green-100 rounded-full p-3 mr-4">
+                                    <i class="fa-solid fa-chart-line text-green-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-semibold text-neutral-700">Sports</h3>
+                                    <p class="text-neutral-600 mt-2">Volleyball, Badminton, Jogging</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-neutral-50 p-6 rounded-lg shadow-sm">
+                            <div class="flex items-start">
+                                <div class="bg-purple-100 rounded-full p-3 mr-4">
+                                    <i class="fa-solid fa-paintbrush text-purple-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-semibold text-neutral-700">Art & Design</h3>
+                                    <p class="text-neutral-600 mt-2">Digital Art, Character Design</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 4: Courses -->
+            <div class="page absolute w-full h-full bg-white rounded-l-lg rounded-r-lg book-shadow overflow-hidden">
+                <div class="p-8 h-full flex flex-col">
+                    <div class="flex flex-col items-center mb-6">
+                        <h2 class="text-3xl font-bold text-neutral-700 mb-4">Courses</h2>
+                        <img src="img/meme.jpg" alt="Courses" class="h-40 w-40 shadow-lg rounded-lg">
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 overflow-y-auto pr-2">
+                        <div class="bg-neutral-50 p-4 rounded-lg shadow-sm">
+                            <h3 class="text-lg font-semibold text-neutral-700">Probability Theory and Mathematical Statistics</h3>
+                            <p class="text-neutral-600 text-sm mt-1">A1</p>
+                        </div>
+                        <div class="bg-neutral-50 p-4 rounded-lg shadow-sm">
+                            <h3 class="text-lg font-semibold text-neutral-700">Data Structures</h3>
+                            <p class="text-neutral-600 text-sm mt-1">A1</p>
+                        </div>
+                        <div class="bg-neutral-50 p-4 rounded-lg shadow-sm">
+                            <h3 class="text-lg font-semibold text-neutral-700">Advanced Mathematics - 2</h3>
+                            <p class="text-neutral-600 text-sm mt-1">A1</p>
+                        </div>
+                        <div class="bg-neutral-50 p-4 rounded-lg shadow-sm">
+                            <h3 class="text-lg font-semibold text-neutral-700">Introduction to Software Engineering</h3>
+                            <p class="text-neutral-600 text-sm mt-1">A1</p>
+                        </div>
+                        <div class="bg-neutral-50 p-4 rounded-lg shadow-sm">
+                            <h3 class="text-lg font-semibold text-neutral-700">Computer Architecture</h3>
+                            <p class="text-neutral-600 text-sm mt-1">A2</p>
+                        </div>
+                        <div class="bg-neutral-50 p-4 rounded-lg shadow-sm">
+                            <h3 class="text-lg font-semibold text-neutral-700">Object-Oriented Programming</h3>
+                            <p class="text-neutral-600 text-sm mt-1">A2</p>
+                        </div>
+                        <div class="bg-neutral-50 p-4 rounded-lg shadow-sm">
+                            <h3 class="text-lg font-semibold text-neutral-700">Java Programming Language Design</h3>
+                            <p class="text-neutral-600 text-sm mt-1">A2</p>
+                        </div>
+                        <div class="bg-neutral-50 p-4 rounded-lg shadow-sm">
+                            <h3 class="text-lg font-semibold text-neutral-700">Computer Graphics</h3>
+                            <p class="text-neutral-600 text-sm mt-1">Not bad</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 5: Leisure Activity -->
+            <div class="page absolute w-full h-full bg-white rounded-l-lg rounded-r-lg book-shadow overflow-hidden">
+                <div class="p-8 h-full flex flex-col">
+                    <h2 class="text-3xl font-bold text-neutral-700 mb-6">Leisure Activity</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-neutral-50 p-6 rounded-lg shadow-sm">
+                            <div class="flex items-center mb-4">
+                                <i class="fa-solid fa-book text-primary text-2xl mr-4"></i>
+                                <h3 class="text-xl font-semibold text-neutral-700">Reading</h3>
+                            </div>
+                            <p class="text-neutral-600">Poetry, Science Fiction, Philosophy</p>
+                        </div>
+                        <div class="bg-neutral-50 p-6 rounded-lg shadow-sm">
+                            <div class="flex items-center mb-4">
+                                <i class="fa-solid fa-music text-secondary text-2xl mr-4"></i>
+                                <h3 class="text-xl font-semibold text-neutral-700">Music</h3>
+                            </div>
+                            <p class="text-neutral-600">House Music, Handpan Music</p>
+                        </div>
+                        <div class="bg-neutral-50 p-6 rounded-lg shadow-sm">
+                            <div class="flex items-center mb-4">
+                                <i class="fa-solid fa-camera text-green-600 text-2xl mr-4"></i>
+                                <h3 class="text-xl font-semibold text-neutral-700">Diary Writing</h3>
+                            </div>
+                            <p class="text-neutral-600">draw the appearance of the present</p>
+                        </div>
+                        <div class="bg-neutral-50 p-6 rounded-lg shadow-sm">
+                            <div class="flex items-center mb-4">
+                                <i class="fa-solid fa-person-walking text-purple-600 text-2xl mr-4"></i>
+                                <h3 class="text-xl font-semibold text-neutral-700">Walking</h3>
+                            </div>
+                            <p class="text-neutral-600">Long walks, Nature exploration</p>
+                        </div>
+                        <div class="bg-neutral-50 p-6 rounded-lg shadow-sm md:col-span-2">
+                            <div class="flex items-center mb-4">
+                                <i class="fa-solid fa-users text-blue-600 text-2xl mr-4"></i>
+                                <h3 class="text-xl font-semibold text-neutral-700">Meet with Friends</h3>
+                            </div>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+                                <div class="relative group">
+                                    <img src="img/person/3.jpg" alt="Friends gathering" class="w-full h-32 object-cover rounded-lg shadow-sm transition-transform duration-300 group-hover:scale-105">
+                                    <div class="absolute inset-0 bg-black/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                </div>
+                                <div class="relative group">
+                                    <img src="img/person/6.jpg" alt="Friends gathering" class="w-full h-32 object-cover rounded-lg shadow-sm transition-transform duration-300 group-hover:scale-105">
+                                    <div class="absolute inset-0 bg-black/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                </div>
+                                <div class="relative group">
+                                    <img src="img/walk1.jpg" alt="Friends gathering" class="w-full h-32 object-cover rounded-lg shadow-sm transition-transform duration-300 group-hover:scale-105">
+                                    <div class="absolute inset-0 bg-black/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                </div>
+                                
+                                <div class="relative group">
+                                    <img src="img/party.jpg" alt="Friends gathering" class="w-full h-32 object-cover rounded-lg shadow-sm transition-transform duration-300 group-hover:scale-105">
+                                    <div class="absolute inset-0 bg-black/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 6: Achievements -->
+            <div class="page absolute w-full h-full bg-white rounded-l-lg rounded-r-lg book-shadow overflow-hidden">
+                <div class="p-8 h-full flex flex-col">
+                    <h2 class="text-3xl font-bold text-neutral-700 mb-6">Achievements</h2>
+                    <div class="space-y-6 overflow-y-auto pr-2">
+                        <!-- Language Proficiency -->
+                        <div class="bg-neutral-50 p-6 rounded-lg shadow-sm">
+                            <div class="flex items-start">
+                                <div class="bg-primary/10 rounded-full p-3 mr-4">
+                                    <i class="fa-solid fa-language text-primary text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-semibold text-neutral-700">Language Proficiency</h3>
+                                    <p class="text-neutral-600 mt-2">IELTS 7.0 (Academic)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Academic Scholarships -->
+                        <div class="bg-neutral-50 p-6 rounded-lg shadow-sm">
+                            <div class="flex items-start">
+                                <div class="bg-secondary/10 rounded-full p-3 mr-4">
+                                    <i class="fa-solid fa-award text-secondary text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-semibold text-neutral-700">Academic Scholarships</h3>
+                                    <ul class="text-neutral-600 mt-2 space-y-2 list-disc list-inside">
+                                        <li>University of Aberdeen Second-Class Merit Scholarship (2023-2024)</li>
+                                        <li>South China Normal University First-Class Scholarship (2023-2024)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Competition Awards -->
+                        <div class="bg-neutral-50 p-6 rounded-lg shadow-sm">
+                            <div class="flex items-start">
+                                <div class="bg-green-100 rounded-full p-3 mr-4">
+                                    <i class="fa-solid fa-trophy text-green-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-semibold text-neutral-700">Competition Awards</h3>
+                                    <ul class="text-neutral-600 mt-2 space-y-2 list-disc list-inside">
+                                        <li>Provincial First Prize, "Word Master" English Vocabulary Competition (May 2024)</li>
+                                        <li>Provincial First Prize, "Higher Education Press Cup" National Mathematical Modeling Contest (September 2024)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Leadership & Extracurriculars -->
+                        <div class="bg-neutral-50 p-6 rounded-lg shadow-sm">
+                            <div class="flex items-start">
+                                <div class="bg-purple-100 rounded-full p-3 mr-4">
+                                    <i class="fa-solid fa-users text-purple-600 text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-semibold text-neutral-700">Leadership & Extracurriculars</h3>
+                                    <ul class="text-neutral-600 mt-2 space-y-2 list-disc list-inside">
+                                        <li>President, E-Union Game Development Society (2024-Present)</li>
+                                        <li>Member, Championship Team - Nanhai Campus Volleyball League (October 2024)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page 7: Poetry & Contact -->
+            <div class="page absolute w-full h-full bg-white rounded-l-lg rounded-r-lg book-shadow overflow-hidden">
+                <div class="p-8 h-full flex flex-col">
+                    <h2 class="text-3xl font-bold text-neutral-700 mb-6">Contact</h2>
+                    <div class="flex flex-col h-full">
+                        <!-- Poetry Section -->
+                        <div class="flex-1 overflow-y-auto pr-2 mb-6">
+                            <div class="bg-neutral-50 p-6 rounded-lg shadow-sm mb-4">
+                                <!-- 图片部分 -->
+                                <div class="w-full mb-6">
+                                    <img src="img/all.PNG" class="w-full rounded-2xl">
+                                </div>
+                                
+                                <!-- 下方内容区域 -->
+                                <div class="flex justify-between">
+                                    <!-- 左侧联系方式 -->
+                                    <div class="w-1/4">
+                                        <h3 class="text-xl font-semibold text-neutral-700 mb-4">Encounter at</h3>
+                                        <div class="flex flex-col space-y-4">
+                                            <a href="https://github.com/yourusername" class="flex items-center space-x-3 text-neutral-600 hover:text-primary transition-colors">
+                                                <i class="fab fa-github text-2xl"></i>
+                                                <span>@Maybe_later_put_it_here</span>
+                                            </a>
+                                            <a href="mailto:your.email@example.com" class="flex items-center space-x-3 text-neutral-600 hover:text-primary transition-colors">
+                                                <i class="fas fa-envelope text-2xl"></i>
+                                                <span>1950160446@qq.com</span>
+                                            </a>
+                                            <div class="flex items-center space-x-3 text-neutral-600">
+                                                <i class="fab fa-weixin text-2xl"></i>
+                                                <span>WeChat:Maybe_later_put_it_here</span>
+                                            </div>
+                                            <a href="https://weibo.com/yourusername" class="flex items-center space-x-3 text-neutral-600 hover:text-primary transition-colors">
+                                                <i class="fab fa-weibo text-2xl"></i>
+                                                <span>@Maybe_later_put_it_here</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- 右侧诗歌 -->
+                                    <div class="w-2/3 space-y-6 text-neutral-600 flex justify-end">
+                                        <div class="italic w-1/3.5">
+                                            <p class="mb-2">...</p>
+                                            <p class="mb-2"> </p>
+                                            <p class="mb-2"> </p>
+                                            <p class="mb-2">Calm and fire rise</p>
+                                            <p class="mb-2">Both weave the soul's high rhyme</p>
+                                            <p class="mb-2">All flow, no fleet</p>
+                                            <p class="mb-2">Rhythm's feet</p>
+                                            <p class="text-sm text-neutral-500">无关紧要</p>
+                                            <p class="text-sm text-neutral-500">平静与激昂</p>
+                                            <p class="text-sm text-neutral-500">都构建 灵魂的韵节 生命的乐章</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Book Spine -->
+        <div class="book-edge absolute left-0 top-0 h-full rounded-l-lg z-20"></div>
+        
+        <!-- Page Controls -->
+        <div id="page-controls" class="absolute bottom-6 left-0 right-0 flex justify-center space-x-4 z-30">
+            <button id="prev-page" class="bg-white/80 hover:bg-white text-primary w-10 h-10 rounded-full flex items-center justify-center shadow-md transition-all duration-300">
+                <i class="fa-solid fa-angle-left"></i>
+            </button>
+            <div class="flex space-x-2">
+                <span class="page-dot w-3 h-3 rounded-full bg-white opacity-50"></span>
+                <span class="page-dot w-3 h-3 rounded-full bg-white opacity-50"></span>
+                <span class="page-dot w-3 h-3 rounded-full bg-white opacity-50"></span>
+                <span class="page-dot w-3 h-3 rounded-full bg-white opacity-50"></span>
+                <span class="page-dot w-3 h-3 rounded-full bg-white opacity-50"></span>
+                <span class="page-dot w-3 h-3 rounded-full bg-white opacity-50"></span>
+                <span class="page-dot w-3 h-3 rounded-full bg-white opacity-50"></span>
+            </div>
+            <button id="next-page" class="bg-white/80 hover:bg-white text-primary w-10 h-10 rounded-full flex items-center justify-center shadow-md transition-all duration-300">
+                <i class="fa-solid fa-angle-right"></i>
+            </button>
+        </div>
+    </div>
+
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const section = document.querySelector('.page4-section');
-            const modules = document.querySelectorAll('.page4-module');
-            const dots = document.querySelectorAll('.indicator-dot');
-            let currentIndex = 0;
-            let isScrolling = false;
-
-            // 更新页面状态
-            function updatePage(index) {
-                if (index < 0 || index >= modules.length || isScrolling) return;
-                
-                isScrolling = true;
-                currentIndex = index;
-
-                // 更新模块位置
-                section.style.transform = `translateY(-${index * 100}vh)`;
-                
-                // 更新模块激活状态
-                modules.forEach((module, i) => {
-                    if (i === index) {
-                        module.classList.add('active');
-                    } else {
-                        module.classList.remove('active');
-                    }
-                });
-
-                // 更新指示器状态
-                dots.forEach((dot, i) => {
-                    if (i === index) {
-                        dot.classList.add('active');
-                    } else {
-                        dot.classList.remove('active');
-                    }
-                });
-
-                // 动画结束后重置状态
-                setTimeout(() => {
-                    isScrolling = false;
-                }, 800);
-            }
-
-            // 处理滚轮事件
-            function handleWheel(e) {
-                if (isScrolling) return;
-                
-                if (e.deltaY > 0 && currentIndex < modules.length - 1) {
-                    updatePage(currentIndex + 1);
-                } else if (e.deltaY < 0 && currentIndex > 0) {
-                    updatePage(currentIndex - 1);
-                }
-            }
-
-            // 处理指示器点击
-            dots.forEach(dot => {
-                dot.addEventListener('click', () => {
-                    const index = parseInt(dot.dataset.index);
-                    updatePage(index);
-                });
-            });
-
-            // 添加滚轮事件监听
-            window.addEventListener('wheel', handleWheel, { passive: false });
-
-            // 处理触摸事件（移动端支持）
-            let touchStartY = 0;
+        document.addEventListener('DOMContentLoaded', function() {
+            const pages = document.querySelectorAll('.page');
+            const cover = document.getElementById('cover');
+            const prevBtn = document.getElementById('prev-page');
+            const nextBtn = document.getElementById('next-page');
+            const pageDots = document.querySelectorAll('.page-dot');
+            const bookContainer = document.getElementById('book-container');
             
-            window.addEventListener('touchstart', (e) => {
-                touchStartY = e.touches[0].clientY;
+            let currentPage = 0;
+            const totalPages = pages.length;
+            
+            // Initialize page dots
+            pageDots[0].classList.add('opacity-100', 'bg-primary');
+            pages[0].classList.add('active');
+            
+            // Handle cover click to start
+            cover.addEventListener('click', () => {
+                cover.style.display = 'none';
+                pages[0].classList.add('active');
             });
-
-            window.addEventListener('touchmove', (e) => {
-                if (isScrolling) return;
-                
-                const touchEndY = e.touches[0].clientY;
-                const deltaY = touchStartY - touchEndY;
-
-                if (Math.abs(deltaY) > 50) { // 设置一个最小滑动距离
-                    if (deltaY > 0 && currentIndex < modules.length - 1) {
-                        updatePage(currentIndex + 1);
-                    } else if (deltaY < 0 && currentIndex > 0) {
-                        updatePage(currentIndex - 1);
-                    }
-                    touchStartY = touchEndY;
+            
+            // Next page function
+            function nextPage() {
+                if (currentPage < totalPages - 1) {
+                    pages[currentPage].classList.remove('active');
+                    currentPage++;
+                    pages[currentPage].classList.add('active');
+                    updatePageDots();
                 }
+            }
+            
+            // Previous page function
+            function prevPage() {
+                if (currentPage > 0) {
+                    pages[currentPage].classList.remove('active');
+                    currentPage--;
+                    pages[currentPage].classList.add('active');
+                    updatePageDots();
+                }
+            }
+            
+            // Update page dots
+            function updatePageDots() {
+                pageDots.forEach((dot, index) => {
+                    if (index === currentPage) {
+                        dot.classList.add('opacity-100', 'bg-primary');
+                        dot.classList.remove('opacity-50', 'bg-white');
+                    } else {
+                        dot.classList.remove('opacity-100', 'bg-primary');
+                        dot.classList.add('opacity-50', 'bg-white');
+                    }
+                });
+            }
+            
+            // Event listeners
+            nextBtn.addEventListener('click', nextPage);
+            prevBtn.addEventListener('click', prevPage);
+            
+            // Mouse scroll event
+            bookContainer.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                if (e.deltaY > 0) {
+                    nextPage();
+                } else {
+                    prevPage();
+                }
+            }, { passive: false });
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') {
+                    nextPage();
+                } else if (e.key === 'ArrowLeft') {
+                    prevPage();
+                }
+            });
+            
+            // Page dot navigation
+            pageDots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    while (currentPage > index) {
+                        prevPage();
+                    }
+                    while (currentPage < index) {
+                        nextPage();
+                    }
+                });
             });
         });
     </script>
+    <script src="scriptnav.js"></script>
 </body>
 </html> 
