@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Quiz Game</title>
+    <!-- 添加 Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <link rel="stylesheet" href="/styles/base.css">
+    <link rel="stylesheet" href="/styles/OnlineGame_Page/game-theme.css">
+    <link rel="stylesheet" href="/styles/OnlineGame_Page/game.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* 全局字体设置 */
+        * {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        /* 标题字体加粗 */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+        }
+
+        /* 按钮字体 */
+        .btn {
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        /* 输入框字体 */
+        .form-control {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+        }
+
+        /* 游戏相关文字 */
+        .score, .timer, #questionText {
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* 排行榜文字 */
+        .rank-title, .rank-name {
+            font-weight: 600;
+        }
+
+        .rank-stats {
+            font-weight: 400;
+        }
+
+        /* 玩家列表文字 */
+        .player-item h5 {
+            font-weight: 600;
+        }
+
+        .player-stats {
+            font-weight: 400;
+        }
+
+        /* 全局样式 */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .game-container {
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            background: linear-gradient(90deg, hwb(253 9% 24%), rgb(5, 23, 125));
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* 游戏大厅容器样式 */
+        #lobbySection {
+            min-height: 100vh;
+            padding: 20px 30px 20px 20px;
+            overflow-x: hidden;
+        }
+
+        /* 左侧栏样式 */
+        .left-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-height: calc(100vh - 40px);
+        }
+
+        /* 排行榜样式 */
+        .rank-board {
+            background: var(--bg-white, #ffffff);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .rank-board:first-child {
+            height: 60%;
+        }
+
+        .rank-board:last-child {
+            height: calc(40% - 20px);
+        }
+
+        /* 列表容器样式 */
+        .rank-list, .stats-list {
+            height: calc(100% - 60px);
+            overflow-y: auto;
+            padding-right: 5px;
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* 自定义滚动条 */
+        .rank-list::-webkit-scrollbar, 
+        .stats-list::-webkit-scrollbar,
+        .player-list::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .rank-list::-webkit-scrollbar-track,
+        .stats-list::-webkit-scrollbar-track,
+        .player-list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .rank-list::-webkit-scrollbar-thumb,
+        .stats-list::-webkit-scrollbar-thumb,
+        .player-list::-webkit-scrollbar-thumb {
+            background-color: var(--primary-blue, #0066ff);
+            border-radius: 2px;
+        }
+
+        /* 列表项样式 */
+        .rank-item, .stats-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: linear-gradient(to right, rgba(0, 47, 167, 0.05), rgba(0, 191, 255, 0.05));
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .rank-item:hover, .stats-item:hover {
+            transform: translateX(5px);
+            background: linear-gradient(to right, rgba(0, 47, 167, 0.1), rgba(0, 191, 255, 0.1));
+        }
+
+        .stats-label {
+            font-weight: 600;
+            color: var(--primary-blue, #0066ff);
+            margin-right: 1rem;
+            min-width: 80px;
+        }
+
+        .stats-value {
+            color: var(--text-secondary, #666666);
+            margin-left: auto;
+            font-weight: 500;
+        }
+
+        /* 在线玩家列表容器样式 */
+        .players-board {
+            background: var(--bg-white, #ffffff);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            height: calc(100vh - 40px);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .players-board h3 {
+            color: var(--primary-blue, #0066ff);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .player-list {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            padding: 10px;
+            min-height: 0;
+            pointer-events: none; /* 禁止鼠标滚轮和拖动 */
+        }
+
+        /* 玩家条目样式优化 */
+        .player-item {
+            pointer-events: auto; /* 允许卡片内按钮点击 */
+            margin-bottom: 0;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background: linear-gradient(to right, rgba(0, 47, 167, 0.05), rgba(0, 191, 255, 0.05));
+            border: none;
+            height: 100%;
+        }
+
+        .player-item-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .player-info {
+            flex: 1;
+            min-width: 0; /* 防止文本溢出 */
+        }
+
+        .player-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--primary-blue, #0066ff);
+            margin-bottom: 2px;
+        }
+
+        .player-stats {
+            font-size: 0.8rem;
+            color: var(--text-secondary, #666666);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .challenge-btn {
+            padding: 4px 12px;
+            font-size: 0.85rem;
+            border-radius: 6px;
+            background: linear-gradient(135deg, var(--primary-blue, #0066ff), var(--secondary-blue, #0099ff));
+            color: white;
+            border: none;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        .challenge-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0, 102, 255, 0.3);
+        }
+
+        /* 游戏邀请样式 */
+        #challengeRequests {
+            position: fixed;
+            bottom: 20px;
+            right: 50px;
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+            z-index: 1000;
+        }
+
+        .fade-out {
+            opacity: 0 !important;
+            transform: translateY(-10px) !important;
+        }
+
+        .new-request {
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 游戏界面样式 */
+        #gameSection {
+            padding: 20px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .question-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        #answerOptions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        #answerOptions .btn {
+            padding: 12px 20px;
+            font-size: 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        #answerOptions .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 游戏结果界面样式 */
+        #gameResultSection {
+            padding: 40px 20px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stats-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            #lobbySection {
+                padding: 10px;
+            }
+
+            .left-column {
+                margin-bottom: 20px;
+            }
+
+            .rank-board:first-child,
+            .rank-board:last-child {
+                height: auto;
+                max-height: 300px;
+            }
+
+            .players-board {
+                height: auto;
+                max-height: calc(100vh - 40px);
+            }
+
+            .player-list {
+                max-height: calc(100vh - 200px);
+            }
+
+            .player-item-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .challenge-btn {
+                margin-top: 10px;
+                width: 100%;
+            }
+
+            #answerOptions {
+                grid-template-columns: 1fr;
+            }
+
+            .timer {
+                font-size: 2rem;
+                padding: 8px 16px;
+            }
+
+            .score {
+                font-size: 0.9rem;
+            }
+
+            #challengeRequests {
+                right: 20px;
+                left: 20px;
+                bottom: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .rank-item, .stats-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .stats-value {
+                margin-left: 0;
+                margin-top: 5px;
+            }
+
+            .player-name {
+                font-size: 0.9rem;
+            }
+
+            .player-stats {
+                font-size: 0.75rem;
+            }
+
+            .timer {
+                font-size: 1.8rem;
+                padding: 6px 12px;
+            }
+
+            .score {
+                font-size: 0.8rem;
+            }
+
+            #gameResultSection {
+                padding: 20px 10px;
+            }
+
+            .stats-card {
+                padding: 15px;
+            }
+        }
+
+        /* 登录界面响应式 */
+        @media (max-width: 768px) {
+            .login-image-section {
+                display: none;
+            }
+
+            .login-section {
+                width: 100%;
+                padding: 20px;
+            }
+
+            .pixel-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="side-nav">
+        <div class="side-nav-content">
+            <a href="homepage.html"><i class="fas fa-home"></i>Homepage</a>
+            <a href="AboutMe.html"><i class="fas fa-laptop-code"></i>About Me</a>
+            <a href="Artworks_Wings.html"><i class="fas fa-palette"></i>Artworks-Wings</a>
+            <a href="OnlineGame.html"><i class="fas fa-gamepad"></i>Online Game</a>
+            <a href="Mytrace.html"><i class="fas fa-history"></i>My Trace</a>
+        </div>
+    </div>
+
+    <!-- Login Container -->
+    <div class="container" id="loginContainer">
+        <!-- Left Image Section -->
+        <div class="login-image-section"><img src="/img/star.png" alt="Login Image"></div>
+        
+        <!-- Right Login Section -->
+        <div class="login-section">
+            <div id="loginSection">
+            <h2>Welcome to Online Quiz Game</h2>
+            <div class="mb-3">
+                <input type="text" id="playerName" class="form-control" placeholder="Enter your name">
+                <button class="pixel-button">
+                    <span class="button-text">Enter Game</span>
+                    <div class="pixel-glow"></div>
+                </button>
+            </div>
+            <div id="loginError" class="alert alert-danger hidden"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Game Container -->
+    <div class="game-container hidden">
+        <!-- Game Lobby -->
+        <div id="lobbySection" class="hidden">
+            <div class="row">
+                <!-- Left Column (Rankings and Personal Stats) -->
+                <div class="col-md-3">
+                    <div class="left-column">
+                        <!-- Rankings Section -->
+                        <div class="rank-board mb-4">
+                            <h4 class="rank-title">Rankings</h4>
+                            <div class="rank-list" id="rankList">
+                                <!-- Rankings content will be dynamically generated -->
+                            </div>
+                        </div>
+                        <!-- Personal Statistics -->
+                        <div class="rank-board">
+                            <h4 class="rank-title">Personal Stats</h4>
+                            <div class="stats-list" id="personalStats">
+                                <!-- Personal stats will be dynamically generated -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Online Players List -->
+                <div class="col-md-9">
+                    <div class="players-board">
+                        <h3>Online Players</h3>
+                        <div id="playersList" class="list-group player-list"></div>
+                        <div id="challengeRequests" class="alert alert-info mt-3 hidden">
+                            <h4>Game Invitation</h4>
+                            <div id="requestContent"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Interface -->
+        <div id="gameSection" class="hidden">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="d-flex justify-content-between mb-3">
+                        <div id="player1Score" class="score">Player 1: 0 points</div>
+                        <div class="timer" id="timer">10</div>
+                        <div id="player2Score" class="score">Player 2: 0 points</div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h4 id="questionText" class="card-title"></h4>
+                            <img id="questionImage" class="question-image hidden" src="" alt="Question Image">
+                            <div id="answerOptions" class="mt-3">
+                                <!-- Answer options will be dynamically generated -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="roundResult" class="alert mt-3 hidden"></div>
+        </div>
+
+        <!-- Game Result Interface -->
+        <div id="gameResultSection" class="hidden text-center">
+           
+            <div id="finalResult" class="mt-3"></div>
+            <div id="updatedStats" class="stats-card mt-3"></div>
+            <button id="returnToLobby" class="btn btn-primary mt-3">Return to Lobby</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script>
+        // 连接Socket.IO服务器
+        const socket = io('http://localhost:3000');
+        
+        // 添加连接状态处理
+        socket.on('connect', () => {
+            console.log('已连接到服务器');
+        });
+
+        socket.on('connect_error', (error) => {
+            console.error('连接服务器失败:', error);
+            alert('无法连接到游戏服务器，请确保服务器已启动');
+        });
+        
+        // DOM元素
+        const loginSection = document.getElementById('loginSection');
+        const lobbySection = document.getElementById('lobbySection');
+        const gameSection = document.getElementById('gameSection');
+        const gameResultSection = document.getElementById('gameResultSection');
+        const loginError = document.getElementById('loginError');
+        
+        // 玩家信息
+        let currentPlayer = null;
+        let currentGame = null;
+        let personalStats = null;
+        
+        // 登录功能
+        document.querySelector('.pixel-button').addEventListener('click', () => {
+            const name = document.getElementById('playerName').value.trim();
+            if (name) {
+                // 发送登录事件
+                socket.emit('login', name);
+            } else {
+                loginError.textContent = 'Please enter your name';
+                loginError.classList.remove('hidden');
+            }
+        });
+
+        // 处理登录响应
+        socket.on('loginResponse', (response) => {
+            if (response.success) {
+                // 将玩家名字存储在 localStorage 中
+                localStorage.setItem('playerName', name);
+                // 隐藏登录容器，显示游戏大厅
+                document.getElementById('loginContainer').classList.add('hidden');
+                document.querySelector('.game-container').classList.remove('hidden');
+                document.getElementById('lobbySection').classList.remove('hidden');
+                personalStats = response.stats;
+                updatePersonalStats();
+            } else {
+                loginError.textContent = response.error;
+                loginError.classList.remove('hidden');
+            }
+        });
+
+        // 更新个人统计信息
+        function updatePersonalStats() {
+            const statsDiv = document.getElementById('personalStats');
+            if (personalStats) {
+                statsDiv.innerHTML = `
+                    <div class="stats-item">
+                        <span class="stats-label">Total Games</span>
+                        <span class="stats-value">${personalStats.totalGames}</span>
+                    </div>
+                    <div class="stats-item">
+                        <span class="stats-label">Wins</span>
+                        <span class="stats-value">${personalStats.gamesWon}</span>
+                    </div>
+                    <div class="stats-item">
+                        <span class="stats-label">Win Rate</span>
+                        <span class="stats-value">${personalStats.winRate}%</span>
+                    </div>
+                    <div class="stats-item">
+                        <span class="stats-label">Avg Score</span>
+                        <span class="stats-value">${personalStats.averageScore}</span>
+                    </div>
+                    <div class="stats-item">
+                        <span class="stats-label">Last Game</span>
+                        <span class="stats-value">${new Date(personalStats.lastPlayed).toLocaleString()}</span>
+                    </div>
+                `;
+            }
+        }
+
+        // 更新排行榜
+        socket.on('rankList', (players) => {
+            const rankList = document.getElementById('rankList');
+            const sortedPlayers = players.sort((a, b) => {
+                const winRateA = a.stats ? a.stats.winRate : 0;
+                const winRateB = b.stats ? b.stats.winRate : 0;
+                return winRateB - winRateA;
+            });
+
+            rankList.innerHTML = '';
+            sortedPlayers.forEach((player, index) => {
+                if (player.stats) {
+                    const rankItem = document.createElement('div');
+                    rankItem.className = 'rank-item';
+                    rankItem.style.setProperty('--rank-index', index);
+                    
+                    const position = index + 1;
+                    const positionClass = position <= 3 ? `rank-position-${position}` : '';
+                    
+                    rankItem.innerHTML = `
+                        <div class="rank-position ${positionClass}">${position}</div>
+                        <div class="rank-info">
+                            <div class="rank-name">${player.name}</div>
+                            <div class="rank-stats">
+                                Games: ${player.stats.totalGames} | 
+                                Wins: ${player.stats.gamesWon}
+                            </div>
+                        </div>
+                        <div class="rank-winrate">${player.stats.winRate}%</div>
+                    `;
+                    rankList.appendChild(rankItem);
+                }
+            });
+        });
+
+        // 更新玩家列表
+        socket.on('playersList', (players) => {
+            const playersList = document.getElementById('playersList');
+            playersList.innerHTML = '';
+            playersList.style.display = 'grid';
+            playersList.style.gridTemplateColumns = 'repeat(2, 1fr)';
+            playersList.style.gap = '10px';
+            playersList.style.padding = '10px';
+            
+            players.forEach(player => {
+                const div = document.createElement('div');
+                div.className = 'list-group-item player-item';
+                div.innerHTML = `
+                    <div class="player-item-content">
+                        <div class="player-info">
+                            <div class="player-name">${player.name}</div>
+                            ${player.stats ? `
+                                <div class="player-stats">
+                                    Win Rate: ${player.stats.winRate}% | 
+                                    Games: ${player.stats.totalGames} | 
+                                    Avg Score: ${player.stats.averageScore}
+                                </div>
+                            ` : ''}
+                        </div>
+                        <button class="challenge-btn" onclick="socket.emit('challengePlayer', '${player.name}')">
+                            Challenge
+                        </button>
+                    </div>
+                `;
+                playersList.appendChild(div);
+            });
+        });
+
+        // 处理游戏邀请
+        socket.on('challengeRequest', (challenger) => {
+            const requestsSection = document.getElementById('challengeRequests');
+            const requestContent = document.getElementById('requestContent');
+            requestsSection.classList.remove('hidden');
+            requestContent.innerHTML = `
+                <p>${challenger} has challenged you to a game</p>
+                <div class="button-group">
+                    <button class="btn btn-success" onclick="acceptChallenge('${challenger}')">Accept</button>
+                    <button class="btn btn-danger" onclick="rejectChallenge('${challenger}')">Decline</button>
+                </div>
+            `;
+            
+            requestsSection.classList.add('new-request');
+            setTimeout(() => {
+                requestsSection.classList.remove('new-request');
+            }, 500);
+        });
+
+        // 接受挑战
+        function acceptChallenge(challenger) {
+            socket.emit('acceptChallenge', challenger);
+            clearChallengeRequests();
+        }
+
+        // 拒绝挑战
+        function rejectChallenge(challenger) {
+            const requestsSection = document.getElementById('challengeRequests');
+            requestsSection.classList.add('fade-out');
+            
+            setTimeout(() => {
+                socket.emit('rejectChallenge', challenger);
+                requestsSection.classList.remove('fade-out');
+                clearChallengeRequests();
+            }, 300);
+        }
+
+        // 清除游戏邀请
+        function clearChallengeRequests() {
+            const requestsSection = document.getElementById('challengeRequests');
+            const requestContent = document.getElementById('requestContent');
+            requestsSection.classList.add('hidden');
+            requestContent.innerHTML = '';
+        }
+
+        // 开始游戏
+        socket.on('gameStart', (gameData) => {
+            console.log('收到游戏开始事件:', gameData);
+            
+            if (!gameData || !gameData.currentQuestion) {
+                console.error('游戏数据无效:', gameData);
+                return;
+            }
+            
+            currentGame = gameData;
+            console.log('切换到游戏界面');
+            lobbySection.classList.add('hidden');
+            gameSection.classList.remove('hidden');
+            clearChallengeRequests();
+            
+            // 隐藏侧边导航栏
+            document.querySelector('.side-nav').style.display = 'none';
+            
+            console.log('更新分数和问题');
+            updateScores(gameData.scores);
+            showQuestion(gameData.currentQuestion);
+            
+            // 重置计时器显示
+            const timerElement = document.getElementById('timer');
+            if (timerElement) {
+                timerElement.textContent = '10';
+                console.log('计时器已重置');
+            } else {
+                console.error('找不到计时器元素');
+            }
+        });
+
+        // 显示问题
+        function showQuestion(question) {
+            console.log('显示问题:', question);
+            const questionText = document.getElementById('questionText');
+            const answerOptions = document.getElementById('answerOptions');
+            const questionImage = document.getElementById('questionImage');
+            
+            if (!questionText || !answerOptions || !questionImage) {
+                console.error('找不到问题相关元素');
+                return;
+            }
+            
+            questionText.textContent = question.text;
+            
+            if (question.image) {
+                questionImage.src = question.image;
+                questionImage.classList.remove('hidden');
+            } else {
+                questionImage.classList.add('hidden');
+            }
+
+            answerOptions.innerHTML = '';
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'btn btn-outline-primary m-2';
+                button.textContent = option;
+                button.onclick = () => {
+                    console.log('提交答案:', index);
+                    socket.emit('submitAnswer', index);
+                };
+                answerOptions.appendChild(button);
+            });
+        }
+
+        // 更新分数
+        function updateScores(scores) {
+            document.getElementById('player1Score').textContent = `${scores.player1.name}: ${scores.player1.score} points`;
+            document.getElementById('player2Score').textContent = `${scores.player2.name}: ${scores.player2.score} points`;
+        }
+
+        // 显示回合结果
+        socket.on('roundResult', (result) => {
+            const roundResult = document.getElementById('roundResult');
+            roundResult.textContent = result.message;
+            roundResult.className = `alert mt-3 alert-${result.correct ? 'success' : 'danger'}`;
+            roundResult.classList.remove('hidden');
+            updateScores(result.scores);
+            
+            setTimeout(() => {
+                roundResult.classList.add('hidden');
+            }, 5000);
+        });
+
+        // 游戏结束
+        socket.on('gameEnd', (result) => {
+            gameSection.classList.add('hidden');
+            gameResultSection.classList.remove('hidden');
+            clearChallengeRequests();
+            document.getElementById('finalResult').innerHTML = `
+                <h4 style="color: white;">Game Over</h4>
+                ${result.winner === currentPlayer ? 
+                    `<p style="color: white; font-size: 1.2rem; margin: 15px 0;">You won, congratulations!</p>` : 
+                    `<p style="color: white;">${result.winner} wins the game!</p>`
+                }
+                <p style="color: white;">Final Score:</p>
+                <p style="color: white;">${result.scores.player1.name}: ${result.scores.player1.score} points</p>
+                <p style="color: white;">${result.scores.player2.name}: ${result.scores.player2.score} points</p>
+            `;
+            
+            if (result.stats) {
+                personalStats = result.stats;
+                document.getElementById('updatedStats').innerHTML = `
+                    <h5 style="color: white;">Latest Stats</h5>
+                    <p style="color: white;">Total Games: ${result.stats.totalGames}</p>
+                    <p style="color: white;">Wins: ${result.stats.gamesWon}</p>
+                    <p style="color: white;">Win Rate: ${result.stats.winRate}%</p>
+                    <p style="color: white;">Average Score: ${result.stats.averageScore}</p>
+                `;
+                document.getElementById('updatedStats').className = '';
+            }
+        });
+
+        // 返回大厅
+        document.getElementById('returnToLobby').addEventListener('click', () => {
+            gameResultSection.classList.add('hidden');
+            lobbySection.classList.remove('hidden');
+            clearChallengeRequests();
+            updatePersonalStats();
+            socket.emit('returnToLobby');
+            
+            // 显示侧边导航栏
+            document.querySelector('.side-nav').style.display = 'block';
+        });
+
+        // 计时器更新
+        socket.on('timer', (time) => {
+            console.log('收到计时器更新:', time);
+            const timerElement = document.getElementById('timer');
+            if (timerElement) {
+                // 更新数字
+                timerElement.textContent = time;
+                
+                // 添加动画效果
+                timerElement.style.animation = 'none';
+                void timerElement.offsetWidth; // 触发重绘
+                timerElement.style.animation = 'pulse 1s infinite';
+                
+                // 根据剩余时间改变颜色
+                if (time <= 3) {
+                    timerElement.style.color = '#ff4444';
+                } else if (time <= 5) {
+                    timerElement.style.color = '#ffaa00';
+                } else {
+                    timerElement.style.color = 'var(--accent-purple)';
+                }
+            } else {
+                console.error('找不到计时器元素');
+            }
+        });
+
+        // 对手离开
+        socket.on('opponentLeft', () => {
+            const roundResult = document.getElementById('roundResult');
+            roundResult.textContent = "对手已离开游戏";
+            roundResult.className = "alert mt-3 alert-warning";
+            roundResult.classList.remove('hidden');
+            clearChallengeRequests(); // 清除游戏邀请
+        });
+
+        // 处理挑战被拒绝
+        socket.on('challengeRejected', (playerName) => {
+            const requestsSection = document.getElementById('challengeRequests');
+            const requestContent = document.getElementById('requestContent');
+            
+            requestsSection.classList.remove('hidden');
+            requestContent.innerHTML = `
+                <p>${playerName} declined your invitation</p>
+            `;
+            
+            // 添加新消息动画
+            requestsSection.classList.add('new-request');
+            setTimeout(() => {
+                requestsSection.classList.remove('new-request');
+            }, 500);
+
+            // 5秒后自动隐藏消息
+            setTimeout(() => {
+                clearChallengeRequests();
+            }, 5000);
+        });
+    </script>
+    <script src="/scripts/scriptnav.js"></script>
+    <script src="/scripts/rolling.js"></script>
+</body>
+</html> 

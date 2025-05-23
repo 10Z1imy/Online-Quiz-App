@@ -1,0 +1,357 @@
+/* 第二页布局样式 */
+.page2-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr 1fr;
+    height: 100vh;
+    width: 100%;
+    padding: 90px;
+    gap: 20px;
+    align-items: start; /* 确保内容从顶部开始对齐 */
+}
+
+.contact-section {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.bottom-section {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: start; /* 确保从顶部开始对齐 */
+}
+
+.bottom-section .section-content {
+    height: 100%;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+.archives-section {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    height: calc(100vh - 180px);
+    overflow: hidden;
+}
+
+.archives-section .section-content {
+    height: 100%;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* 防止内容溢出 */
+}
+
+/* 联系信息区域样式 */
+.contact-section h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.contact-item i {
+    font-size: 1.4rem;
+    color: #4a90e2;
+}
+
+.contact-item span {
+    font-size: 1rem;
+    color: #333;
+}
+
+/* 档案区域样式 */
+.profile {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    background: linear-gradient(to bottom, #0a192f, #0a192f);
+    padding: 2rem;
+    border: 1px solid #1a3a5f;
+    position: relative;
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #64ffda #0a192f;
+    border-radius: 12px;
+    max-height: calc(100% - 35px); /* 限制最大高度，留出底部间距 */
+}
+
+/* Webkit浏览器的滚动条样式 */
+.profile::-webkit-scrollbar {
+    width: 8px;
+}
+
+.profile::-webkit-scrollbar-track {
+    background: #301277;
+    border-radius: 4px;
+}
+
+.profile::-webkit-scrollbar-thumb {
+    background: hwb(178 46% 16% / 0.933);
+    border-radius: 4px;
+}
+
+.profile::-webkit-scrollbar-thumb:hover {
+    background: hsl(180, 48%, 60%);
+}
+
+.profile-image {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    width: 200px; /* 调整头像大小 */
+    margin: 0;
+}
+
+.profile-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px; /* 稍微圆角 */
+    border: 2px solid #1a3a5f;
+}
+
+.profile-info {
+    flex: 1;
+    margin-right: 220px;
+    padding-top: 0;
+    padding-bottom: 2rem; /* 添加底部padding确保内容完全可见 */
+}
+
+.profile-info h3 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 0px;
+}
+
+.profile-info p {
+    font-size: 1.1rem;
+    color: #666;
+    line-height: 1.8;
+}
+
+/* 技能展示区域 */
+.skills {
+    margin-top: 30px;
+}
+
+.skills h4 {
+    font-size: 1.4rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.skills ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.skills li {
+    background: rgba(0, 0, 0, 0.03);
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 1rem;
+    color: #333;
+}
+
+/* 响应式设计 */
+@media (max-width: 1366px) {
+    .archives-section {
+        height: calc(100vh - 140px);
+    }
+    
+    .archives-section .section-content {
+        padding: 20px;
+    }
+    
+    .profile-image {
+        width: 180px;
+    }
+    
+    .profile-info {
+        margin-right: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .archives-section {
+        height: auto;
+        max-height: 80vh;
+    }
+    
+    .archives-section .section-content {
+        padding: 15px;
+    }
+    
+    .profile {
+        flex-direction: column;
+    }
+    
+    .profile-image {
+        position: relative;
+        top: 0;
+        right: 0;
+        width: 150px;
+        margin: 0 auto 2rem;
+    }
+    
+    .profile-info {
+        margin-right: 0;
+    }
+}
+
+/* 深色模式适配 */
+@media (prefers-color-scheme: dark) {
+    .contact-section .section-content,
+    .bottom-section .section-content,
+    .archives-section .section-content {
+        background: hsl(239, 68%, 43%);  /* 深蓝色背景 */
+    }
+
+    .contact-section h2,
+    .profile-info h3,
+    .skills h4 {
+        color: hsl(178, 100%, 70%);  /* 青蓝色标题 */
+    }
+
+    .contact-item,
+    .skills li {
+        background: hsla(249, 73%, 55%, 0.502);  /* 深蓝色半透明背景 */
+    }
+
+    .contact-item span,
+    .profile-info p {
+        color: hwb(225 66% 18%);  /* 浅灰蓝色文字 */
+    }
+}
+
+.archive-title {
+    font-family: 'Courier New', monospace;
+    color: hsl(182, 81%, 45%);  /* 青蓝色标题 */
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    border-bottom: 2px solid #53e8d9;
+    padding-bottom: 0.5rem;
+}
+
+.profile-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid hsl(243, 43%, 31%);
+}
+
+.subject-id {
+    font-family: 'Courier New', monospace;
+    color: #64ffda;  /* 青蓝色ID */
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.status-indicator {
+    background: hsl(173, 43%, 73%);  /* 青蓝色状态指示器 */
+    color: rgb(56, 47, 156);
+    padding: 0.5rem 1rem;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.profile-details {
+    font-family: 'Courier New', monospace;
+    margin-top: 1rem;
+}
+
+.detail-group {
+    margin-bottom: 1.5rem;
+    background: hsla(259, 40%, 55%, 0.302); /* 添加轻微背景 */
+    padding: 1rem;
+    border-radius: 4px;
+}
+
+.detail-group label {
+    color: #64ffda;  /* 青蓝色标签 */
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.detail-group p {
+    color: hsl(224, 59%, 89%);  /* 浅灰蓝色文字 */
+    margin: 0;
+    line-height: 1.6;
+}
+
+.traits-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.traits-list li {
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    font-weight: 500;
+    position: relative;
+    color: hwb(225 66% 18%);
+}
+
+.traits-list li::before {
+    content: ">";
+    color: #64ffda;  /* 青蓝色箭头 */
+    position: absolute;
+    left: 0;
+}
+
+.image-frame {
+    position: relative;
+    border: 2px solid hsl(212, 45%, 58%);  /* 深蓝色边框 */
+    padding: 0.5rem;
+    background: hsl(161, 27%, 73%);  /* 深蓝色背景 */
+}
+
+.image-frame img {
+    width: 100%;
+    height: auto;
+    display: block;
+    /* 移除滤镜效果，保持原色 */
+}
+
+.image-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(12, 10, 47, 0.9);  /* 深蓝色半透明背景 */
+    color: #64ffda;  /* 青蓝色文字 */
+    padding: 0.5rem;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+

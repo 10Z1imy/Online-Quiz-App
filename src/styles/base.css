@@ -1,4 +1,14 @@
-/* 全局样式 */
+/* 这里是全局样式 
+
+1. 侧边导航栏
+2. 背景底色
+
+
+
+
+
+
+*/
 * {
     margin: 0;
     padding: 0;
@@ -65,7 +75,7 @@ body {
 .side-nav-content a {
     display: block;
     padding: 1rem 2rem;
-    color: rgb(209, 184, 255);
+    color: #67fcff;
     text-decoration: none;
     transition: all 0.3s ease;
     position: relative;

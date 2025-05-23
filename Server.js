@@ -6,102 +6,101 @@ const path = require('path');
 const mongoose = require('mongoose');
 const Player = require('./models/Player');
 
-// 设置 Mongoose strictQuery 选项
+// Set Mongoose strictQuery option
 mongoose.set('strictQuery', false);
 
-// 连接MongoDB
+// Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/quiz_game', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
-    console.log('MongoDB连接成功');
+    console.log('MongoDB connection successful');
 }).catch(err => {
-    console.error('MongoDB连接失败:', err);
+    console.error('MongoDB connection failed:', err);
 });
 
-// 服务静态文件
-app.use(express.static(path.join(__dirname)));
+// Serve static files
+app.use('/styles', express.static(path.join(__dirname, 'src/styles')));
+app.use('/scripts', express.static(path.join(__dirname, 'src/scripts')));
+app.use('/img', express.static(path.join(__dirname, 'src/assets/img')));
+app.use('/music', express.static(path.join(__dirname, 'src/assets/music')));
 app.use('/public', express.static(path.join(__dirname, 'public')));
-app.use('/img', express.static(path.join(__dirname, 'img')));
-app.use('/music', express.static(path.join(__dirname, 'music')));
+app.use(express.static(path.join(__dirname, 'src/html')));
 
-
-// 设置路由
+// Set routes
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, 'src/html/Homepage.html'));
 });
 
 app.get('/game', (req, res) => {
-    res.sendFile(path.join(__dirname, 'page3.html'));
+    res.sendFile(path.join(__dirname, 'src/html/OnlineGame.html'));
 });
 
-// 确保其他页面也能正确路由
 app.get('/wings', (req, res) => {
-    res.sendFile(path.join(__dirname, 'wings.html'));
+    res.sendFile(path.join(__dirname, 'src/html/Artworks_Wings.html'));
 });
 
 app.get('/page4', (req, res) => {
-    res.sendFile(path.join(__dirname, 'page4.html'));
+    res.sendFile(path.join(__dirname, 'src/html/AboutMe.html'));
 });
 
+app.get('/mytrace', (req, res) => {
+    res.sendFile(path.join(__dirname, 'src/html/Mytrace.html'));
+});
 
-
-// 处理404错误
+// Handle 404 errors
 app.use((req, res) => {
-    res.status(404).sendFile(path.join(__dirname, 'index.html'));
+    res.status(404).sendFile(path.join(__dirname, 'src/html/Homepage.html'));
 });
 
-// 游戏配置
-const QUESTION_TIME = 10; // 每个问题的答题时间（秒）
-const BREAK_TIME = 5; // 问题之间的休息时间（秒）
-const POINTS_CORRECT_FIRST = 2; // 第一个答对的玩家得分
-const POINTS_CORRECT_SECOND = 1; // 第二个答对的玩家得分
-const POINTS_WRONG = 0; // 答错得分
+// Game configuration
+const QUESTION_TIME = 10; // Time for each question (seconds)
+const BREAK_TIME = 5; // Break time between questions (seconds)
+const POINTS_CORRECT_FIRST = 2; // Points for first correct answer
+const POINTS_CORRECT_SECOND = 1; // Points for second correct answer
+const POINTS_WRONG = 0; // Points for wrong answer
 
-// 问题库 - 世界各国国旗主题
+// Question bank - World Flags Theme
 const questions = [
     {
-        text: "这是哪个国家的国旗？",
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Flag_of_the_People%27s_Republic_of_China.svg/800px-Flag_of_the_People%27s_Republic_of_China.svg.png",
-        options: ["中国", "越南", "苏联", "朝鲜"],
+        text: " Why we name 'Deep' learning ? ",
+        
+        options: ["A.Large quantity of nn layers", "B.Black box question", "C.Long time to train", "D.All of above"],
         correctAnswer: 0
     },
     {
-        text: "这是哪个国家的国旗？",
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Flag_of_Japan.svg/800px-Flag_of_Japan.svg.png",
-        options: ["韩国", "日本", "老挝", "新加坡"],
+        text: "To be or not to be, this is a ____.",
+        options: ["Problem", "Question", "joke", "dilemma"],
         correctAnswer: 1
     },
     {
-        text: "这是哪个国家的国旗？",
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Flag_of_South_Korea.svg/800px-Flag_of_South_Korea.svg.png",
-        options: ["朝鲜", "日本", "韩国", "蒙古"],
+        text: "🎵 Do you wanna build a ______ ? 🎵",
+        options: ["band", "house", "Snowman", "transfomer"],
         correctAnswer: 2
     },
     {
-        text: "这是哪个国家的国旗？",
+        text: "Which country's flag is this?",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Flag_of_Germany.svg/800px-Flag_of_Germany.svg.png",
-        options: ["比利时", "德国", "荷兰", "法国"],
+        options: ["Belgium", "Germany", "Netherlands", "France"],
         correctAnswer: 1
     },
     {
-        text: "这是哪个国家的国旗？",
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Flag_of_the_United_States.svg/800px-Flag_of_the_United_States.svg.png",
-        options: ["英国", "澳大利亚", "新西兰", "美国"],
-        correctAnswer: 3
+        text: "What is the capital of France?",
+        options: ["Paris", "London", "Berlin", "Madrid"],
+        correctAnswer: 0
     }
 ];
 
-// 在线玩家管理
+// Online players management
 const onlinePlayers = new Map(); // socket.id -> playerName
 const playerSockets = new Map(); // playerName -> socket.id
 
-// 游戏会话管理
+// Game session management
 const activeGames = new Map(); // gameId -> gameState
 const playerGames = new Map(); // playerName -> gameId
 
-// 广播在线玩家列表
-async function broadcastPlayersList() {
+// Broadcast online players list
+async function broadcastPlayerList() {
     const players = Array.from(onlinePlayers.values());
     const playersData = await Promise.all(players.map(async (playerName) => {
         const player = await Player.findOne({ name: playerName });
@@ -110,10 +109,18 @@ async function broadcastPlayersList() {
             stats: player ? player.getStats() : null
         };
     }));
-    io.emit('playersList', playersData);
+
+    // 向每个玩家广播其他玩家的列表（不包含自己）
+    onlinePlayers.forEach((playerName, socketId) => {
+        const otherPlayers = playersData.filter(p => p.name !== playerName);
+        // 发送在线玩家列表（不包含自己）
+        io.to(socketId).emit('playersList', otherPlayers);
+        // 发送完整排行榜（包含所有玩家）
+        io.to(socketId).emit('rankList', playersData);
+    });
 }
 
-// 创建新游戏
+// Create new game
 function createGame(player1, player2) {
     const gameId = `${player1}_vs_${player2}`;
     const gameState = {
@@ -135,22 +142,22 @@ function createGame(player1, player2) {
     return gameId;
 }
 
-// 开始新问题
+// Start new question
 function startNewQuestion(gameId) {
-    console.log('开始新问题，游戏ID:', gameId);
+    console.log('Starting new question, Game ID:', gameId);
     const game = activeGames.get(gameId);
     if (!game) {
-        console.log('游戏不存在:', gameId);
+        console.log('Game does not exist:', gameId);
         return;
     }
     
     if (game.currentQuestionIndex >= questions.length) {
-        console.log('问题已用完，结束游戏');
+        console.log('Questions exhausted, ending game');
         endGame(gameId);
         return;
     }
 
-    console.log('游戏状态:', {
+    console.log('Game status:', {
         status: game.status,
         currentQuestionIndex: game.currentQuestionIndex,
         players: game.players
@@ -160,10 +167,10 @@ function startNewQuestion(gameId) {
     game.answers.clear();
     const question = questions[game.currentQuestionIndex];
     
-    // 向两个玩家发送问题
+    // Send question to both players
     game.players.forEach(playerName => {
         const socketId = playerSockets.get(playerName);
-        console.log('发送问题给玩家:', {
+        console.log('Sending question to player:', {
             playerName,
             socketId,
             hasSocket: !!socketId
@@ -181,15 +188,15 @@ function startNewQuestion(gameId) {
         }
     });
 
-    // 设置问题计时器
+    // Set question timer
     let timeLeft = QUESTION_TIME;
     if (game.timer) {
-        console.log('清除旧计时器');
+        console.log('Clearing old timer');
         clearInterval(game.timer);
     }
     
-    console.log('设置新计时器');
-    // 立即发送初始时间
+    console.log('Setting new timer');
+    // Send initial time immediately
     game.players.forEach(playerName => {
         const socketId = playerSockets.get(playerName);
         if (socketId) {
@@ -199,9 +206,9 @@ function startNewQuestion(gameId) {
 
     game.timer = setInterval(() => {
         timeLeft--;
-        console.log('计时器更新:', timeLeft);
+        console.log('Timer update:', timeLeft);
         
-        // 广播给所有玩家
+        // Broadcast to all players
         game.players.forEach(playerName => {
             const socketId = playerSockets.get(playerName);
             if (socketId) {
@@ -210,7 +217,7 @@ function startNewQuestion(gameId) {
         });
 
         if (timeLeft <= 0) {
-            console.log('时间到，评估回合');
+            console.log('Time up, evaluating round');
             clearInterval(game.timer);
             game.timer = null;
             evaluateRound(gameId);
@@ -218,7 +225,7 @@ function startNewQuestion(gameId) {
     }, 1000);
 }
 
-// 评估回合结果
+// Evaluate round results
 function evaluateRound(gameId) {
     const game = activeGames.get(gameId);
     if (!game) return;
@@ -227,36 +234,36 @@ function evaluateRound(gameId) {
     const question = questions[game.currentQuestionIndex];
     const correctAnswer = question.correctAnswer;
     
-    // 计算得分
+    // Calculate scores
     game.players.forEach(playerName => {
         const answer = game.answers.get(playerName);
         const socketId = playerSockets.get(playerName);
         
         if (answer !== undefined) {
             if (answer === correctAnswer) {
-                // 第一个答对得2分，第二个答对得1分
+                // First correct answer gets 2 points, second gets 1 point
                 const isFirstCorrect = Array.from(game.answers.values()).indexOf(correctAnswer) === Array.from(game.answers.keys()).indexOf(playerName);
                 game.scores[playerName === game.players[0] ? 'player1' : 'player2'].score += isFirstCorrect ? POINTS_CORRECT_FIRST : POINTS_CORRECT_SECOND;
                 
                 io.to(socketId).emit('roundResult', {
                     correct: true,
-                    message: isFirstCorrect ? '恭喜！你是第一个答对的！' : '答对了！',
+                    message: isFirstCorrect ? 'Congratulations! You were the first to answer correctly!' : 'Correct answer!',
                     scores: game.scores
                 });
             } else {
                 game.scores[playerName === game.players[0] ? 'player1' : 'player2'].score += POINTS_WRONG;
                 io.to(socketId).emit('roundResult', {
                     correct: false,
-                    message: '答错了！',
+                    message: 'Wrong answer!',
                     scores: game.scores
                 });
             }
         } else {
-            // 未作答
+            // No answer
             game.scores[playerName === game.players[0] ? 'player1' : 'player2'].score += POINTS_WRONG;
             io.to(socketId).emit('roundResult', {
                 correct: false,
-                message: '时间到！你没有作答。',
+                message: 'Time\'s up! You didn\'t answer.',
                 scores: game.scores
             });
         }
@@ -264,7 +271,7 @@ function evaluateRound(gameId) {
 
     game.currentQuestionIndex++;
     
-    // 设置休息时间后开始下一题
+    // Start next question after break time
     setTimeout(() => {
         if (game.currentQuestionIndex < questions.length) {
             startNewQuestion(gameId);
@@ -274,19 +281,19 @@ function evaluateRound(gameId) {
     }, BREAK_TIME * 1000);
 }
 
-// 结束游戏并更新数据库
+// End game and update database
 async function endGame(gameId) {
     const game = activeGames.get(gameId);
     if (!game) return;
 
-    // 确定获胜者
+    // Determine winner
     const player1Score = game.scores.player1.score;
     const player2Score = game.scores.player2.score;
     const winner = player1Score > player2Score ? game.players[0] : 
                   player2Score > player1Score ? game.players[1] : 
-                  '平局';
+                  'Draw';
 
-    // 更新数据库中的玩家记录
+    // Update player records in database
     try {
         const player1 = await Player.findOne({ name: game.players[0] });
         const player2 = await Player.findOne({ name: game.players[1] });
@@ -298,10 +305,10 @@ async function endGame(gameId) {
             await player2.addGameRecord(game.players[0], player2Score, player1Score);
         }
     } catch (err) {
-        console.error('更新玩家记录失败:', err);
+        console.error('Failed to update player records:', err);
     }
 
-    // 通知玩家游戏结束
+    // Notify players of game end
     game.players.forEach(async (playerName) => {
         const socketId = playerSockets.get(playerName);
         const player = await Player.findOne({ name: playerName });
@@ -312,14 +319,14 @@ async function endGame(gameId) {
         });
     });
 
-    // 清理游戏状态
+    // Clean up game state
     game.players.forEach(playerName => {
         playerGames.delete(playerName);
     });
     activeGames.delete(gameId);
 }
 
-// 获取当前问题
+// Get current question
 function getCurrentQuestion(gameId) {
     const game = activeGames.get(gameId);
     if (!game || game.currentQuestionIndex >= questions.length) {
@@ -328,18 +335,18 @@ function getCurrentQuestion(gameId) {
     return questions[game.currentQuestionIndex];
 }
 
-// 获取游戏分数
+// Get game scores
 function getGameScores(gameId) {
     const game = activeGames.get(gameId);
     return game ? game.scores : null;
 }
 
-// Socket.IO 连接处理
+// Socket.IO connection handling
 io.on('connection', (socket) => {
-    // 玩家登录
+    // Player login
     socket.on('login', async (playerName) => {
         if (!onlinePlayers.has(socket.id) && !Array.from(onlinePlayers.values()).includes(playerName)) {
-            // 在数据库中查找或创建玩家
+            // Find or create player in database
             try {
                 let player = await Player.findOne({ name: playerName });
                 if (!player) {
@@ -350,34 +357,34 @@ io.on('connection', (socket) => {
                 onlinePlayers.set(socket.id, playerName);
                 playerSockets.set(playerName, socket.id);
                 socket.emit('loginResponse', { success: true, stats: player.getStats() });
-                broadcastPlayersList();
+                broadcastPlayerList();
             } catch (err) {
-                console.error('玩家登录失败:', err);
-                socket.emit('loginResponse', { success: false, error: '登录失败' });
+                console.error('Player login failed:', err);
+                socket.emit('loginResponse', { success: false, error: 'Login failed' });
             }
         } else {
-            socket.emit('loginResponse', { success: false, error: '用户名已存在' });
+            socket.emit('loginResponse', { success: false, error: 'Username already exists' });
         }
     });
 
-    // 处理游戏邀请
+    // Handle game invitation
     socket.on('challengePlayer', (targetPlayer) => {
         const challenger = onlinePlayers.get(socket.id);
         const targetSocketId = playerSockets.get(targetPlayer);
         
         if (targetSocketId) {
-            // 向目标玩家发送邀请
+            // Send invitation to target player
             io.to(targetSocketId).emit('challengeRequest', challenger);
         }
     });
 
-    // 处理接受挑战
+    // Handle challenge acceptance
     socket.on('acceptChallenge', (challenger) => {
-        console.log('收到挑战请求:', challenger);
+        console.log('Received challenge request:', challenger);
         const player2 = onlinePlayers.get(socket.id);
         const player1SocketId = playerSockets.get(challenger);
         
-        console.log('玩家信息:', {
+        console.log('Player information:', {
             challenger,
             player2,
             player1SocketId,
@@ -385,34 +392,34 @@ io.on('connection', (socket) => {
         });
         
         if (player1SocketId && player2) {
-            console.log('开始创建游戏...');
-            // 创建新游戏
+            console.log('Starting game creation...');
+            // Create new game
             const gameId = createGame(challenger, player2);
-            console.log('游戏创建成功，ID:', gameId);
+            console.log('Game created successfully, ID:', gameId);
             
-            // 开始新问题
+            // Start new question
             startNewQuestion(gameId);
-            console.log('新问题已开始');
+            console.log('New question started');
         } else {
-            console.log('无法开始游戏：', {
+            console.log('Cannot start game:', {
                 hasPlayer1Socket: !!player1SocketId,
                 hasPlayer2: !!player2
             });
         }
     });
 
-    // 处理拒绝挑战
+    // Handle challenge rejection
     socket.on('rejectChallenge', (challenger) => {
         const player2 = onlinePlayers.get(socket.id);
         const player1SocketId = playerSockets.get(challenger);
         
         if (player1SocketId) {
-            // 通知发起挑战的玩家被拒绝
+            // Notify challenger of rejection
             io.to(player1SocketId).emit('challengeRejected', player2);
         }
     });
 
-    // 提交答案
+    // Submit answer
     socket.on('submitAnswer', (answerIndex) => {
         const playerName = onlinePlayers.get(socket.id);
         const gameId = playerGames.get(playerName);
@@ -421,7 +428,7 @@ io.on('connection', (socket) => {
         if (game && game.status === 'playing' && !game.answers.has(playerName)) {
             game.answers.set(playerName, answerIndex);
             
-            // 如果两个玩家都已回答，立即评估结果
+            // If both players have answered, evaluate results immediately
             if (game.answers.size === 2) {
                 clearInterval(game.timer);
                 evaluateRound(gameId);
@@ -429,7 +436,7 @@ io.on('connection', (socket) => {
         }
     });
 
-    // 返回大厅
+    // Return to lobby
     socket.on('returnToLobby', () => {
         const playerName = onlinePlayers.get(socket.id);
         if (playerName) {
@@ -449,7 +456,7 @@ io.on('connection', (socket) => {
         }
     });
 
-    // 断开连接处理
+    // Disconnect handling
     socket.on('disconnect', () => {
         const playerName = onlinePlayers.get(socket.id);
         if (playerName) {
@@ -468,13 +475,13 @@ io.on('connection', (socket) => {
             }
             onlinePlayers.delete(socket.id);
             playerSockets.delete(playerName);
-            broadcastPlayersList();
+            broadcastPlayerList();
         }
     });
 });
 
-// 启动服务器
+// Start server
 const PORT = process.env.PORT || 3000;
 http.listen(PORT, () => {
-    console.log(`服务器运行在端口 ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });

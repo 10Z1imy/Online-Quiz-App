@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人主页</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <link rel="stylesheet" href="/styles/homepage/music-player.css">
+    <link rel="stylesheet" href="/styles/homepage/homepage_page2.css">
+    <link rel="stylesheet" href="/styles/homepage/homepage_page1.css">
+    <link rel="stylesheet" href="/styles/homepage/gacha-machine.css">
+    <link rel="stylesheet" href="/styles/homepage/theme.css">
+    <link rel="stylesheet" href="/styles/base.css">
+</head>
+<body>
+    <style>
+        /* 背景星星层 */
+.background-stars {
+  position: fixed;  /* 改为 fixed 定位 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/img/star6.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: repeat;
+  z-index: 0;
+  opacity: 1;
+  pointer-events: none;  /* 防止背景层影响页面交互 */
+}
+
+/* 技能网格字体样式 */
+.skills-grid .skill-item span {
+  font-family: 'Courier New', monospace;
+  font-weight: bold;  /* 添加加粗效果 */
+}
+
+/* 联系信息字体样式 */
+.contact-info .contact-item span {
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+}
+
+/* 联系信息布局样式 */
+.contact-info {
+  margin-top: 1rem;  /* 减少顶部间距 */
+}
+
+.contact-item {
+  margin-bottom: 0.35rem;  /* 减少每个联系项之间的间距 */
+  padding: 0.745rem 0;  /* 减少内部上下间距 */
+}
+</style>
+    <div class="background-stars"></div>
+    <!-- 歌词容器 -->
+    <div class="lyrics-container">
+        <div class="lyrics"></div>
+        
+    </div>
+
+    <div class="side-nav">
+        <div class="side-nav-content">
+            <a href="Homepage.html"><i class="fas fa-home"></i>Homepage</a>
+            <a href="AboutMe.html"><i class="fas fa-laptop-code"></i>About Me</a>
+            <a href="Artworks_Wings.html"><i class="fas fa-palette"></i>Artworks-Wings</a>
+            <a href="OnlineGame.html"><i class="fas fa-gamepad"></i>Online Game</a>
+            <a href="Mytrace.html"><i class="fas fa-history"></i>My Trace</a>
+        </div>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">Mental Port 1021</div>
+            <div class="nav-links">
+                <a href="#home">Lets Play</a>
+                <a href="#about">Intro</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容区域 -->
+    <main class="fullpage-container">
+        <!-- 第一页：MY RECIPE -->
+        <div class="section page1">
+            <div class="page1-container">
+                <!-- 左侧白色块 -->
+                <section class="left-section">
+                    <div class="gacha-machine">
+                        <div class="description-window">
+                            <p style = "font-family: 'Courier New', monospace;font-weight: bold;">Check My Trace with Gacha Machine</p>
+                        </div>
+                        <div class="display-screens">
+                            <div class="screen" data-description="Manage a game dev society now ^ ">
+                                <span class="emoji">🎮</span> 
+                            </div>
+                            <div class="screen" data-description="Random? Juss a hypothesis">
+                                <span class="emoji">🎲</span>
+                            </div>
+                            <div class="screen" data-description="Targetted is crucial, sometimes">
+                                <span class="emoji">🎯</span>
+                            </div>
+                        </div>
+                        <div class="lever">
+                            <div class="lever-handle"></div>
+                            <div class="lever-base"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 右上角图片展示 -->
+                <section class="image-showcase">
+                    <div class="section-content">
+                        <img src="/img/IMG5124.PNG" alt="展示图片">
+                        <!-- 音乐播放器 -->
+                        <div class="player">
+                            <audio id="audio" src="/music/falling.mp3"></audio>
+                            <div class="controls">
+                                <button id="play-btn"><i class="fas fa-play"></i></button>
+                                <button id="next-btn"><i class="fas fa-forward"></i></button>
+                                <button id="settings-btn"><i class="fas fa-cog"></i></button>
+                            </div>
+                        </div>
+                        <!-- 扭蛋机控制按钮 -->
+                        <button class="toggle-gacha-btn">
+                            <i class="fas fa-eye-slash"></i>
+                        </button>
+                    </div>
+                </section>
+
+              
+
+                <!-- 歌词控制面板 -->
+                <div class="lyrics-control-panel">
+                    <div class="control-group">
+                        <label for="rotation">Angle</label>
+                        <input type="range" id="rotation" min="0" max="360" value="315">
+                        <span id="rotation-value">315°</span>
+                    </div>
+                    <div class="control-group direction-control">
+                        <label>Direction</label>
+                        <div class="direction-circle">
+                            <div class="direction-pointer"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第二页：Archives和Contact -->
+        <div class="section page2">
+            <div class="page2-container">
+                <!-- Contact部分 - 左上角1/4 -->
+                <section id="contact" class="contact-section">
+                    <div class="section-content">
+                        <h2 class = "archive-title">Question?</h2>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>1950160446@qq.com</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <span>198 7585 0721</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>FO SHAN & SHEN ZHEN</span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </section>
+
+                <!-- 左下角组件 -->
+                <section class="bottom-section">
+                    <div class="section-content">
+                        <div class="bottom-grid">
+                            <!-- 技能展示 -->
+                            <div class="skills-showcase">
+                                <h3 style = "font-family: 'Courier New', monospace;
+                                color: hwb(182 7% 80%);  /* 青蓝色标题 */
+                                text-align: center;
+                                font-size: 2rem;">Interests</h3>
+                                <div class="skills-grid">
+                                    <div class="skill-item">
+                                        <i class="fas fa-code"></i>
+                                        <span>Vibe-Coding</span>
+                                        <div class="skill-level" data-level="90"></div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <i class="fas fa-paint-brush"></i>
+                                        <span>Design</span>
+                                        <div class="skill-level" data-level="85"></div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <i class="fas fa-mobile-alt"></i>
+                                        <span>Game Dev</span>
+                                        <div class="skill-level" data-level="80"></div>
+                                    </div>
+                                    <div class="skill-item">
+                                        <i class="fas fa-database"></i>
+                                        <span>Information Literacy</span>
+                                        <div class="skill-level" data-level="75"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Archives部分 - 右侧1/2 -->
+                <section id="about" class="archives-section">
+                    <div class="section-content">
+                        <h1 class="archive-title">SUBJECT PROFILE</h1>
+                        <div class="profile">
+                            <div class="profile-info">
+                                <div class="profile-header">
+                                    <h2 class="subject-id">SUBJECT #1021</h2>
+                                    <div class="status-indicator">ACTIVE</div>
+                                </div>
+                                <div class="profile-details">
+                                    <div class="detail-group">
+                                        <label>LOCATION:</label>
+                                        <p>The Local Group of Galaxies / the Orion Arm /<br>
+                                           the Milky Way Galaxy / the Solar System /<br>
+                                           the Blue Planet / China / Xi.</p>
+                                    </div>
+                                    <div class="detail-group">
+                                        <label>AGE:</label>
+                                        <p>Lv 19</p>
+                                    </div>
+                                    <div class="detail-group">
+                                        <label>SPECIAL TRAITS:</label>
+                                        <ul class="traits-list">
+                                            <li>Luminosity</li>
+                                            <li>Discernment</li>
+                                            <li>Gamified Narrative</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="profile-image">
+                                <div class="image-frame">
+                                    <img src="/img/IMG_5048.PNG" alt="个人头像">
+                                    <div class="image-overlay">SUBJECT PHOTO</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <script src="/scripts/lyricsscript.js"></script>
+    <script src="/scripts/scriptnav.js"></script>
+    <script src="/scripts/rolling.js"></script>
+    <script src="/scripts/machine.js"></script>  
+    
+    <!-- 添加 footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>© 2025 Mental Port 1021. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <style>
+        .site-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            padding: 10px 0;
+            text-align: center;
+            z-index: 99;  /* 降低 z-index，确保在侧边导航栏后面 */
+        }
+
+        .footer-content {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+    </style>
+</body>
+</html> 
