@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal Portfolio Book</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/styles/styles.css">
-    <link rel="stylesheet" href="/styles/base.css">
-    <link rel="stylesheet" href="/styles/homepage/theme.css">
+    <link rel="stylesheet" type="text/css" href="/styles/styles.css">
+    <link rel="stylesheet" type="text/css" href="/styles/base.css">
+    <link rel="stylesheet" type="text/css" href="/styles/homepage/theme.css">
+    <link rel="stylesheet" type="text/css" href="/styles/AboutMe_Page/aboutme.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <script>
@@ -50,42 +51,40 @@
         }
     </script>
     
-    <style type="text/tailwindcss">
-        @layer utilities {
-            .content-auto {
-                content-visibility: auto;
-            }
-            .book-shadow {
-                box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
-            }
-            .page {
-                display: none;
-            }
-            .page.active {
-                display: block;
-            }
-            .book-edge {
-                background-image: linear-gradient(to right, #333 0%, #666 5%, #333 10%, #666 15%, #333 20%, #666 25%, #333 30%, #666 35%, #333 40%, #666 45%, #333 50%, #666 55%, #333 60%, #666 65%, #333 70%, #666 75%, #333 80%, #666 85%, #333 90%, #666 95%, #333 100%);
-                width: 15px;
-            }
-            body {
-                background: linear-gradient(135deg, #e1e1ff 0%, hsl(104, 70%, 82%) 100%);
-            }
-            /* 背景星星层 */
-            .background-stars {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-image: url('/img/star6.png');
-                background-size: contain;
-                background-position: center;
-                background-repeat: repeat;
-                z-index: 0;
-                opacity: 1;
-                pointer-events: none;
-            }
+    <style>
+        .content-auto {
+            content-visibility: auto;
+        }
+        .book-shadow {
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+        }
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+        .book-edge {
+            background-image: linear-gradient(to right, #333 0%, #666 5%, #333 10%, #666 15%, #333 20%, #666 25%, #333 30%, #666 35%, #333 40%, #666 45%, #333 50%, #666 55%, #333 60%, #666 65%, #333 70%, #666 75%, #333 80%, #666 85%, #333 90%, #666 95%, #333 100%);
+            width: 15px;
+        }
+        body {
+            background: linear-gradient(135deg, #2a1f7c 0%, hwb(194 64% 8%) 100%);
+        }
+        /* 背景星星层 */
+        .background-stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('../img/star6.png');
+            background-size: contain;
+            background-position: center;
+            background-repeat: repeat;
+            z-index: 0;
+            opacity: 1;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -95,11 +94,11 @@
     <!-- Book Container -->
     <div class="side-nav">
         <div class="side-nav-content">
-            <a href="homepage.html"><i class="fas fa-home"></i>Homepage</a>
-            <a href="AboutMe.html"><i class="fas fa-laptop-code"></i>About Me</a>
-            <a href="Artworks_Wings.html"><i class="fas fa-palette"></i>Artworks-Wings</a>
-            <a href="OnlineGame.html"><i class="fas fa-gamepad"></i>Online Game</a>
-            <a href="Mytrace.html"><i class="fas fa-history"></i>My Trace</a>
+            <a href="/"><i class="fas fa-home"></i>Homepage</a>
+            <a href="/page4"><i class="fas fa-laptop-code"></i>About Me</a>
+            <a href="/wings"><i class="fas fa-palette"></i>Artworks-Wings</a>
+            <a href="/game"><i class="fas fa-gamepad"></i>Online Game</a>
+            <a href="/mytrace"><i class="fas fa-history"></i>My Trace</a>
         </div>
     </div>
 
@@ -168,7 +167,7 @@
                         </div>
                     </div>
                     <div class="w-full md:w-1/2 bg-neutral-100 flex items-center justify-center p-8">
-                        <img src="img/first.jpg" alt="Portrait Photo" class="rounded-lg shadow-lg max-w-[87%] max-h-[87%] object-cover">
+                        <img src="../img/first.jpg" alt="Portrait photo of the author" class="rounded-lg shadow-lg max-w-[87%] max-h-[87%] object-cover">
                     </div>
                 </div>
             </div>
@@ -231,7 +230,7 @@
                 <div class="p-8 h-full flex flex-col">
                     <div class="flex flex-col items-center mb-6">
                         <h2 class="text-3xl font-bold text-neutral-700 mb-4">Courses</h2>
-                        <img src="img/meme.jpg" alt="Courses" class="h-40 w-40 shadow-lg rounded-lg">
+                        <img src="../img/meme.jpg" alt="Fun meme about courses" class="h-40 w-40 shadow-lg rounded-lg">
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 overflow-y-auto pr-2">
                         <div class="bg-neutral-50 p-4 rounded-lg shadow-sm">
@@ -310,20 +309,20 @@
                             </div>
                             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
                                 <div class="relative group">
-                                    <img src="img/person/3.jpg" alt="Friends gathering" class="w-full h-32 object-cover rounded-lg shadow-sm transition-transform duration-300 group-hover:scale-105">
+                                    <img src="../img/person/3.jpg" alt="Friends gathering" class="w-full h-32 object-cover rounded-lg shadow-sm transition-transform duration-300 group-hover:scale-105">
                                     <div class="absolute inset-0 bg-black/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                 </div>
                                 <div class="relative group">
-                                    <img src="img/person/6.jpg" alt="Friends gathering" class="w-full h-32 object-cover rounded-lg shadow-sm transition-transform duration-300 group-hover:scale-105">
+                                    <img src="../img/person/6.jpg" alt="Friends gathering" class="w-full h-32 object-cover rounded-lg shadow-sm transition-transform duration-300 group-hover:scale-105">
                                     <div class="absolute inset-0 bg-black/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                 </div>
                                 <div class="relative group">
-                                    <img src="img/walk1.jpg" alt="Friends gathering" class="w-full h-32 object-cover rounded-lg shadow-sm transition-transform duration-300 group-hover:scale-105">
+                                    <img src="../img/walk1.jpg" alt="Friends gathering" class="w-full h-32 object-cover rounded-lg shadow-sm transition-transform duration-300 group-hover:scale-105">
                                     <div class="absolute inset-0 bg-black/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                 </div>
                                 
                                 <div class="relative group">
-                                    <img src="img/party.jpg" alt="Friends gathering" class="w-full h-32 object-cover rounded-lg shadow-sm transition-transform duration-300 group-hover:scale-105">
+                                    <img src="../img/party.jpg" alt="Friends gathering" class="w-full h-32 object-cover rounded-lg shadow-sm transition-transform duration-300 group-hover:scale-105">
                                     <div class="absolute inset-0 bg-black/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                 </div>
                             </div>
@@ -411,7 +410,7 @@
                             <div class="bg-neutral-50 p-6 rounded-lg shadow-sm mb-4">
                                 <!-- 图片部分 -->
                                 <div class="w-full mb-6">
-                                    <img src="img/all.PNG" class="w-full rounded-2xl">
+                                    <img src="img/all.PNG" alt="All courses overview" class="w-full rounded-2xl">
                                 </div>
                                 
                                 <!-- 下方内容区域 -->

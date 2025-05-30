@@ -1,14 +1,5 @@
-
-
 /* 除了base.css之外的，需要全局设置的样式 */
 
-/* 导入主题变量 */
-@import './homepage/theme.css';
-
-/* 导入组件样式 */
-@import './homepage/gacha-machine.css';
-@import './OnlineGame_Page/login.css';
-@import './OnlineGame_Page/game.css';
 
 /* 全局样式 */
 * {
@@ -18,20 +9,20 @@
 }
 
 body {
-    font-family: var(--font-family);
+    font-family: Arial, sans-serif;
     line-height: 1.6;
-    color: var(--text-primary);
-    background: var(--background-dark);
+    color: #333;
+    background: #1a1a1a;
     min-height: 100vh;
 }
 
 /* 通用动画类 */
 .fade-in {
-    animation: fadeIn var(--transition-normal);
+    animation: fadeIn 0.3s ease;
 }
 
 .scale-in {
-    animation: scaleIn var(--transition-normal);
+    animation: scaleIn 0.3s ease;
 }
 
 @keyframes fadeIn {
@@ -46,33 +37,33 @@ body {
 
 /* 通用工具类 */
 .container {
-    max-width: var(--container-width);
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 var(--spacing-md);
+    padding: 0 20px;
 }
 
 .text-primary {
-    color: var(--primary-color);
+    color: #4CAF50;
 }
 
 .text-secondary {
-    color: var(--secondary-color);
+    color: #666;
 }
 
 .text-accent {
-    color: var(--accent-color);
+    color: #2196F3;
 }
 
 .bg-primary {
-    background-color: var(--primary-color);
+    background-color: #4CAF50;
 }
 
 .bg-secondary {
-    background-color: var(--secondary-color);
+    background-color: #666;
 }
 
 .bg-accent {
-    background-color: var(--accent-color);
+    background-color: #2196F3;
 }
 
 /* 响应式工具类 */
@@ -85,7 +76,7 @@ body {
 @media (min-width: 769px) {
     .show-mobile {
         display: none !important;
-}
+    }
 }
 
 /* 导航栏样式 */

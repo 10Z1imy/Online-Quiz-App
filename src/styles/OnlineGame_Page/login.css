@@ -1,14 +1,12 @@
 .login-container {
     min-height: 100vh;
     display: flex;
-    background: var(--background-light);
+    background: #2a2a2a;
 }
 
 .login-image {
     flex: 1;
-    background-image: url('../assets/login-bg.jpg');
-    background-size: cover;
-    background-position: center;
+    background: linear-gradient(45deg, #002FA7, #71dbff);
     position: relative;
 }
 
@@ -31,97 +29,94 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--spacing-xl);
-    background: var(--background-light);
+    padding: 40px;
+    background: #2a2a2a;
 }
 
 .login-form {
     width: 100%;
     max-width: 400px;
-    padding: var(--spacing-xl);
+    padding: 40px;
     background: white;
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-lg);
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .login-header {
     text-align: center;
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: 32px;
 }
 
 .login-header h1 {
-    color: var(--primary-color);
-    font-size: var(--font-size-xl);
-    margin-bottom: var(--spacing-sm);
+    color: #4CAF50;
+    font-size: 32px;
+    margin-bottom: 12px;
 }
 
 .login-header p {
-    color: var(--text-secondary);
-    font-size: var(--font-size-sm);
+    color: #666;
+    font-size: 14px;
 }
 
 .form-group {
-    margin-bottom: var(--spacing-md);
+    margin-bottom: 20px;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: var(--spacing-xs);
-    color: var(--text-primary);
-    font-size: var(--font-size-sm);
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 14px;
 }
 
 .form-group input {
     width: 100%;
-    padding: var(--spacing-sm);
+    padding: 12px;
     border: 1px solid #ddd;
-    border-radius: var(--border-radius-sm);
-    font-family: var(--font-family);
-    font-size: var(--font-size-md);
-    transition: border-color var(--transition-fast);
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    transition: border-color 0.2s ease;
 }
 
 .form-group input:focus {
     outline: none;
-    border-color: var(--primary-color);
+    border-color: #4CAF50;
 }
 
 /* 像素按钮基础样式 */
 .pixel-button {
     position: relative;
     padding: 1rem 2rem;
-    font-family: 'Press Start 2P', cursive; /* 像素风格字体 */
+    font-family: 'Press Start 2P', cursive;
     font-size: 1rem;
     color: #fff;
     text-transform: uppercase;
-    background: hsl(235, 83%, 45%); /* 深蓝色主色调 */
+    background: hsl(235, 83%, 45%);
     border: none;
     outline: none;
     cursor: pointer;
     overflow: hidden;
     transform: translateZ(0);
     transition: all 0.1s ease;
-    box-shadow: 0 8px 0 #06182e; /* 底部阴影模拟立体效果 */
+    box-shadow: 0 8px 0 #06182e;
     
-    /* 像素化边缘 */
     clip-path: polygon(
       0% 4px, 4px 4px, 4px 0%, calc(100% - 4px) 0%, 
       calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), 
       calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 
       4px 100%, 4px calc(100% - 4px), 0% calc(100% - 4px)
     );
-  }
-  
-  /* 按钮文字 */
-  .button-text {
+}
+
+.button-text {
     position: relative;
     z-index: 2;
     letter-spacing: 2px;
-    text-shadow: 2px 2px 0 #000; /* 文字阴影增强可读性 */
-  }
-  
-  /* 像素化内部发光效果 */
-  .pixel-glow {
+    text-shadow: 2px 2px 0 #000;
+}
+
+.pixel-glow {
     position: absolute;
     top: 2px;
     left: 2px;
@@ -133,30 +128,26 @@
       rgba(255, 255, 255, 0.05) 100%
     );
     
-    /* 像素化边缘 */
     clip-path: polygon(
       0% 3px, 3px 3px, 3px 0%, calc(100% - 3px) 0%, 
       calc(100% - 3px) 3px, 100% 3px, 100% calc(100% - 3px), 
       calc(100% - 3px) calc(100% - 3px), calc(100% - 3px) 100%, 
       3px 100%, 3px calc(100% - 3px), 0% calc(100% - 3px)
     );
-  }
-  
-  /* 悬停状态 */
-  .pixel-button:hover {
-    background: #1a4b8c; /* 悬停时颜色变亮 */
+}
+
+.pixel-button:hover {
+    background: #1a4b8c;
     box-shadow: 0 6px 0 #06182e;
     transform: translateY(2px);
-  }
-  
-  /* 激活状态 */
-  .pixel-button:active {
+}
+
+.pixel-button:active {
     box-shadow: 0 0 0 hsl(236, 100%, 42%);
     transform: translateY(8px);
-  }
-  
-  /* 点阵动画效果 */
-  .pixel-button::after {
+}
+
+.pixel-button::after {
     content: '';
     position: absolute;
     top: 0;
@@ -170,10 +161,9 @@
     opacity: 0.5;
     pointer-events: none;
     z-index: 1;
-  }
-  
-  /* 按钮边缘光效 */
-  .pixel-button::before {
+}
+
+.pixel-button::before {
     content: '';
     position: absolute;
     top: 0;
@@ -190,29 +180,29 @@
     z-index: 3;
     pointer-events: none;
     
-    /* 像素化边缘 */
     clip-path: polygon(
       0% 4px, 4px 4px, 4px 0%, calc(100% - 4px) 0%, 
       calc(100% - 4px) 4px, 100% 4px, 100% calc(100% - 4px), 
       calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 
       4px 100%, 4px calc(100% - 4px), 0% calc(100% - 4px)
     );
-  }
+}
+
 .login-footer {
-    margin-top: var(--spacing-lg);
+    margin-top: 32px;
     text-align: center;
-    color: var(--text-secondary);
-    font-size: var(--font-size-sm);
+    color: #666;
+    font-size: 14px;
 }
 
 .login-footer a {
-    color: var(--primary-color);
+    color: #4CAF50;
     text-decoration: none;
-    transition: color var(--transition-fast);
+    transition: color 0.2s ease;
 }
 
 .login-footer a:hover {
-    color: var(--secondary-color);
+    color: #45a049;
 }
 
 /* 响应式设计 */
@@ -222,14 +212,14 @@
     }
     
     .login-image {
-        height: 200px;
+        display: none;
     }
     
     .login-form-container {
-        padding: var(--spacing-md);
+        padding: 20px;
     }
     
     .login-form {
-        padding: var(--spacing-lg);
+        padding: 20px;
     }
 } 

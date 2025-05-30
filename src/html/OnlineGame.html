@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/styles/base.css">
     <link rel="stylesheet" href="/styles/OnlineGame_Page/game-theme.css">
     <link rel="stylesheet" href="/styles/OnlineGame_Page/game.css">
+    <link rel="stylesheet" href="/styles/OnlineGame_Page/login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -80,385 +81,337 @@
             display: none !important;
         }
 
-        /* 游戏大厅容器样式 */
-        #lobbySection {
-            min-height: 100vh;
-            padding: 20px 30px 20px 20px;
-            overflow-x: hidden;
-        }
+/* 游戏大厅容器样式 */
+#lobbySection {
+    min-height: 100vh;
+    padding: 20px 30px 20px 20px;
+    overflow-x: hidden;
+}
 
-        /* 左侧栏样式 */
-        .left-column {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            max-height: calc(100vh - 40px);
-        }
+/* 左侧栏样式 */
+.left-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-height: calc(100vh - 40px);
+}
 
-        /* 排行榜样式 */
-        .rank-board {
-            background: var(--bg-white, #ffffff);
-            border-radius: 16px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            overflow: hidden;
-        }
+/* 排行榜样式 */
+.rank-board {
+    background: var(--bg-white, #ffffff);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
 
-        .rank-board:first-child {
-            height: 60%;
-        }
+.rank-board:first-child {
+    height: 60%;
+}
 
-        .rank-board:last-child {
-            height: calc(40% - 20px);
-        }
+.rank-board:last-child {
+    height: calc(40% - 20px);
+}
 
-        /* 列表容器样式 */
-        .rank-list, .stats-list {
-            height: calc(100% - 60px);
-            overflow-y: auto;
-            padding-right: 5px;
-            margin-top: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+/* ranking列表容器样式 */
+.rank-list, .stats-list {
+    height: calc(100% - 60px);
+    overflow-y: auto;
+    padding-right: 5px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 
-        /* 自定义滚动条 */
-        .rank-list::-webkit-scrollbar, 
-        .stats-list::-webkit-scrollbar,
-        .player-list::-webkit-scrollbar {
-            width: 4px;
-        }
 
-        .rank-list::-webkit-scrollbar-track,
-        .stats-list::-webkit-scrollbar-track,
-        .player-list::-webkit-scrollbar-track {
-            background: transparent;
-        }
+/* 列表项样式 */
+.rank-item, .stats-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    background: linear-gradient(to right, rgba(0, 47, 167, 0.05), rgba(0, 191, 255, 0.05));
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
 
-        .rank-list::-webkit-scrollbar-thumb,
-        .stats-list::-webkit-scrollbar-thumb,
-        .player-list::-webkit-scrollbar-thumb {
-            background-color: var(--primary-blue, #0066ff);
-            border-radius: 2px;
-        }
+.rank-item:hover, .stats-item:hover {
+    transform: translateX(5px);
+    background: linear-gradient(to right, rgba(0, 47, 167, 0.1), rgba(0, 191, 255, 0.1));
+}
 
-        /* 列表项样式 */
-        .rank-item, .stats-item {
-            display: flex;
-            align-items: center;
-            padding: 12px;
-            background: linear-gradient(to right, rgba(0, 47, 167, 0.05), rgba(0, 191, 255, 0.05));
-            border-radius: 12px;
-            transition: all 0.3s ease;
-        }
+.stats-label {
+    font-weight: 600;
+    color: var(--primary-blue, #0066ff);
+    margin-right: 1rem;
+    min-width: 80px;
+}
 
-        .rank-item:hover, .stats-item:hover {
-            transform: translateX(5px);
-            background: linear-gradient(to right, rgba(0, 47, 167, 0.1), rgba(0, 191, 255, 0.1));
-        }
+.stats-value {
+    color: var(--text-secondary, #666666);
+    margin-left: auto;
+    font-weight: 500;
+}
 
-        .stats-label {
-            font-weight: 600;
-            color: var(--primary-blue, #0066ff);
-            margin-right: 1rem;
-            min-width: 80px;
-        }
 
-        .stats-value {
-            color: var(--text-secondary, #666666);
-            margin-left: auto;
-            font-weight: 500;
-        }
 
-        /* 在线玩家列表容器样式 */
-        .players-board {
-            background: var(--bg-white, #ffffff);
-            border-radius: 16px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            height: calc(100vh - 40px);
-            transition: all 0.3s ease;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
 
-        .players-board h3 {
-            color: var(--primary-blue, #0066ff);
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            text-align: center;
-            position: relative;
-            padding-bottom: 0.8rem;
-            flex-shrink: 0;
-        }
 
-        .player-list {
-            flex: 1;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            padding: 10px;
-            min-height: 0;
-            pointer-events: none; /* 禁止鼠标滚轮和拖动 */
-        }
 
-        /* 玩家条目样式优化 */
-        .player-item {
-            pointer-events: auto; /* 允许卡片内按钮点击 */
-            margin-bottom: 0;
-            padding: 8px 12px;
-            border-radius: 8px;
-            background: linear-gradient(to right, rgba(0, 47, 167, 0.05), rgba(0, 191, 255, 0.05));
-            border: none;
-            height: 100%;
-        }
+.player-item-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        .player-item-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-        }
+.player-info {
+    flex: 1;
+}
 
-        .player-info {
-            flex: 1;
-            min-width: 0; /* 防止文本溢出 */
-        }
+.player-name {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 5px;
+}
 
-        .player-name {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--primary-blue, #0066ff);
-            margin-bottom: 2px;
-        }
+.player-stats {
+    font-size: 0.9rem;
+    color: #666;
+}
 
-        .player-stats {
-            font-size: 0.8rem;
-            color: var(--text-secondary, #666666);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+.challenge-btn {
+    padding: 5px 10px;
+    background: #0066ff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
 
-        .challenge-btn {
-            padding: 4px 12px;
-            font-size: 0.85rem;
-            border-radius: 6px;
-            background: linear-gradient(135deg, var(--primary-blue, #0066ff), var(--secondary-blue, #0099ff));
-            color: white;
-            border: none;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-            flex-shrink: 0;
-            cursor: pointer;
-        }
+.challenge-btn:hover {
+    background: #0052cc;
+    transform: translateY(-1px);
+}
 
-        .challenge-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 2px 5px rgba(0, 102, 255, 0.3);
-        }
+/* 游戏邀请样式 */
+#challengeRequests {
+    position: fixed;
+    bottom: 20px;
+    right: 50px;
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    z-index: 1000;
+}
 
-        /* 游戏邀请样式 */
-        #challengeRequests {
-            position: fixed;
-            bottom: 20px;
-            right: 50px;
-            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-            z-index: 1000;
-        }
+.fade-out {
+    opacity: 0 !important;
+    transform: translateY(-10px) !important;
+}
 
-        .fade-out {
-            opacity: 0 !important;
-            transform: translateY(-10px) !important;
-        }
+.new-request {
+    animation: slideIn 0.3s ease-out;
+}
 
-        .new-request {
-            animation: slideIn 0.3s ease-out;
-        }
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+/* 游戏界面样式 */
+#gameSection {
+    padding: 20px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 
-        /* 游戏界面样式 */
-        #gameSection {
-            padding: 20px;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
 
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
-        }
+.question-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 15px 0;
+}
 
-        .question-image {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            margin: 15px 0;
-        }
+#answerOptions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    margin-top: 20px;
+}
 
-        #answerOptions {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
-            margin-top: 20px;
-        }
+#answerOptions .btn {
+    padding: 12px 20px;
+    font-size: 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
 
-        #answerOptions .btn {
-            padding: 12px 20px;
-            font-size: 1rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
+#answerOptions .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
 
-        #answerOptions .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
+/* 游戏结果界面样式 */
+#gameResultSection {
+    padding: 40px 20px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
-        /* 游戏结果界面样式 */
-        #gameResultSection {
-            padding: 40px 20px;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
+.stats-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    width: 100%;
+    max-width: 400px;
+}
 
-        .stats-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
-            width: 100%;
-            max-width: 400px;
-        }
+/* 响应式调整 */
+@media (max-width: 768px) {
+    #lobbySection {
+        padding: 10px;
+    }
 
-        /* 响应式调整 */
-        @media (max-width: 768px) {
-            #lobbySection {
-                padding: 10px;
-            }
+    .left-column {
+        margin-bottom: 20px;
+    }
 
-            .left-column {
-                margin-bottom: 20px;
-            }
+    .rank-board:first-child,
+    .rank-board:last-child {
+        height: auto;
+        max-height: 300px;
+    }
 
-            .rank-board:first-child,
-            .rank-board:last-child {
-                height: auto;
-                max-height: 300px;
-            }
+    .players-board {
+        height: auto;
+        max-height: calc(100vh - 40px);
+    }
 
-            .players-board {
-                height: auto;
-                max-height: calc(100vh - 40px);
-            }
+    .player-list {
+        max-height: calc(100vh - 50px);
+    }
 
-            .player-list {
-                max-height: calc(100vh - 200px);
-            }
+    .player-item-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-            .player-item-content {
-                flex-direction: column;
-                align-items: flex-start;
-            }
+    .challenge-btn {
+        margin-top: 10px;
+        width: 100%;
+    }
 
-            .challenge-btn {
-                margin-top: 10px;
-                width: 100%;
-            }
+    #answerOptions {
+        grid-template-columns: 1fr;
+    }
 
-            #answerOptions {
-                grid-template-columns: 1fr;
-            }
+    .timer {
+        font-size: 2rem;
+        padding: 8px 16px;
+    }
 
-            .timer {
-                font-size: 2rem;
-                padding: 8px 16px;
-            }
+    .score {
+        font-size: 0.9rem;
+    }
 
-            .score {
-                font-size: 0.9rem;
-            }
+    #challengeRequests {
+        right: 20px;
+        left: 20px;
+        bottom: 20px;
+    }
+}
 
-            #challengeRequests {
-                right: 20px;
-                left: 20px;
-                bottom: 20px;
-            }
-        }
+@media (max-width: 480px) {
+    .rank-item, .stats-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-        @media (max-width: 480px) {
-            .rank-item, .stats-item {
-                flex-direction: column;
-                align-items: flex-start;
-            }
+    .stats-value {
+        margin-left: 0;
+        margin-top: 5px;
+    }
 
-            .stats-value {
-                margin-left: 0;
-                margin-top: 5px;
-            }
+    .player-name {
+        font-size: 0.9rem;
+    }
 
-            .player-name {
-                font-size: 0.9rem;
-            }
+    .player-stats {
+        font-size: 0.75rem;
+    }
 
-            .player-stats {
-                font-size: 0.75rem;
-            }
+    .timer {
+        font-size: 1.8rem;
+        padding: 6px 12px;
+    }
 
-            .timer {
-                font-size: 1.8rem;
-                padding: 6px 12px;
-            }
+    .score {
+        font-size: 0.8rem;
+    }
 
-            .score {
-                font-size: 0.8rem;
-            }
+    #gameResultSection {
+        padding: 20px 10px;
+    }
 
-            #gameResultSection {
-                padding: 20px 10px;
-            }
+    .stats-card {
+        padding: 15px;
+    }
+}
 
-            .stats-card {
-                padding: 15px;
-            }
-        }
+/* 登录界面响应式 */
+@media (max-width: 768px) {
+    .login-image-section {
+        display: none;
+    }
 
-        /* 登录界面响应式 */
-        @media (max-width: 768px) {
-            .login-image-section {
-                display: none;
-            }
+    .login-section {
+        width: 100%;
+        padding: 20px;
+    }
 
-            .login-section {
-                width: 100%;
-                padding: 20px;
-            }
+    .pixel-button {
+        width: 100%;
+    }
+}
 
-            .pixel-button {
-                width: 100%;
-            }
-        }
+/* 移除滚动条相关样式 */
+.player-list::-webkit-scrollbar {
+    display: none;
+}
+
+/* 确保内容不会被压缩 */
+.players-board {
+    min-height: calc(100vh - 40px);
+    height: auto;
+    max-height: none;
+    overflow: visible;
+}
+
+.player-list {
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    overflow: visible;
+}
     </style>
 </head>
 
@@ -466,11 +419,11 @@
 
     <div class="side-nav">
         <div class="side-nav-content">
-            <a href="homepage.html"><i class="fas fa-home"></i>Homepage</a>
-            <a href="AboutMe.html"><i class="fas fa-laptop-code"></i>About Me</a>
-            <a href="Artworks_Wings.html"><i class="fas fa-palette"></i>Artworks-Wings</a>
-            <a href="OnlineGame.html"><i class="fas fa-gamepad"></i>Online Game</a>
-            <a href="Mytrace.html"><i class="fas fa-history"></i>My Trace</a>
+            <a href="/"><i class="fas fa-home"></i>Homepage</a>
+            <a href="/page4"><i class="fas fa-laptop-code"></i>About Me</a>
+            <a href="/wings"><i class="fas fa-palette"></i>Artworks-Wings</a>
+            <a href="/game"><i class="fas fa-gamepad"></i>Online Game</a>
+            <a href="/mytrace"><i class="fas fa-history"></i>My Trace</a>
         </div>
     </div>
 
@@ -487,7 +440,7 @@
                 <input type="text" id="playerName" class="form-control" placeholder="Enter your name">
                 <button class="pixel-button">
                     <span class="button-text">Enter Game</span>
-                    <div class="pixel-glow"></div>
+                    <span class="pixel-glow"></span>
                 </button>
             </div>
             <div id="loginError" class="alert alert-danger hidden"></div>
@@ -544,8 +497,8 @@
                     </div>
                     <div class="card">
                         <div class="card-body text-center">
-                            <h4 id="questionText" class="card-title"></h4>
-                            <img id="questionImage" class="question-image hidden" src="" alt="Question Image">
+                            <h4 id="questionText" class="card-title">Question</h4>
+                            <img id="questionImage" class="question-image hidden" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Question Image">
                             <div id="answerOptions" class="mt-3">
                                 <!-- Answer options will be dynamically generated -->
                             </div>
@@ -568,7 +521,7 @@
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
     <script>
         // 连接Socket.IO服务器
-        const socket = io('http://localhost:3000');
+        const socket = io();
         
         // 添加连接状态处理
         socket.on('connect', () => {
@@ -607,8 +560,10 @@
         // 处理登录响应
         socket.on('loginResponse', (response) => {
             if (response.success) {
+                // 设置当前玩家
+                currentPlayer = document.getElementById('playerName').value.trim();
                 // 将玩家名字存储在 localStorage 中
-                localStorage.setItem('playerName', name);
+                localStorage.setItem('playerName', currentPlayer);
                 // 隐藏登录容器，显示游戏大厅
                 document.getElementById('loginContainer').classList.add('hidden');
                 document.querySelector('.game-container').classList.remove('hidden');
@@ -621,7 +576,7 @@
             }
         });
 
-        // 更新个人统计信息
+        // 更新个人状态
         function updatePersonalStats() {
             const statsDiv = document.getElementById('personalStats');
             if (personalStats) {
@@ -639,16 +594,26 @@
                         <span class="stats-value">${personalStats.winRate}%</span>
                     </div>
                     <div class="stats-item">
-                        <span class="stats-label">Avg Score</span>
-                        <span class="stats-value">${personalStats.averageScore}</span>
+                        <span class="stats-label">Recent 5 Games</span>
+                        <span class="stats-value">${personalStats.recentWinRate}%</span>
+                    </div>
+                    <div class="stats-item">
+                        <span class="stats-label">Avg Points</span>
+                        <span class="stats-value">${personalStats.averagePoints}</span>
                     </div>
                     <div class="stats-item">
                         <span class="stats-label">Last Game</span>
-                        <span class="stats-value">${new Date(personalStats.lastPlayed).toLocaleString()}</span>
+                        <span class="stats-value">${personalStats.lastPlayed ? new Date(personalStats.lastPlayed).toLocaleString() : 'None'}</span>
                     </div>
                 `;
             }
         }
+
+        // 监听个人状态更新
+        socket.on('personalStatsUpdate', (stats) => {
+            personalStats = stats;
+            updatePersonalStats();
+        });
 
         // 更新排行榜
         socket.on('rankList', (players) => {
@@ -675,10 +640,10 @@
                             <div class="rank-name">${player.name}</div>
                             <div class="rank-stats">
                                 Games: ${player.stats.totalGames} | 
-                                Wins: ${player.stats.gamesWon}
+                                Win Rate: ${player.stats.winRate}%
                             </div>
                         </div>
-                        <div class="rank-winrate">${player.stats.winRate}%</div>
+                        <div class="rank-winrate">Recent: ${player.stats.recentWinRate}%</div>
                     `;
                     rankList.appendChild(rankItem);
                 }
@@ -694,23 +659,33 @@
             playersList.style.gap = '10px';
             playersList.style.padding = '10px';
             
-            players.forEach(player => {
+            // 过滤掉当前玩家
+            const filteredPlayers = players.filter(player => player.name !== currentPlayer);
+            
+            filteredPlayers.forEach(player => {
                 const div = document.createElement('div');
                 div.className = 'list-group-item player-item';
+                const isIngame = player.status === 'ingame';
+                
                 div.innerHTML = `
                     <div class="player-item-content">
                         <div class="player-info">
-                            <div class="player-name">${player.name}</div>
+                            <div class="player-name">
+                                ${player.name}
+                                ${isIngame ? '<span class="status-badge ingame">In Game</span>' : ''}
+                            </div>
                             ${player.stats ? `
                                 <div class="player-stats">
                                     Win Rate: ${player.stats.winRate}% | 
-                                    Games: ${player.stats.totalGames} | 
-                                    Avg Score: ${player.stats.averageScore}
+                                    Recent: ${player.stats.recentWinRate}% | 
+                                    Avg: ${player.stats.averagePoints} pts
                                 </div>
                             ` : ''}
                         </div>
-                        <button class="challenge-btn" onclick="socket.emit('challengePlayer', '${player.name}')">
-                            Challenge
+                        <button class="challenge-btn ${isIngame ? 'disabled' : ''}" 
+                            onclick="${isIngame ? '' : `socket.emit('challengePlayer', '${player.name}')`}"
+                            ${isIngame ? 'disabled' : ''}>
+                            ${isIngame ? 'In Game' : 'Challenge'}
                         </button>
                     </div>
                 `;
@@ -837,8 +812,19 @@
 
         // 显示回合结果
         socket.on('roundResult', (result) => {
+            console.log('Round Result Data:', result);
             const roundResult = document.getElementById('roundResult');
-            roundResult.textContent = result.message;
+            let resultHTML = `<p>${result.message}</p>`;
+            
+            // 无论对错都显示正确答案
+            if (result.question) {
+                console.log('Question Data:', result.question);
+                resultHTML += `<p>Correct Answer: ${result.question.options[result.question.correctIndex]}</p>`;
+            } else if (result.correctAnswer) {
+                resultHTML += `<p>Correct Answer: ${result.correctAnswer}</p>`;
+            }
+            
+            roundResult.innerHTML = resultHTML;
             roundResult.className = `alert mt-3 alert-${result.correct ? 'success' : 'danger'}`;
             roundResult.classList.remove('hidden');
             updateScores(result.scores);
@@ -874,6 +860,7 @@
                     <p style="color: white;">Average Score: ${result.stats.averageScore}</p>
                 `;
                 document.getElementById('updatedStats').className = '';
+                updatePersonalStats();
             }
         });
 
@@ -925,28 +912,27 @@
         });
 
         // 处理挑战被拒绝
-        socket.on('challengeRejected', (playerName) => {
+        socket.on('challengeRejected', (data) => {
             const requestsSection = document.getElementById('challengeRequests');
             const requestContent = document.getElementById('requestContent');
             
             requestsSection.classList.remove('hidden');
             requestContent.innerHTML = `
-                <p>${playerName} declined your invitation</p>
+                <p>${data.player} ${data.reason}</p>
             `;
             
-            // 添加新消息动画
+            // Add new message animation
             requestsSection.classList.add('new-request');
             setTimeout(() => {
                 requestsSection.classList.remove('new-request');
             }, 500);
 
-            // 5秒后自动隐藏消息
+            // Hide message after 5 seconds
             setTimeout(() => {
                 clearChallengeRequests();
             }, 5000);
         });
     </script>
     <script src="/scripts/scriptnav.js"></script>
-    <script src="/scripts/rolling.js"></script>
 </body>
 </html> 

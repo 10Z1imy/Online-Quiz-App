@@ -97,25 +97,6 @@
     max-height: calc(100% - 35px); /* 限制最大高度，留出底部间距 */
 }
 
-/* Webkit浏览器的滚动条样式 */
-.profile::-webkit-scrollbar {
-    width: 8px;
-}
-
-.profile::-webkit-scrollbar-track {
-    background: #301277;
-    border-radius: 4px;
-}
-
-.profile::-webkit-scrollbar-thumb {
-    background: hwb(178 46% 16% / 0.933);
-    border-radius: 4px;
-}
-
-.profile::-webkit-scrollbar-thumb:hover {
-    background: hsl(180, 48%, 60%);
-}
-
 .profile-image {
     position: absolute;
     top: 2rem;

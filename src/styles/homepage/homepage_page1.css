@@ -197,6 +197,9 @@ main {
     position: absolute;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100vh;
+    transition: transform 0.8s cubic-bezier(0.77,0,0.175,1);
 }
 
 /* 第二页位置 */
@@ -205,6 +208,9 @@ main {
     position: absolute;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100vh;
+    transition: transform 0.8s cubic-bezier(0.77,0,0.175,1);
 }
 
 /* 页面滚动时的动画效果 */
@@ -218,12 +224,7 @@ main {
 
 /* ===== 滚动条样式 ===== */
 /* 隐藏滚动条但保持可滚动 */
-::-webkit-scrollbar {
-    display: none;
-}
-
 * {
-    -ms-overflow-style: none;  /* IE和Edge */
     scrollbar-width: none;  /* Firefox */
 }
 

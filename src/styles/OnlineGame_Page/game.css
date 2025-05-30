@@ -1,134 +1,139 @@
 .game-container {
     min-height: 100vh;
-    background: var(--background-dark);
-    padding-top: var(--header-height);
+    background: #1a1a1a;
+    padding-top: 60px;
     display: flex;
     flex-direction: column;
     align-items: center; /* 水平居中 */
     justify-content: center; /* 垂直居中 */
-    padding: var(--header-height) 0; /* 调整上下内边距 */
+    padding: 60px 0; /* 调整上下内边距 */
 }
 
 .game-content {
     flex: 1;
     display: flex;
-    gap: var(--spacing-md);
-    padding: var(--spacing-md);
-    max-width: var(--container-width);
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
     margin: 0 auto;
     width: 30%; /* 宽度缩小为原来的一半 */
     transform: scale(0.3); /* 整体内容缩小为原来的一半 */
     transform-origin: center; /* 从中心缩放 */
 }
 .game-header {
-    background: var(--background-light);
-    padding: var(--spacing-md);
-    box-shadow: var(--shadow-sm);
+    background: #2a2a2a;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 100;
-    height: var(--header-height);
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
 .game-title {
-    color: var(--primary-color);
-    font-size: var(--font-size-lg);
+    color: #4CAF50;
+    font-size: 24px;
     font-weight: bold;
 }
 
 .game-stats {
     display: flex;
-    gap: var(--spacing-md);
+    gap: 20px;
 }
 
 .stat-item {
     display: flex;
     align-items: center;
-    gap: var(--spacing-xs);
-    color: var(--text-secondary);
+    gap: 8px;
+    color: #888;
 }
 
 .stat-value {
-    color: var(--primary-color);
+    color: #4CAF50;
     font-weight: bold;
 }
 
-
-
 .player-pool {
     flex: 1;
-    background: var(--background-light);
-    border-radius: var(--border-radius-lg);
-    padding: var(--spacing-md);
-    box-shadow: var(--shadow-md);
+    background: #2a2a2a;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: var(--spacing-md);
+    grid-template-columns: repeat(2, 1fr); /* 修改为固定的两列布局 */
+    gap: 20px;
     overflow-y: auto;
-    max-height: calc(100vh - var(--header-height) - 2 * var(--spacing-md));
+    max-height: calc(100vh - 60px - 40px);
 }
 
 .player-card {
     background: white;
-    border-radius: var(--border-radius-md);
-    padding: var(--spacing-md);
-    box-shadow: var(--shadow-sm);
-    transition: transform var(--transition-normal);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 .player-card:hover {
     transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .player-avatar {
-    width: 100%;
-    aspect-ratio: 1;
-    border-radius: var(--border-radius-sm);
-    margin-bottom: var(--spacing-sm);
+    width: 80px; /* 固定头像大小 */
+    height: 80px;
+    border-radius: 50%; /* 圆形头像 */
+    margin-bottom: 12px;
     object-fit: cover;
 }
 
 .player-name {
-    color: var(--text-primary);
-    font-size: var(--font-size-md);
+    color: #333;
+    font-size: 16px;
     font-weight: bold;
-    margin-bottom: var(--spacing-xs);
+    margin-bottom: 8px;
 }
 
 .player-info {
-    color: var(--text-secondary);
-    font-size: var(--font-size-sm);
+    color: #666;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .game-sidebar {
     width: 300px;
-    background: var(--background-light);
-    border-radius: var(--border-radius-lg);
-    padding: var(--spacing-md);
-    box-shadow: var(--shadow-md);
+    background: #2a2a2a;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-md);
+    gap: 20px;
 }
 
 .sidebar-section {
     background: white;
-    border-radius: var(--border-radius-md);
-    padding: var(--spacing-md);
+    border-radius: 8px;
+    padding: 20px;
 }
 
 .section-title {
-    color: var(--primary-color);
-    font-size: var(--font-size-md);
+    color: #4CAF50;
+    font-size: 16px;
     font-weight: bold;
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: 12px;
 }
 
 /* 动画效果 */
@@ -158,6 +163,6 @@
     }
     
     .player-pool {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        grid-template-columns: 1fr; /* 在移动设备上改为单列 */
     }
 } 

@@ -144,7 +144,7 @@ body {
     position: absolute;
     width: 200%;
     height: 200%;
-    background: url('/img/login-bg.jpg') center/cover;
+    background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.2));
     opacity: 0.15;
     animation: slowRotate 30s linear infinite;
 }
@@ -234,17 +234,6 @@ body {
     box-shadow: var(--shadow-soft);
 }
 
-/* 游戏大厅样式 */
-.game-container {
-    background: #4e21ff;
-    min-height: 100vh;
-    max-width: 100vw;
-    overflow-x: hidden;
-    padding: 1rem;
-    display: flex;
-    justify-content: center;
-}
-
 #lobbySection {
     width: 100%;
     max-width: 1400px;
@@ -268,7 +257,7 @@ body {
     height: calc(100vh - 40px);
     padding-right: 20px;
     width: 100%;
-    overflow:visible;
+    overflow: visible;
 }
 
 .col-md-3 {
@@ -281,60 +270,7 @@ body {
     padding: 0 10px;
 }
 
-/* 排行榜样式 */
-.rank-board {
-    background: var(--bg-white);
-    border-radius: 16px;
-    padding: 0.8rem;
-    box-shadow: var(--shadow-soft);
-    height:10px;
-    box-sizing: border-box;
-    overflow:visible;
-}
 
-.rank-title {
-    font-size: 1.2rem;
-    margin-bottom: 0.8rem;
-}
-
-.rank-list {
-    gap: 0.5rem;
-}
-
-.rank-item {
-    padding: 0.5rem;
-}
-
-/* 在线玩家列表容器样式 */
-.players-board {
-    background: var(--bg-white);
-    border-radius: 16px;
-    padding: 1.5rem;
-    box-shadow: var(--shadow-soft);
-    height: 100px
-
-    
-}
-
-#playersList {
-    
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding-right: 10px;
-}
-
-/* 调整玩家列表网格布局 */
-#playersList {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1rem;
-    padding: 1rem;
-}
-
-.player-item {
-    width: 100%;
-    margin: 0;
-}
 
 /* 响应式布局调整 */
 @media (max-width: 1200px) {
@@ -401,15 +337,6 @@ body {
     margin-bottom: 1.5rem;
 }
 
-.player-list .player-item {
-    background: var(--bg-white);
-    border-radius: 12px;
-    margin-bottom: 1rem;
-    padding: 1rem;
-    border: none;
-    box-shadow: var(--shadow-soft);
-    transition: all 0.3s ease;
-}
 
 .player-item:hover {
     transform: translateX(5px);
@@ -576,40 +503,11 @@ body {
 }
 
 /* 调整在线玩家列表样式以适应新容器 */
-#playersList {
-    margin-top: 1rem;
-    max-height: calc(70vh - 100px);
-    overflow-y: auto;
-    padding: 0.5rem;
-}
 
-#playersList::-webkit-scrollbar {
-    width: 6px;
-}
-
-#playersList::-webkit-scrollbar-track {
-    background: rgba(0, 47, 167, 0.05);
-    border-radius: 3px;
-}
-
-#playersList::-webkit-scrollbar-thumb {
-    background: var(--primary-blue);
-    border-radius: 3px;
-}
 
 /* 确保挑战请求在容器内正确显示 */
 #challengeRequests {
     margin: 1rem 0.5rem;
-}
-
-/* 在线玩家列表样式 */
-#playersList {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    padding: 1rem;
-    max-height: 16vh;
-    overflow-y: auto;
 }
 
 .player-item {
@@ -921,74 +819,43 @@ body {
     padding-bottom: 1rem;
 }
 
-.rank-title::after,
-.stats-card h4::after,
-#lobbySection h3::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(to right, var(--primary-blue), var(--accent-cyan));
-    border-radius: 3px;
+/* 玩家状态标签样式 */
+.status-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-left: 8px;
+    vertical-align: middle;
 }
 
-/* 全局滚动条控制 */
-html, body {
-    overflow: hidden;
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
+.status-badge.ingame {
+    background-color: #ff4444;
+    color: white;
 }
 
-/* 游戏容器滚动控制 */
-.game-container {
-    height: 100vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    position: relative;
+/* 禁用状态的挑战按钮样式 */
+.challenge-btn.disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+    transform: none !important;
 }
 
-/* 自定义滚动条样式 */
-.game-container::-webkit-scrollbar {
-    width: 0;
-    height: 0;
+.challenge-btn.disabled:hover {
+    background-color: #cccccc;
+    transform: none !important;
+    box-shadow: none !important;
 }
 
-/* 确保内容区域可以滚动但不显示滚动条 */
-#lobbySection {
-    height: 100%;
-    overflow: auto;
-    padding: 2rem;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
+/* 玩家名称容器样式 */
+.player-name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 5px;
 }
 
-#lobbySection::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
-}
-
-/* 调整玩家列表容器的滚动 */
-#playersList {
-    overflow-y: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-#playersList::-webkit-scrollbar {
-    display: none;
-}
-
-/* 调整排行榜容器的滚动 */
-.rank-list {
-    overflow-y: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-.rank-list::-webkit-scrollbar {
-    display: none;
-} 

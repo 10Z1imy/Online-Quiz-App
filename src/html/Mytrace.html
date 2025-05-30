@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mytrace - 我的足迹</title>
-    <link rel="stylesheet" href="/styles/base.css">
+    <link rel="stylesheet" href="../styles/base.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* 全局样式 */
@@ -13,7 +13,7 @@ body {
         /* 第一层：半透明背景色 */
        
         /* 第二层：渐变色 */
-        linear-gradient(135deg, #8cbf0bc9 0%, rgb(200, 240, 255) 100%);
+        linear-gradient(135deg, #1e067dc9 0%, #8acfbe 100%);
         
      
     margin: 0;
@@ -37,7 +37,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/img/star6.png');
+  background-image: url('../img/star6.png');
   background-size: contain; /* 保持原图比例，完整显示图片 */
   background-position: center; /* 图片居中显示 */
   background-repeat: repeat; /* 不重复 */
@@ -59,7 +59,6 @@ body {
     z-index: 10;
     text-align: center;
     margin: 20px;
-    position: center;
 }
 
 .timeline-image {
@@ -394,44 +393,45 @@ body {
 <body>
     <div class="side-nav">
         <div class="side-nav-content">
-            <a href="/Homepage.html"><i class="fas fa-home"></i>Homepage</a>
-            <a href="/AboutMe.html"><i class="fas fa-laptop-code"></i>About Me</a>
-            <a href="/Artworks_Wings.html"><i class="fas fa-palette"></i>Artworks-Wings</a>
-            <a href="/OnlineGame.html"><i class="fas fa-gamepad"></i>Online Game</a>
-            <a href="/Mytrace.html"><i class="fas fa-history"></i>My Trace</a>
+            <a href="/"><i class="fas fa-home"></i>Homepage</a>
+            <a href="/page4"><i class="fas fa-laptop-code"></i>About Me</a>
+            <a href="/wings"><i class="fas fa-palette"></i>Artworks-Wings</a>
+            <a href="/game"><i class="fas fa-gamepad"></i>Online Game</a>
+            <a href="/mytrace"><i class="fas fa-history"></i>My Trace</a>
         </div>
     </div>
 
     <div class="page-container">
-        
         <div class="background-stars"></div>
 
-    <!-- 时间轴容器 -->
-    <div  class="timeline-container">
-        <img src="/img/all.PNG" alt="timeline" class="timeline-image" width="800" height="200"> 
-        <div class="timeline">
-            <div class="timeline-node" data-date="2024-01"></div>
-            <div class="timeline-node" data-date="2024-02"></div>
-            <div class="timeline-node" data-date="2024-03"></div>
-            <div class="timeline-node" data-date="2024-04"></div>
-            <div class="timeline-node" data-date="2024-05"></div>
+        <!-- 时间轴容器 -->
+        <div class="timeline-container">
+            <img src="../img/all.PNG" alt="timeline" class="timeline-image" width="800" height="200"> 
+            <div class="timeline">
+                <div class="timeline-node" data-date="2024-01"></div>
+                <div class="timeline-node" data-date="2024-02"></div>
+                <div class="timeline-node" data-date="2024-03"></div>
+                <div class="timeline-node" data-date="2024-04"></div>
+                <div class="timeline-node" data-date="2024-05"></div>
+            </div>
+        </div>
+
+        <!-- 帖子容器 -->
+        <div class="posts-container">
+            <!-- 帖子将通过 JavaScript 动态生成 -->
+        </div>
+
+        <!-- 弹窗 -->
+        <div class="modal" id="postModal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2 class="modal-title">Post Details</h2>
+                <div class="modal-text"></div>
+            </div>
         </div>
     </div>
 
-    <!-- 帖子容器 -->
-    <div class="posts-container">
-        <!-- 帖子将通过 JavaScript 动态生成 -->
-    </div>
-
-    <!-- 弹窗 -->
-    <div class="modal" id="postModal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2 class="modal-title"></h2>
-            <div class="modal-text"></div>
-        </div>
-    </div>
-
+    <script src="../scripts/scriptnav.js"></script>
     <script>
         // 示例帖子数据
         const posts = {
@@ -450,43 +450,7 @@ I'm not the nostalgic type, but for some reason, I needed to do this pointless t
 
 The event wrapped up smoothly, no hiccups. Didn't even swing by Sunshine Bar.
 
-All those meltdowns, the self-doubt, the messy friendships, senior year… Should I just bury it and pretend none of it happened?
 
-Weird. Walking those familiar halls, I felt… nothing. No big emotions. Just breezily planning my next move, like "Oops, forgot pads—what now?" 🤷♀️
-
-My 10th-grade homeroom teacher said, "You've become so outgoing now, it's great!"
-
-I remembered confessing to her once: "I think I have mental issues… I need a break." Later, I avoided her—maybe avoiding my past self, cringing at my own words.
-
-This winter, I spotted her from afar, hesitated, then blurted: "Wait here, I'll go say hi."
-
-And there I was—still me, but more me—grinning at her surprised face.
-
-I don't need others' words to define me anymore. But hearing them? Nice.
-
-"She said you've changed so much. It's wonderful."
-
-Mom told me later. I was stunned.
-
-Lying in bed, I replayed it all:
-
-The loneliness, the birthday party I never expected, that pink-purple sky senior year—"a hymn from the universe"—as I spun around, giddy:
-
-"Year 17 of existing in this cosmos."
-
-The pondside meditations, staring at koi fish to calm down… then sprinting with friends under a sky so wide it felt touchable.
-
-I did more than I overthought.
-
-Time's funny—unchanging yet ever-shifting.
-
-I thought I'd just "reverse the frostbite of growing up, overwrite my history."
-
-But really, I dug up something deeper. Like returning to my childhood home, finding a time-capsule under the old tree.
-Even if what's inside had long rotted away… I found myself.
-The past is just reality's collapsed shadow.
-
-Keep on moving.
 `
                 },
                 {
@@ -676,6 +640,5 @@ and still roaring—
             }
         });
     </script>
-    <script src="scriptnav.js"></script>
 </body>
 </html> 
