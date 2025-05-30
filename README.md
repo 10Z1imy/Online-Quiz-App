@@ -2,8 +2,8 @@
 
 - School: University of Aberdeen & South China Normal University
 - Major: Artificial Intelligence
-- Name: GUO CHANGXI
-- Student Number: 50090943
+- Name: 
+- Student Number: 
 - github address(only for static):https://10z1imy.github.io/Akiracore.github.io/
 - github address(The whole web application):https://github.com/10Z1imy/Online-Quiz-App
 
@@ -81,7 +81,7 @@ Assignment/
 
 ### Web structure
 
-![QQ_1748079936995.png](readme_photos/e1653dca-655b-4745-83a2-1bab772db899.png)
+![111.png](readme_photos/111.png)
 
 # **②Project Overview**
 
